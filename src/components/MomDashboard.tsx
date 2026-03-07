@@ -36,7 +36,7 @@ const NavItem: React.FC<{
   <button
     onClick={onClick}
     className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl font-bold text-sm transition-all ${active
-      ? 'bg-pink-50 text-rose-400'
+      ? 'bg-pink-50 text-pink-400'
       : 'text-gray-400 hover:bg-gray-50 hover:text-gray-600'
       }`}
   >
@@ -65,7 +65,7 @@ const StatCard: React.FC<{
 
 // ── Main Component ─────────────────────────────────────────────────────────────
 export const MomDashboard: React.FC<MomDashboardProps> = ({ bookings, onNavigate, onLogout }) => {
-  const [activeTab, setActiveTab] = React.useState('bookings');
+  const [activeTab, setActiveTab] = React.useState('overview');
   const [menuOpenId, setMenuOpenId] = React.useState<string | null>(null);
 
   const currentUser = storage.getCurrentUser();
@@ -103,11 +103,11 @@ export const MomDashboard: React.FC<MomDashboardProps> = ({ bookings, onNavigate
   const quickRebook = NURSES.slice(0, 4);
 
   const navItems = [
-    { id: 'overview', label: 'Overview', icon: <User size={18} /> },
-    { id: 'bookings', label: 'My Bookings', icon: <Calendar size={18} /> },
-    { id: 'history', label: 'Payment History', icon: <History size={18} /> },
-    { id: 'wallet', label: 'Wallet', icon: <Wallet size={18} /> },
-    { id: 'settings', label: 'Settings', icon: <Settings size={18} /> },
+    { id: 'overview', label: 'Tổng Quan', icon: <Zap size={18} /> },
+    { id: 'bookings', label: 'Lịch Đã Đặt', icon: <Calendar size={18} /> },
+    { id: 'history', label: 'Lịch Sử', icon: <History size={18} /> },
+    { id: 'wallet', label: 'Ví Tiền', icon: <Wallet size={18} /> },
+    { id: 'profile', label: 'Hồ Sơ', icon: <User size={18} /> },
   ];
 
   return (
@@ -117,12 +117,12 @@ export const MomDashboard: React.FC<MomDashboardProps> = ({ bookings, onNavigate
       <aside className="hidden lg:flex flex-col w-72 shrink-0 bg-white border-r border-gray-50 fixed h-full pt-8 px-6 pb-8">
         {/* User avatar */}
         <div className="flex items-center gap-4 mb-8 px-2">
-          <div className="w-12 h-12 rounded-full bg-rose-100 flex items-center justify-center text-rose-500 font-bold text-lg border-2 border-rose-50">
+          <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-400 font-bold text-lg border-2 border-pink-50">
             {initial}
           </div>
           <div>
-            <h4 className="font-bold text-gray-800 text-sm">Welcome, {userName.split(' ')[0]}</h4>
-            <p className="text-xs text-gray-400">Mom Account</p>
+            <h4 className="font-bold text-gray-800 text-sm">Xin chào, {userName.split(' ')[0]}</h4>
+            <p className="text-xs text-gray-400">Tài Khoản Mẹ</p>
           </div>
         </div>
 
@@ -142,10 +142,10 @@ export const MomDashboard: React.FC<MomDashboardProps> = ({ bookings, onNavigate
         {/* Logout */}
         <button
           onClick={onLogout}
-          className="flex items-center gap-3 text-gray-400 hover:text-rose-400 transition-colors px-4 py-3 rounded-2xl hover:bg-red-50 text-sm font-bold"
+          className="flex items-center gap-3 text-gray-400 hover:text-pink-400 transition-colors px-4 py-3 rounded-2xl hover:bg-red-50 text-sm font-bold"
         >
           <LogOut size={18} />
-          Logout
+          Đăng Xuất
         </button>
       </aside>
 
@@ -153,266 +153,221 @@ export const MomDashboard: React.FC<MomDashboardProps> = ({ bookings, onNavigate
       <main className="flex-1 lg:ml-72 px-6 sm:px-10 lg:px-12 py-10 overflow-y-auto">
         <div className="max-w-5xl mx-auto">
 
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="flex justify-between items-center mb-10"
-          >
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">My Dashboard</h1>
-              <p className="text-gray-400 text-sm mt-1">
-                You have{' '}
-                <span className="font-semibold text-gray-700">{displayBookings.length}</span>{' '}
-                upcoming session{displayBookings.length !== 1 ? 's' : ''}.
-              </p>
-            </div>
-            <button className="w-10 h-10 bg-white shadow-sm border border-gray-100 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors relative">
-              <Bell size={18} className="text-gray-400" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-400 rounded-full border-2 border-white" />
-            </button>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10"
-          >
-            <StatCard
-              icon={<CalendarDays className="w-5 h-5 text-rose-400" />}
-              bg="bg-rose-50"
-              label="Total Bookings"
-              value={bookings.length || displayBookings.length}
-            />
-            <StatCard
-              icon={<Clock className="w-5 h-5 text-blue-400" />}
-              bg="bg-blue-50"
-              label="Hours of Care"
-              value={48}
-            />
-            <StatCard
-              icon={<CheckCircle2 className="w-5 h-5 text-green-500" />}
-              bg="bg-green-50"
-              label="Nurses Met"
-              value={3}
-            />
-          </motion.div>
-
-          {/* ─── Upcoming Bookings ─── */}
-          <AnimatePresence>
-            <motion.section
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="mb-12"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-800">Upcoming Bookings</h2>
-                <button
-                  onClick={() => setActiveTab('bookings')}
-                  className="text-xs font-bold text-rose-400 hover:text-rose-600 transition-colors flex items-center gap-1"
-                >
-                  View All <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                {displayBookings.map((booking, index) => {
-                  const isConfirmed = booking.status === 'confirmed';
-                  return (
-                    <motion.div
-                      key={booking.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.35, delay: index * 0.07 }}
-                      className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-50 hover:shadow-md transition-shadow"
-                    >
-                      {/* Card Header */}
-                      <div className="flex items-start justify-between mb-6">
-                        <div className="flex items-center gap-4">
-                          <img
-                            src={booking.nurseImage}
-                            alt={booking.nurseName}
-                            referrerPolicy="no-referrer"
-                            className="w-14 h-14 rounded-full object-cover border-4 border-pink-50"
-                          />
-                          <div>
-                            <p className={`text-[9px] font-black tracking-widest uppercase mb-1 ${isConfirmed ? 'text-pink-300' : 'text-gray-300'}`}>
-                              {isConfirmed ? '● Confirmed' : '○ Pending Confirmation'}
-                            </p>
-                            <h3 className="text-base font-bold text-gray-800 leading-snug">
-                              Nurse {booking.nurseName.split(',')[0]}
-                            </h3>
-                          </div>
-                        </div>
-                        <div className="relative">
-                          <button
-                            onClick={() => setMenuOpenId(menuOpenId === booking.id ? null : booking.id)}
-                            className="text-gray-300 hover:text-gray-500 transition-colors p-1"
-                          >
-                            <MoreVertical size={18} />
-                          </button>
-                          <AnimatePresence>
-                            {menuOpenId === booking.id && (
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                className="absolute right-0 top-full mt-1 bg-white rounded-2xl shadow-xl border border-gray-100 z-20 min-w-[140px] overflow-hidden"
-                              >
-                                <button className="w-full text-left px-4 py-3 text-sm text-gray-600 hover:bg-pink-50 hover:text-rose-500 transition-colors">
-                                  Reschedule
-                                </button>
-                                <button className="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-50 transition-colors">
-                                  Cancel
-                                </button>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      </div>
-
-                      {/* Service + time chip */}
-                      <div className="bg-gray-50 rounded-2xl px-4 py-3 flex items-center gap-3 mb-7">
-                        <Calendar size={16} className="text-gray-400 shrink-0" />
-                        <p className="text-sm text-gray-500">
-                          <span className="font-bold text-gray-700">{booking.serviceTitle}</span>
-                          {' · '}
-                          {booking.date}
-                          {' '}
-                          {booking.time}
-                        </p>
-                      </div>
-
-                      {/* Actions */}
-                      <div className="flex gap-3">
-                        {isConfirmed && (
-                          <button className="flex-1 py-3.5 bg-pink-100 text-rose-400 font-bold rounded-2xl hover:bg-rose-400 hover:text-white transition-all text-sm active:scale-95">
-                            Reschedule
-                          </button>
-                        )}
-                        <button className={`flex-1 py-3.5 font-bold rounded-2xl transition-all text-sm border border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100 active:scale-95 ${!isConfirmed ? 'flex-1' : ''}`}>
-                          View Details
-                        </button>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              {/* Empty state */}
-              {displayBookings.length === 0 && (
-                <div className="bg-white rounded-[2rem] p-14 text-center border border-dashed border-pink-100">
-                  <Calendar className="w-10 h-10 text-pink-200 mx-auto mb-4" />
-                  <p className="text-gray-400 text-sm mb-5">No upcoming sessions scheduled yet.</p>
-                  <button
-                    onClick={() => onNavigate('services')}
-                    className="px-6 py-3 bg-rose-400 text-white rounded-full text-sm font-bold hover:bg-rose-500 transition-all"
-                  >
-                    Browse Services
-                  </button>
+          {/* ─── TAB CONTENT: OVERVIEW ─── */}
+          {activeTab === 'overview' && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              {/* Header */}
+              <div className="flex justify-between items-center mb-10">
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900">Bảng Điều Khiển Của Tôi</h1>
+                  <p className="text-gray-400 text-sm mt-1">
+                    Bạn có{' '}
+                    <span className="font-semibold text-gray-700">{displayBookings.length}</span>{' '}
+                    phiên chăm sóc sắp tới.
+                  </p>
                 </div>
-              )}
-            </motion.section>
-          </AnimatePresence>
-
-          {/* ─── Quick Re-book ─── */}
-          <motion.section
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-800">Quick Re-book</h2>
-              <button
-                onClick={() => onNavigate('nurses')}
-                className="text-xs font-bold text-rose-400 hover:text-rose-600 transition-colors flex items-center gap-1"
-              >
-                See All Nurses <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-hide">
-              {quickRebook.map((nurse, index) => (
-                <motion.div
-                  key={nurse.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.25 + index * 0.06 }}
-                  className="bg-white rounded-[2.5rem] p-7 shadow-sm border border-gray-50 min-w-[190px] flex flex-col items-center text-center hover:shadow-md transition-shadow"
-                >
-                  <div className="relative mb-4">
-                    <img
-                      src={nurse.image}
-                      alt={nurse.name}
-                      referrerPolicy="no-referrer"
-                      className="w-20 h-20 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer border-4 border-pink-50"
-                    />
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm mb-0.5 leading-snug">
-                    {nurse.name.split(',')[0]}
-                  </h4>
-                  <div className="flex items-center gap-1 mb-1">
-                    <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                    <span className="text-xs font-bold text-gray-600">{nurse.rating.toFixed(1)}</span>
-                  </div>
-                  <p className="text-[11px] text-gray-400 mb-5">{nurse.title.split('&')[0].trim()}</p>
-                  <button
-                    onClick={() => onNavigate('nurses')}
-                    className="w-10 h-10 bg-pink-50 rounded-full flex items-center justify-center text-rose-400 hover:bg-rose-400 hover:text-white transition-all active:scale-90"
-                  >
-                    <Plus size={18} />
-                  </button>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
-
-          {/* ─── Upgrade CTA + Care Tips ─── */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10"
-          >
-            {/* Upgrade card */}
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 text-white overflow-hidden relative">
-              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-rose-400/20 rounded-full blur-3xl pointer-events-none" />
-              <div className="relative z-10">
-                <h3 className="text-lg font-bold mb-2">Join CareMom Plus</h3>
-                <p className="text-slate-400 text-xs leading-relaxed mb-6">
-                  Get 10% off all sessions and priority access to top-rated nurses.
-                </p>
-                <button className="w-full py-3 bg-rose-400 text-white rounded-2xl text-sm font-bold hover:bg-rose-500 transition-all active:scale-95">
-                  Upgrade Now
+                <button className="w-10 h-10 bg-white shadow-sm border border-gray-100 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors relative">
+                  <Bell size={18} className="text-gray-400" />
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-pink-400 rounded-full border-2 border-white" />
                 </button>
               </div>
-            </div>
 
-            {/* Care Tips */}
-            <div className="bg-white rounded-3xl p-8 border border-gray-50 shadow-sm">
-              <h3 className="font-bold text-gray-800 mb-5">Care Tips</h3>
-              <div className="space-y-4">
-                {[
-                  'Establishing a sleep routine',
-                  'Postpartum nutrition guide',
-                  'Newborn massage techniques',
-                ].map((tip, i) => (
-                  <div key={i} className="flex items-center gap-3 group cursor-pointer">
-                    <div className="w-8 h-8 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-pink-50 group-hover:text-rose-400 transition-all shrink-0">
-                      <Zap size={14} />
+              {/* Stats */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+                <StatCard
+                  icon={<CalendarDays className="w-5 h-5 text-pink-400" />}
+                  bg="bg-pink-50"
+                  label="Tổng Số Lịch"
+                  value={bookings.length || displayBookings.length}
+                />
+                <StatCard
+                  icon={<Clock className="w-5 h-5 text-blue-400" />}
+                  bg="bg-blue-50"
+                  label="Giờ Chăm Sóc"
+                  value={48}
+                />
+                <StatCard
+                  icon={<CheckCircle2 className="w-5 h-5 text-green-500" />}
+                  bg="bg-green-50"
+                  label="Số Điều Dưỡng"
+                  value={3}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-10">
+                {displayBookings.slice(0, 2).map((booking, index) => (
+                  <div key={booking.id} className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-50">
+                    <div className="flex items-center gap-4 mb-6">
+                      <img src={booking.nurseImage} className="w-12 h-12 rounded-full border-2 border-pink-50" />
+                      <div>
+                        <p className="text-[10px] font-bold text-pink-400 uppercase tracking-widest">SẮP TỚI</p>
+                        <h4 className="font-bold text-gray-800">{booking.nurseName}</h4>
+                      </div>
                     </div>
-                    <p className="text-xs font-semibold text-gray-600 group-hover:text-gray-900 transition-colors leading-snug">
-                      {tip}
-                    </p>
+                    <div className="text-sm text-gray-500 bg-gray-50 p-3 rounded-xl mb-4">
+                      {booking.date} · {booking.time}
+                    </div>
+                    <button className="w-full py-3 bg-pink-50 text-pink-400 rounded-xl font-bold text-xs hover:bg-pink-400 hover:text-white transition-all">
+                      Xem Chi Tiết
+                    </button>
                   </div>
                 ))}
               </div>
-            </div>
-          </motion.div>
+
+              {/* Quick Re-book */}
+              <div className="mb-10">
+                <h2 className="text-xl font-bold text-gray-800 mb-6">Đặt Nhanh</h2>
+                <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-hide">
+                  {quickRebook.map((nurse) => (
+                    <div key={nurse.id} className="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-50 min-w-[170px] flex flex-col items-center">
+                      <img src={nurse.image} className="w-16 h-16 rounded-full border-4 border-pink-50 mb-3" />
+                      <h5 className="font-bold text-gray-800 text-sm mb-1">{nurse.name.split(',')[0]}</h5>
+                      <p className="text-[10px] text-gray-400 mb-4">{nurse.rating} ★ Đánh giá</p>
+                      <button onClick={() => onNavigate('services')} className="w-8 h-8 bg-pink-50 text-pink-400 rounded-full flex items-center justify-center hover:bg-pink-400 hover:text-white transition-all">
+                        <Plus size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-slate-900 rounded-[2rem] p-8 text-white">
+                  <h3 className="text-lg font-bold mb-2">CareMom Plus</h3>
+                  <p className="text-slate-400 text-xs mb-6">Ưu tiên phục vụ & Giảm giá 10% các dịch vụ.</p>
+                  <button className="px-6 py-2.5 bg-pink-400 text-white rounded-xl text-xs font-bold hover:bg-pink-300 transition-all">Nâng Cấp</button>
+                </div>
+                <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm">
+                  <h3 className="font-bold text-gray-800 mb-4">Mẹo Cho Mẹ</h3>
+                  <p className="text-xs text-gray-500 italic">"Massage cho bé hằng ngày giúp bé ngủ ngon hơn và tăng cường tình cảm."</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ─── TAB CONTENT: BOOKINGS ─── */}
+          {activeTab === 'bookings' && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <h1 className="text-3xl font-bold text-gray-900 mb-10">Lịch Chăm Sóc Của Tôi</h1>
+              <div className="space-y-6">
+                {displayBookings.map((booking) => (
+                  <div key={booking.id} className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-50 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="flex items-center gap-6">
+                      <img src={booking.nurseImage} className="w-16 h-16 rounded-full border-4 border-pink-50" />
+                      <div>
+                        <h4 className="font-black text-gray-800">{booking.serviceTitle}</h4>
+                        <p className="text-sm text-gray-400">{booking.nurseName} · {booking.date} · {booking.time}</p>
+                        <span className="inline-block mt-2 px-3 py-1 bg-green-50 text-green-600 text-[10px] font-black rounded-full">ĐÃ XÁC NHẬN</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <button className="px-6 py-3 bg-gray-50 text-gray-400 font-bold rounded-xl text-sm hover:bg-gray-100">Chi Tiết</button>
+                      <button className="px-6 py-3 bg-pink-50 text-pink-400 font-bold rounded-xl text-sm hover:bg-pink-400 hover:text-white transition-all">Đổi Lịch</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* ─── TAB CONTENT: HISTORY ─── */}
+          {activeTab === 'history' && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <h1 className="text-3xl font-bold text-gray-900 mb-10">Lịch Sử Thanh Toán</h1>
+              <div className="bg-white rounded-[2.5rem] border border-gray-50 overflow-hidden">
+                <table className="w-full text-left">
+                  <thead className="bg-gray-50 font-bold text-gray-400 text-xs uppercase tracking-widest">
+                    <tr>
+                      <th className="px-8 py-5">Dịch Vụ</th>
+                      <th className="px-8 py-5">Ngày</th>
+                      <th className="px-8 py-5">Số Tiền</th>
+                      <th className="px-8 py-5">Trạng Thái</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {[
+                      { service: 'Chăm Sóc Hậu Sản', date: '01/03/2024', amount: '$450.00', status: 'Hoàn Tất' },
+                      { service: 'Tư Vấn Sữa Mẹ', date: '25/02/2024', amount: '$85.00', status: 'Hoàn Tất' },
+                    ].map((item, i) => (
+                      <tr key={i} className="text-sm text-gray-700">
+                        <td className="px-8 py-6 font-bold">{item.service}</td>
+                        <td className="px-8 py-6">{item.date}</td>
+                        <td className="px-8 py-6 font-bold">{item.amount}</td>
+                        <td className="px-8 py-6 text-green-500 font-medium">{item.status}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ─── TAB CONTENT: WALLET ─── */}
+          {activeTab === 'wallet' && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <h1 className="text-3xl font-bold text-gray-900 mb-10">Ví CareMate</h1>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-gradient-to-br from-pink-400 to-pink-300 rounded-[2.5rem] p-10 text-white shadow-xl shadow-pink-100">
+                  <div className="flex justify-between items-start mb-10">
+                    <div>
+                      <p className="text-xs font-bold opacity-80 uppercase tracking-widest mb-2">Số dư hiện tại</p>
+                      <p className="text-5xl font-black">$1,240.50</p>
+                    </div>
+                    <Wallet size={32} className="opacity-40" />
+                  </div>
+                  <button className="w-full py-4 bg-white text-pink-400 font-black rounded-2xl hover:bg-pink-50 transition-all">NẠP TIỀN VÀO VÍ</button>
+                </div>
+                <div className="bg-white rounded-[2.5rem] border border-gray-50 p-10">
+                  <h3 className="font-bold text-gray-800 mb-6">Thẻ Đã Lưu</h3>
+                  <div className="space-y-4">
+                    <div className="p-4 border border-gray-100 rounded-2xl flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-6 bg-slate-800 rounded flex items-center justify-center text-[8px] text-white font-bold">VISA</div>
+                        <span className="text-sm font-bold text-gray-700">•••• 4242</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-gray-300 uppercase">Hết hạn 12/26</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ─── TAB CONTENT: PROFILE ─── */}
+          {activeTab === 'profile' && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <h1 className="text-3xl font-bold text-gray-900 mb-10">Thông Tin Cá Nhân</h1>
+              <div className="bg-white rounded-[2.5rem] border border-gray-50 p-10 max-w-2xl">
+                <div className="flex items-center gap-8 mb-12">
+                  <div className="w-24 h-24 bg-pink-50 rounded-[2rem] flex items-center justify-center text-pink-400 text-3xl font-black border-4 border-white shadow-lg shadow-pink-50">
+                    {initial}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-black text-gray-900 mb-1">{userName}</h2>
+                    <p className="text-gray-400 text-sm font-bold">{currentUser?.email}</p>
+                  </div>
+                </div>
+
+                <form className="space-y-6">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Họ Tên</label>
+                      <input type="text" defaultValue={userName} className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-pink-100" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Số Điện Thoại</label>
+                      <input type="text" placeholder="Thêm số điện thoại" className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-pink-100" />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Địa Chỉ Nhận Chăm Sóc</label>
+                    <input type="text" placeholder="Nhập địa chỉ của bạn" className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-pink-100" />
+                  </div>
+                  <button type="button" className="w-full py-4 bg-pink-400 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-pink-500 transition-all mt-6 shadow-lg shadow-pink-100">Cập Nhật Thông Tin</button>
+                </form>
+              </div>
+            </motion.div>
+          )}
 
         </div>
       </main>

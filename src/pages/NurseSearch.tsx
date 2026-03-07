@@ -20,17 +20,17 @@ interface NurseSearchProps {
 }
 
 const SORT_OPTIONS = [
-  { value: 'recommended', label: 'Recommended' },
-  { value: 'price-low', label: 'Price: Low → High' },
-  { value: 'price-high', label: 'Price: High → Low' },
-  { value: 'rating', label: 'Top Rated' },
+  { value: 'recommended', label: 'Đề xuất' },
+  { value: 'price-low', label: 'Giá: Thấp → Cao' },
+  { value: 'price-high', label: 'Giá: Cao → Thấp' },
+  { value: 'rating', label: 'Đánh Giá Cao' },
 ] as const;
 
 const EXPERIENCE_OPTIONS = [
-  { label: '1–3 Years', min: 1, max: 3 },
-  { label: '3–5 Years', min: 3, max: 5 },
-  { label: '5–10 Years', min: 5, max: 10 },
-  { label: '10+ Years', min: 10, max: 99 },
+  { label: '1–3 Năm', min: 1, max: 3 },
+  { label: '3–5 Năm', min: 3, max: 5 },
+  { label: '5–10 Năm', min: 5, max: 10 },
+  { label: 'Hơn 10 Năm', min: 10, max: 99 },
 ];
 
 export const NurseSearch: React.FC<NurseSearchProps> = ({
@@ -83,7 +83,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
     setMaxRate(100);
   };
 
-  const currentSortLabel = SORT_OPTIONS.find(o => o.value === sortBy)?.label ?? 'Recommended';
+  const currentSortLabel = SORT_OPTIONS.find(o => o.value === sortBy)?.label ?? 'Đề xuất';
 
   return (
     <div className="min-h-screen bg-[#FDFCFD] pt-20 pb-24">
@@ -96,15 +96,15 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
               {/* Header */}
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-2">
-                  <Filter className="w-4 h-4 text-pink-300" />
-                  <h2 className="text-lg font-bold text-gray-800">Filters</h2>
+                  <Filter className="w-4 h-4 text-pink-400" />
+                  <h2 className="text-lg font-bold text-gray-800">Bộ Lọc</h2>
                 </div>
                 {hasActiveFilters && (
                   <button
                     onClick={clearFilters}
-                    className="text-xs font-bold text-rose-400 hover:text-rose-600 transition-colors flex items-center gap-1"
+                    className="text-xs font-bold text-pink-400 hover:text-pink-400 transition-colors flex items-center gap-1"
                   >
-                    <X className="w-3 h-3" /> Clear
+                    <X className="w-3 h-3" /> Xóa
                   </button>
                 )}
               </div>
@@ -112,7 +112,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
               {/* Rating */}
               <div className="mb-8">
                 <h4 className="font-bold text-gray-700 mb-4 flex items-center gap-2 text-sm">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" /> Rating
+                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" /> Đánh Giá
                 </h4>
                 <div className="space-y-3">
                   {[null, 4.5, 4.0, 3.5].map((rate) => (
@@ -127,7 +127,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                         )}
                       </div>
                       <span className="text-sm text-gray-600">
-                        {rate === null ? 'Any rating' : `${rate}+ ★`}
+                        {rate === null ? 'Mọi đánh giá' : `${rate}+ ★`}
                       </span>
                     </label>
                   ))}
@@ -136,7 +136,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
 
               {/* Experience */}
               <div className="mb-8">
-                <h4 className="font-bold text-gray-700 mb-4 text-sm">Experience</h4>
+                <h4 className="font-bold text-gray-700 mb-4 text-sm">Kinh Nghiệm</h4>
                 <div className="space-y-3">
                   {[null, ...EXPERIENCE_OPTIONS.map(o => o.label)].map(opt => (
                     <label
@@ -150,7 +150,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                         )}
                       </div>
                       <span className="text-sm text-gray-600">
-                        {opt === null ? 'Any experience' : opt}
+                        {opt === null ? 'Mọi kinh nghiệm' : opt}
                       </span>
                     </label>
                   ))}
@@ -159,7 +159,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
 
               {/* Hourly Rate */}
               <div>
-                <h4 className="font-bold text-gray-700 mb-4 text-sm">Max Hourly Rate</h4>
+                <h4 className="font-bold text-gray-700 mb-4 text-sm">Giá Hàng Giờ Tối Đa</h4>
                 <input
                   type="range"
                   min={30}
@@ -177,13 +177,13 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
             </div>
 
             {/* Help Card */}
-            <div className="bg-gradient-to-br from-rose-400 to-pink-400 rounded-3xl p-6 text-white shadow-lg shadow-rose-100">
-              <h4 className="font-bold mb-1.5">Need help choosing?</h4>
-              <p className="text-rose-100 text-xs leading-relaxed mb-4">
-                Our care coordinators match you with the best nurse for your unique needs — free of charge.
+            <div className="bg-gradient-to-br from-pink-300 to-pink-400 rounded-3xl p-6 text-white shadow-lg shadow-pink-100">
+              <h4 className="font-bold mb-1.5">Cần chuyên viên tư vấn?</h4>
+              <p className="text-pink-100 text-xs leading-relaxed mb-4">
+                Chuyên viên của chúng tôi sẽ giúp bạn chọn điều dưỡng phù hợp nhất — miễn phí 100%.
               </p>
-              <button className="w-full py-2.5 bg-white text-rose-500 rounded-2xl text-sm font-bold hover:bg-rose-50 transition-colors active:scale-95">
-                Contact Support
+              <button className="w-full py-2.5 bg-white text-pink-400 rounded-2xl text-sm font-bold hover:bg-pink-50 transition-colors active:scale-95">
+                Liên Hệ Hỗ Trợ
               </button>
             </div>
           </div>
@@ -196,25 +196,25 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
             {selectedService && onBackToServices && (
               <button
                 onClick={onBackToServices}
-                className="flex items-center text-sm font-semibold text-rose-400 hover:text-rose-600 mb-3 transition-colors"
+                className="flex items-center text-sm font-semibold text-pink-400 hover:text-pink-400 mb-3 transition-colors"
               >
-                <ArrowLeft className="w-4 h-4 mr-1" /> Back to All Services
+                <ArrowLeft className="w-4 h-4 mr-1" /> Về Dịch Vụ Mẹ & Bé
               </button>
             )}
 
             {/* Breadcrumb */}
             <div className="flex items-center text-xs text-gray-400 mb-4 gap-1.5">
               <span
-                className="hover:text-rose-400 cursor-pointer transition-colors"
+                className="hover:text-pink-400 cursor-pointer transition-colors"
                 onClick={onBackToServices}
               >
-                Services
+                Dịch Vụ
               </span>
               {selectedService && (
                 <>
                   <ChevronRight className="w-3.5 h-3.5" />
                   <span
-                    className="hover:text-rose-400 cursor-pointer transition-colors"
+                    className="hover:text-pink-400 cursor-pointer transition-colors"
                     onClick={onBackToServices}
                   >
                     {selectedService.title}
@@ -222,19 +222,19 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                 </>
               )}
               <ChevronRight className="w-3.5 h-3.5" />
-              <span className="font-bold text-gray-700">Specialist Nurses</span>
+              <span className="font-bold text-gray-700">Điều Dưỡng Chuyên Gia</span>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-800 tracking-tight mb-1">
                   {selectedService
-                    ? <>Nurses for <span className="text-rose-400">{selectedService.title}</span></>
-                    : 'Available Specialist Nurses'}
+                    ? <>Điều Dưỡng Cho <span className="text-pink-400">{selectedService.title}</span></>
+                    : 'Các Điều Dưỡng Chuyên Gia'}
                 </h1>
                 <p className="text-gray-400 text-sm">
-                  <span className="font-semibold text-gray-600">{filteredNurses.length}</span> specialist{filteredNurses.length !== 1 ? 's' : ''} available
-                  {selectedService && <> · From <span className="text-rose-400 font-bold">${selectedService.price}</span>/{selectedService.unit}</>}
+                  <span className="font-semibold text-gray-600">{filteredNurses.length}</span> chuyên gia sẵn sàng
+                  {selectedService && <> · Từ <span className="text-pink-400 font-bold">${selectedService.price}</span>/{selectedService.unit}</>}
                 </p>
               </div>
 
@@ -244,7 +244,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                   onClick={() => setSortOpen(o => !o)}
                   className="flex items-center gap-2 bg-white px-5 py-2.5 rounded-2xl shadow-sm border border-gray-100 text-sm cursor-pointer hover:border-pink-100 transition-colors"
                 >
-                  <span className="text-gray-400">Sort by:</span>
+                  <span className="text-gray-400">Sắp xếp:</span>
                   <span className="font-bold text-gray-700">{currentSortLabel}</span>
                   <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${sortOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -261,7 +261,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                         <button
                           key={opt.value}
                           onClick={() => { setSortBy(opt.value); setSortOpen(false); }}
-                          className={`w-full text-left px-5 py-3 text-sm transition-colors ${sortBy === opt.value ? 'bg-pink-50 text-rose-500 font-bold' : 'text-gray-600 hover:bg-gray-50'}`}
+                          className={`w-full text-left px-5 py-3 text-sm transition-colors ${sortBy === opt.value ? 'bg-pink-50 text-pink-400 font-bold' : 'text-gray-600 hover:bg-gray-50'}`}
                         >
                           {opt.label}
                         </button>
@@ -278,7 +278,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
             <input
               type="text"
-              placeholder="Search by name, specialization…"
+              placeholder="Tìm kiếm bằng tên, chuyên môn…"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               className="w-full pl-12 pr-5 py-3.5 bg-white rounded-2xl border border-gray-100 shadow-sm text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all"
@@ -314,16 +314,16 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                 exit={{ opacity: 0 }}
                 className="bg-white rounded-3xl p-16 text-center border border-dashed border-pink-100"
               >
-                <Baby className="w-12 h-12 mx-auto mb-4 text-pink-200" />
-                <h3 className="text-xl font-bold text-gray-700 mb-2">No nurses found</h3>
+                <Baby className="w-12 h-12 mx-auto mb-4 text-pink-400" />
+                <h3 className="text-xl font-bold text-gray-700 mb-2">Không tìm thấy điều dưỡng</h3>
                 <p className="text-gray-400 text-sm mb-6">
-                  Try adjusting your search or filters.
+                  Bạn vui lòng thử lại với từ khóa khác nhé.
                 </p>
                 <button
                   onClick={() => { setSearchQuery(''); clearFilters(); }}
-                  className="px-6 py-2.5 bg-pink-50 text-rose-500 rounded-full text-sm font-bold hover:bg-pink-100 transition-colors"
+                  className="px-6 py-2.5 bg-pink-50 text-pink-400 rounded-full text-sm font-bold hover:bg-pink-100 transition-colors"
                 >
-                  Reset all filters
+                  Xóa bộ lọc
                 </button>
               </motion.div>
             )}
@@ -335,7 +335,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
               <button className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm border border-gray-100 text-gray-400 hover:border-pink-100 transition-colors">
                 ‹
               </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-xl bg-pink-50 text-rose-500 font-bold border border-pink-100">
+              <button className="w-10 h-10 flex items-center justify-center rounded-xl bg-pink-50 text-pink-400 font-bold border border-pink-100">
                 1
               </button>
               <button className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm border border-gray-100 text-gray-600 font-bold hover:bg-gray-50 transition-colors">

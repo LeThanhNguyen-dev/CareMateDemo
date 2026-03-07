@@ -23,10 +23,10 @@ interface BookingPageProps {
     onConfirm: (bookingData: any) => void;
 }
 
-const DAYS_OF_WEEK = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const DAYS_OF_WEEK = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
 const MONTH_NAMES = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December',
+    'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12',
 ];
 
 const TIME_SLOTS = {
@@ -114,33 +114,33 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                     >
                         <CheckCircle2 className="w-10 h-10 text-green-500" />
                     </motion.div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Booking Confirmed!</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Đặt Lịch Thành Công!</h2>
                     <p className="text-gray-400 text-sm leading-relaxed mb-2">
-                        Your session with <span className="font-semibold text-gray-700">{nurse.name}</span> has been scheduled.
+                        Phiên chăm sóc với <span className="font-semibold text-gray-700">{nurse.name}</span> đã được lên lịch.
                     </p>
                     <p className="text-gray-400 text-sm mb-8">
                         {selectedDate} · {selectedTime}
                     </p>
                     <div className="bg-pink-50 rounded-2xl p-4 mb-8 text-left">
                         <div className="flex justify-between text-sm mb-2">
-                            <span className="text-gray-400">Session Fee</span>
+                            <span className="text-gray-400">Phí Dịch Vụ</span>
                             <span className="font-bold text-gray-700">${sessionFee.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between text-sm mb-3">
-                            <span className="text-gray-400">Service Charge</span>
+                            <span className="text-gray-400">Phí Hệ Thống</span>
                             <span className="font-bold text-gray-700">${SERVICE_CHARGE.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between font-bold">
-                            <span className="text-gray-800">Total Paid</span>
-                            <span className="text-rose-500 text-lg">${total.toFixed(2)}</span>
+                            <span className="text-gray-800">Tổng Thanh Toán</span>
+                            <span className="text-pink-400 text-lg">${total.toFixed(2)}</span>
                         </div>
                     </div>
-                    <p className="text-xs text-gray-400 mb-6">A confirmation has been sent to your email.</p>
+                    <p className="text-xs text-gray-400 mb-6">Một email xác nhận đã được gửi đến bạn.</p>
                     <button
                         onClick={onBack}
-                        className="w-full py-4 bg-rose-400 text-white font-bold rounded-2xl hover:bg-rose-500 active:scale-95 transition-all shadow-md shadow-rose-100"
+                        className="w-full py-4 bg-pink-400 text-white font-bold rounded-2xl hover:bg-pink-300 active:scale-95 transition-all shadow-md shadow-pink-100"
                     >
-                        Go to Dashboard
+                        Quản Lý Lịch Đặt
                     </button>
                 </motion.div>
             </div>
@@ -161,14 +161,14 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                 >
                     <button
                         onClick={onBack}
-                        className="flex items-center gap-1.5 text-sm font-semibold text-rose-400 hover:text-rose-600 mb-4 transition-colors"
+                        className="flex items-center gap-1.5 text-sm font-semibold text-pink-400 hover:text-pink-400 mb-4 transition-colors"
                     >
-                        <ArrowLeft className="w-4 h-4" /> Back to Nurses
+                        <ArrowLeft className="w-4 h-4" /> Về Màn Hình Tìm Kiếm
                     </button>
                     <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
-                        Schedule Your Nursing Session
+                        Lên Lịch Trình Chăm Sóc
                     </h1>
-                    <p className="text-gray-400">Choose your preferred date and time, and complete your booking.</p>
+                    <p className="text-gray-400">Chọn ngày và giờ mong muốn, sau đó hoàn tất thanh toán.</p>
                 </motion.div>
 
                 <div className="flex flex-col lg:flex-row gap-8">
@@ -185,7 +185,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                         {/* ── Calendar Card ── */}
                         <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-50">
                             <div className="flex items-center justify-between mb-8">
-                                <h2 className="text-xl font-bold text-gray-800">Select Date</h2>
+                                <h2 className="text-xl font-bold text-gray-800">Chọn Ngày</h2>
                                 <div className="flex items-center gap-5">
                                     <button
                                         onClick={prevMonth}
@@ -234,7 +234,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                                                 ${past ? 'text-gray-200 cursor-not-allowed' : 'cursor-pointer'}
                                                 ${isSelected
                                                     ? 'bg-pink-300 text-white shadow-md shadow-pink-100'
-                                                    : !past ? 'text-gray-600 hover:bg-pink-50 hover:text-rose-500' : ''}
+                                                    : !past ? 'text-gray-600 hover:bg-pink-50 hover:text-pink-400' : ''}
                                             `}
                                         >
                                             {day}
@@ -246,21 +246,21 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
 
                         {/* ── Time Slot Card ── */}
                         <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-50">
-                            <h2 className="text-xl font-bold text-gray-800 mb-6">Select Time Slot</h2>
+                            <h2 className="text-xl font-bold text-gray-800 mb-6">Chọn Giờ</h2>
 
                             {/* Period tabs */}
                             <div className="flex gap-3 mb-7">
                                 {([
-                                    { key: 'morning', label: 'Morning', Icon: Sun },
-                                    { key: 'afternoon', label: 'Afternoon', Icon: CloudSun },
-                                    { key: 'evening', label: 'Evening', Icon: Moon },
+                                    { key: 'morning', label: 'Sáng', Icon: Sun },
+                                    { key: 'afternoon', label: 'Chiều', Icon: CloudSun },
+                                    { key: 'evening', label: 'Tối', Icon: Moon },
                                 ] as const).map(({ key, label, Icon }) => (
                                     <button
                                         key={key}
                                         onClick={() => { setTimePeriod(key); setSelectedTime(null); }}
                                         className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${timePeriod === key
-                                                ? 'bg-pink-300 text-white shadow-md shadow-pink-100'
-                                                : 'bg-gray-50 text-gray-400 hover:bg-pink-50 hover:text-rose-400'
+                                            ? 'bg-pink-300 text-white shadow-md shadow-pink-100'
+                                            : 'bg-gray-50 text-gray-400 hover:bg-pink-50 hover:text-pink-400'
                                             }`}
                                     >
                                         <Icon className="w-4 h-4" />
@@ -288,10 +288,10 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                                                 disabled={unavailable}
                                                 onClick={() => setSelectedTime(time)}
                                                 className={`py-3.5 px-3 rounded-2xl border text-sm font-semibold transition-all ${unavailable
-                                                        ? 'border-pink-50 text-pink-200 cursor-not-allowed bg-pink-50/40 line-through'
-                                                        : isSelected
-                                                            ? 'border-pink-300 text-pink-400 bg-pink-50/50 shadow-sm'
-                                                            : 'border-gray-100 text-gray-700 hover:border-pink-200 hover:text-rose-400'
+                                                    ? 'border-pink-50 text-pink-400 cursor-not-allowed bg-pink-50/40 line-through'
+                                                    : isSelected
+                                                        ? 'border-pink-300 text-pink-400 bg-pink-50/50 shadow-sm'
+                                                        : 'border-gray-100 text-gray-700 hover:border-pink-200 hover:text-pink-400'
                                                     }`}
                                             >
                                                 {time}
@@ -303,7 +303,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
 
                             {!selectedDay && (
                                 <p className="text-xs text-gray-400 mt-4 italic">
-                                    Please select a date first to confirm your time slot.
+                                    Vui lòng chọn ngày trước khi chọn giờ chăm sóc.
                                 </p>
                             )}
                         </div>
@@ -319,7 +319,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                         className="w-full lg:w-[400px] shrink-0"
                     >
                         <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-50 sticky top-28">
-                            <h2 className="text-xl font-bold text-gray-800 mb-7">Booking Summary</h2>
+                            <h2 className="text-xl font-bold text-gray-800 mb-7">Tóm Tắt Đặt Lịch</h2>
 
                             {/* Nurse info */}
                             <div className="flex items-center gap-4 mb-7">
@@ -335,7 +335,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                                     <div className="flex items-center gap-1 mt-1">
                                         <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                                         <span className="text-xs font-bold text-gray-700">{nurse.rating.toFixed(1)}</span>
-                                        <span className="text-xs text-gray-400">({nurse.reviewsCount} reviews)</span>
+                                        <span className="text-xs text-gray-400">({nurse.reviewsCount} đánh giá)</span>
                                     </div>
                                 </div>
                             </div>
@@ -349,20 +349,20 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex justify-between items-center mb-0.5">
-                                            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Date & Time</span>
+                                            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Ngày & Giờ</span>
                                             {selectedDate && (
                                                 <button
                                                     onClick={() => { setSelectedDay(null); setSelectedTime(null); }}
-                                                    className="text-pink-300 text-[10px] font-bold hover:text-rose-400 transition-colors"
+                                                    className="text-pink-400 text-[10px] font-bold hover:text-pink-400 transition-colors"
                                                 >
-                                                    Edit
+                                                    Thay Đổi
                                                 </button>
                                             )}
                                         </div>
                                         <p className="text-sm font-bold text-gray-700">
                                             {selectedDate && selectedTime
                                                 ? `${selectedDate} · ${selectedTime}`
-                                                : <span className="text-gray-300 font-normal italic">Not selected yet</span>}
+                                                : <span className="text-gray-300 font-normal italic">Chưa xác định</span>}
                                         </p>
                                     </div>
                                 </div>
@@ -374,28 +374,28 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex justify-between items-center mb-0.5">
-                                            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Location</span>
-                                            <button className="text-pink-300 text-[10px] font-bold hover:text-rose-400 transition-colors">Edit</button>
+                                            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Vị Trí</span>
+                                            <button className="text-pink-400 text-[10px] font-bold hover:text-pink-400 transition-colors">Đổi</button>
                                         </div>
-                                        <p className="text-sm font-bold text-gray-700">Home Visit</p>
-                                        <p className="text-xs text-gray-400">123 Family Lane, Apt 4B</p>
+                                        <p className="text-sm font-bold text-gray-700">Tại nhà</p>
+                                        <p className="text-xs text-gray-400">123 Phố Gia Đình, Căn hộ 4B</p>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Payment Method */}
-                            <h4 className="font-bold text-gray-800 mb-3 text-sm">Payment Method</h4>
+                            <h4 className="font-bold text-gray-800 mb-3 text-sm">Phương Thức Thanh Toán</h4>
                             <div className="space-y-3 mb-7">
                                 {([
-                                    { key: 'card', label: 'Credit Card', Icon: CreditCard },
-                                    { key: 'wallet', label: 'Digital Wallet', Icon: Wallet },
+                                    { key: 'card', label: 'Thẻ Tín Dụng', Icon: CreditCard },
+                                    { key: 'wallet', label: 'Ví Điện Tử', Icon: Wallet },
                                 ] as const).map(({ key, label, Icon }) => (
                                     <button
                                         key={key}
                                         onClick={() => setPaymentMethod(key)}
                                         className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all ${paymentMethod === key
-                                                ? 'border-pink-200 bg-pink-50/30'
-                                                : 'border-gray-100 hover:border-pink-100'
+                                            ? 'border-pink-200 bg-pink-50/30'
+                                            : 'border-gray-100 hover:border-pink-100'
                                             }`}
                                     >
                                         <div className="flex items-center gap-3">
@@ -416,26 +416,25 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                             <div className="space-y-3 pt-6 border-t border-gray-50 mb-7">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-400">
-                                        Session Fee
+                                        Phí Dịch Vụ
                                         {selectedService && <span className="ml-1 text-xs text-gray-300">({selectedService.unit})</span>}
                                     </span>
                                     <span className="font-bold text-gray-800">${sessionFee.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-gray-400">Service Charge</span>
+                                    <span className="text-gray-400">Phí Nền Tảng</span>
                                     <span className="font-bold text-gray-800">${SERVICE_CHARGE.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between items-center pt-3">
-                                    <span className="text-lg font-bold text-gray-900">Total</span>
+                                    <span className="text-lg font-bold text-gray-900">Tổng</span>
                                     <span className="text-2xl font-bold text-gray-900">${total.toFixed(2)}</span>
                                 </div>
                             </div>
 
-                            {/* Security note */}
                             <div className="flex items-start gap-2 bg-green-50 rounded-2xl p-3 mb-6">
                                 <ShieldCheck className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
                                 <p className="text-xs text-green-600 leading-relaxed">
-                                    Protected by the CareMom Guarantee. Payment is only released after your session is completed.
+                                    Yên tâm cùng Dịch vụ Bảo vệ CareMom. Tiền của bạn sẽ chỉ được thanh toán sau khi phiên hỗ trợ kết thúc.
                                 </p>
                             </div>
 
@@ -443,15 +442,15 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                                 disabled={!canConfirm}
                                 onClick={handleConfirm}
                                 className={`w-full py-4 font-bold rounded-2xl transition-all text-sm shadow-md active:scale-95 ${canConfirm
-                                        ? 'bg-pink-300 text-white hover:bg-rose-400 shadow-pink-100'
-                                        : 'bg-gray-100 text-gray-300 cursor-not-allowed shadow-none'
+                                    ? 'bg-pink-300 text-white hover:bg-pink-400 shadow-pink-100'
+                                    : 'bg-gray-100 text-gray-300 cursor-not-allowed shadow-none'
                                     }`}
                             >
-                                {canConfirm ? 'Confirm Booking' : 'Select Date & Time to Continue'}
+                                {canConfirm ? 'Xác Nhận Đặt Lịch' : 'Bạn hãy Chọn Ngày & Giờ Để Tiếp Tục'}
                             </button>
                             <p className="text-[10px] text-gray-400 text-center mt-3">
-                                By confirming, you agree to our{' '}
-                                <a href="#" className="underline hover:text-rose-400 transition-colors">Terms of Service</a>.
+                                Khi tiếp tục, bạn hoàn toàn đồng ý{' '}
+                                <a href="#" className="underline hover:text-pink-400 transition-colors">Điều khoản dịch vụ</a> của chúng tôi.
                             </p>
                         </div>
                     </motion.div>

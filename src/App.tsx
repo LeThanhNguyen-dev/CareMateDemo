@@ -119,7 +119,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-rose-100 selection:text-rose-600">
+    <div className="min-h-screen flex flex-col font-sans selection:bg-pink-100 selection:text-pink-400">
       {!(currentPage === 'dashboard' && userRole === 'nurse') && (
         <Navbar
           currentPage={currentPage}
@@ -157,7 +157,7 @@ export default function App() {
           onClick={() => { setUserRole('nurse'); setCurrentPage('dashboard'); }}
           className="px-3 py-1 bg-slate-900 text-white text-[10px] font-bold rounded-full opacity-50 hover:opacity-100 transition-opacity"
         >
-          DEMO: NURSE
+          DEMO: ĐIỀU DƯỠNG
         </button>
       </div>
     </div>

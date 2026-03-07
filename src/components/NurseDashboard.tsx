@@ -13,7 +13,6 @@ import {
   ChevronDown,
   LogOut,
   LayoutDashboard,
-  BookOpen,
   Settings,
 } from 'lucide-react';
 
@@ -93,17 +92,17 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
   const nurseFullName = storage.getCurrentUser()?.name || 'Sarah Jenkins';
 
   const todaySchedule: ScheduleItem[] = [
-    { id: '1', time: '09:00 AM', type: 'Postpartum Care Visit', patient: 'Emily Davis', location: '124 Maple St.', status: 'active' },
-    { id: '2', time: '11:30 AM', type: 'Lactation Consultation', patient: 'Jessica Wong', location: 'Online Meeting', isOnline: true, status: 'pending' },
-    { id: '3', time: '02:00 PM', type: 'Newborn Health Check', patient: 'Amanda Smith', location: '89 Oak Ave.', status: 'completed' },
-    { id: '4', time: '04:30 PM', type: 'Sleep Training Prep', patient: 'Chloe Martin', location: 'Online Meeting', isOnline: true, status: 'pending' },
+    { id: '1', time: '09:00 AM', type: 'Khám Hậu Sản', patient: 'Emily Davis', location: '124 Maple St.', status: 'active' },
+    { id: '2', time: '11:30 AM', type: 'Tư Vấn Cho Con Bú', patient: 'Jessica Wong', location: 'Qua Video', isOnline: true, status: 'pending' },
+    { id: '3', time: '02:00 PM', type: 'Kiểm Tra Sức Khỏe Trẻ', patient: 'Amanda Smith', location: '89 Oak Ave.', status: 'completed' },
+    { id: '4', time: '04:30 PM', type: 'Chuẩn Bị Luyện Ngủ', patient: 'Chloe Martin', location: 'Qua Video', isOnline: true, status: 'pending' },
   ];
 
   const navItems: { id: ActivePage; label: string; icon: React.ReactNode }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
-    { id: 'schedule', label: 'Work Schedule', icon: <Calendar size={20} /> },
-    { id: 'profile', label: 'Profile', icon: <User size={20} /> },
-    { id: 'earnings', label: 'Earnings', icon: <DollarSign size={20} /> },
+    { id: 'dashboard', label: 'Bảng Điều Khiển', icon: <LayoutDashboard size={20} /> },
+    { id: 'schedule', label: 'Lịch Làm Việc', icon: <Calendar size={20} /> },
+    { id: 'profile', label: 'Hồ Sơ', icon: <User size={20} /> },
+    { id: 'earnings', label: 'Thu Nhập', icon: <DollarSign size={20} /> },
   ];
 
   return (
@@ -139,7 +138,7 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
           />
           <div className="min-w-0">
             <p className="text-sm font-bold text-gray-900 truncate">{nurseFullName}</p>
-            <p className="text-[10px] text-gray-400 font-medium">Registered Nurse</p>
+            <p className="text-[10px] text-gray-400 font-medium">Điều Dưỡng Viên</p>
           </div>
         </div>
       </aside>
@@ -153,7 +152,7 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 w-4 h-4" />
             <input
               type="text"
-              placeholder="Search patients..."
+              placeholder="Tìm kiếm bệnh nhân..."
               className="w-full bg-[#F3F6F9] pl-11 pr-4 py-2.5 rounded-xl text-sm border-none focus:ring-2 focus:ring-pink-100 outline-none transition-all"
             />
           </div>
@@ -175,7 +174,7 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
             <button
               onClick={onLogout}
               title="Sign out"
-              className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:text-rose-500 hover:bg-rose-50 transition-all"
+              className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:text-pink-400 hover:bg-pink-50 transition-all"
             >
               <LogOut className="w-5 h-5" />
             </button>
@@ -193,13 +192,13 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
             <div className="bg-white rounded-[3rem] p-16 shadow-sm border border-gray-50 text-center max-w-md w-full">
               <div className="w-16 h-16 bg-pink-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
                 {activePage === 'earnings' ? (
-                  <DollarSign className="w-8 h-8 text-pink-300" />
+                  <DollarSign className="w-8 h-8 text-pink-400" />
                 ) : (
-                  <Settings className="w-8 h-8 text-pink-300" />
+                  <Settings className="w-8 h-8 text-pink-400" />
                 )}
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 capitalize">{activePage}</h3>
-              <p className="text-gray-400 text-sm">This section is coming soon to your dashboard.</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 capitalize">{activePage === 'profile' ? 'Hồ Sơ' : 'Thu Nhập'}</h3>
+              <p className="text-gray-400 text-sm">Phần này sẽ sớm ra mắt trên bảng điều khiển của bạn.</p>
             </div>
           </div>
         )}
@@ -215,13 +214,13 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
               <div className="bg-white rounded-[3rem] p-10 md:p-12 shadow-sm border border-gray-100 relative overflow-hidden">
                 <div className="relative z-10">
                   <h1 className="text-4xl md:text-5xl font-bold mb-3 text-gray-900">
-                    Good morning, {nurseName}!
+                    Chào buổi sáng, {nurseName}!
                   </h1>
                   <p className="text-gray-400 text-lg mb-8">
-                    Here is an overview of your schedule and earnings for today.
+                    Đây là tổng quan về lịch biểu và thu nhập của bạn hôm nay.
                   </p>
                   <button className="bg-[#F8C8DC] text-white px-10 py-4 rounded-3xl font-bold shadow-lg shadow-pink-100 hover:bg-[#f3b5cf] transition-all active:scale-95">
-                    Start Shift
+                    Bắt Đầu Ca Làm
                   </button>
                 </div>
                 <div className="absolute top-[-80px] right-[-40px] w-72 h-72 bg-pink-50 rounded-full blur-3xl opacity-70 pointer-events-none" />
@@ -229,21 +228,21 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
 
               {/* Stats */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <StatCard label="Today's Bookings" value="4" subValue="+1 from yesterday" icon={<Calendar className="text-pink-400 w-6 h-6" />} bgColor="bg-pink-50" />
-                <StatCard label="Pending Requests" value="7" subValue="Requires attention" icon={<Clock className="text-orange-400 w-6 h-6" />} bgColor="bg-orange-50" alert />
-                <StatCard label="Weekly Earnings" value="$840" subValue="+12%" icon={<DollarSign className="text-green-400 w-6 h-6" />} bgColor="bg-green-50" />
+                <StatCard label="Ca Đặt Hôm Nay" value="4" subValue="Tăng 1 so với hôm qua" icon={<Calendar className="text-pink-400 w-6 h-6" />} bgColor="bg-pink-50" />
+                <StatCard label="Yêu Cầu Chờ Đợi" value="7" subValue="Cần xem xét" icon={<Clock className="text-orange-400 w-6 h-6" />} bgColor="bg-orange-50" alert />
+                <StatCard label="Thu Nhập Tuần" value="$840" subValue="+12%" icon={<DollarSign className="text-green-400 w-6 h-6" />} bgColor="bg-green-50" />
               </div>
 
               {/* Earnings Chart */}
               <div className="bg-white rounded-[3rem] p-10 md:p-12 shadow-sm border border-gray-100">
                 <div className="flex flex-wrap justify-between items-start gap-4 mb-10">
                   <div>
-                    <h2 className="text-2xl font-bold mb-1 text-gray-900">Earnings Overview</h2>
-                    <p className="text-gray-400 text-sm">Total Monthly Earnings</p>
+                    <h2 className="text-2xl font-bold mb-1 text-gray-900">Tổng Quan Thu Nhập</h2>
+                    <p className="text-gray-400 text-sm">Tổng Thu Nhập Tháng</p>
                     <div className="text-4xl font-black mt-2 text-gray-900">$4,850</div>
                   </div>
                   <button className="bg-gray-50 px-6 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-gray-100 transition-colors">
-                    Last 6 Months <ChevronDown size={16} />
+                    6 Tháng Gần Nhất <ChevronDown size={16} />
                   </button>
                 </div>
                 <div className="h-56 w-full relative">
@@ -274,13 +273,13 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
             <div className="col-span-12 xl:col-span-4">
               <div className="bg-white rounded-[3rem] p-9 shadow-sm border border-gray-100 flex flex-col h-full">
                 <div className="flex justify-between items-center mb-8">
-                  <h2 className="text-2xl font-bold text-gray-900">Today's Schedule</h2>
-                  <button className="text-[#F8C8DC] text-sm font-bold hover:underline">View All</button>
+                  <h2 className="text-2xl font-bold text-gray-900">Lịch Trình Hôm Nay</h2>
+                  <button className="text-[#F8C8DC] text-sm font-bold hover:underline">Xem Tất Cả</button>
                 </div>
                 <div className="space-y-5 flex-1">
                   {todaySchedule.map((item) => (
                     <div key={item.id} className={`p-5 rounded-[2rem] border transition-all cursor-pointer hover:shadow-md ${item.status === 'active' ? 'border-pink-100 bg-pink-50/30 ring-1 ring-pink-100' :
-                        item.status === 'completed' ? 'border-gray-50 opacity-60' : 'border-gray-50'
+                      item.status === 'completed' ? 'border-gray-50 opacity-60' : 'border-gray-50'
                       }`}>
                       <div className="flex gap-4 items-start">
                         <div className="flex flex-col items-center min-w-[2.5rem]">
@@ -309,7 +308,7 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
                   ))}
                 </div>
                 <button className="mt-8 flex items-center justify-center gap-2 text-gray-400 font-bold text-sm hover:text-pink-400 transition-colors py-4 border-2 border-dashed border-gray-100 rounded-2xl">
-                  <Plus size={16} /> Add Personal Block
+                  <Plus size={16} /> Thêm Thời Gian Nghỉ
                 </button>
               </div>
             </div>

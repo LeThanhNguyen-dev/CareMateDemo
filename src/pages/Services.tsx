@@ -21,15 +21,15 @@ interface ServicesProps {
 }
 
 const CATEGORIES = [
-    { id: 'all', label: 'All Services', icon: Sparkles },
-    { id: 'postpartum', label: 'Postpartum', icon: Heart },
-    { id: 'newborn', label: 'Newborn', icon: Baby },
-    { id: 'lactation', label: 'Lactation', icon: Stethoscope },
-    { id: 'night', label: 'Night Care', icon: Moon },
-    { id: 'prenatal', label: 'Prenatal', icon: Brain },
-    { id: 'nicu', label: 'NICU & Special', icon: ShieldCheck },
-    { id: 'sleep', label: 'Sleep', icon: Moon },
-    { id: 'wellness', label: 'Wellness', icon: Apple },
+    { id: 'all', label: 'Tất Cả Dịch Vụ', icon: Sparkles },
+    { id: 'postpartum', label: 'Hậu Sản', icon: Heart },
+    { id: 'newborn', label: 'Trẻ Sơ Sinh', icon: Baby },
+    { id: 'lactation', label: 'Sữa Mẹ', icon: Stethoscope },
+    { id: 'night', label: 'Chăm Sóc Đêm', icon: Moon },
+    { id: 'prenatal', label: 'Tiền Sản', icon: Brain },
+    { id: 'nicu', label: 'NICU & Đặc Biệt', icon: ShieldCheck },
+    { id: 'sleep', label: 'Giấc Ngủ', icon: Moon },
+    { id: 'wellness', label: 'Sức Khỏe', icon: Apple },
 ];
 
 function getCategoryForService(serviceId: string): string {
@@ -76,10 +76,10 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                 className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-10 pb-8"
             >
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3 leading-tight">
-                    Maternal Care <span className="text-rose-400">Services</span>
+                    Dịch Vụ Chăm Sóc <span className="text-pink-400">Mẹ Và Bé</span>
                 </h1>
                 <p className="text-gray-500 text-lg max-w-2xl leading-relaxed">
-                    Find the best postnatal and newborn care services tailored for you and your baby's comfort and health.
+                    Tìm dịch vụ chăm sóc sau sinh và chăm sóc trẻ sơ sinh tốt nhất, được thiết kế riêng cho sự thoải mái và sức khỏe của bạn và bé.
                 </p>
             </motion.header>
 
@@ -96,7 +96,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                         <input
                             type="text"
-                            placeholder="Search services…"
+                            placeholder="Tìm kiếm dịch vụ…"
                             value={searchQuery}
                             onChange={e => setSearchQuery(e.target.value)}
                             className="w-full pl-11 pr-5 py-3 rounded-full bg-white border border-pink-100 shadow-sm text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all"
@@ -113,11 +113,10 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                                 <button
                                     key={cat.id}
                                     onClick={() => setActiveCategory(cat.id)}
-                                    className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
-                                        isActive
-                                            ? 'bg-rose-400 text-white shadow-md shadow-rose-200'
-                                            : 'bg-white border border-pink-100 text-gray-500 hover:border-rose-200 hover:text-rose-500'
-                                    }`}
+                                    className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${isActive
+                                            ? 'bg-pink-400 text-white shadow-md shadow-pink-200'
+                                            : 'bg-white border border-pink-100 text-gray-500 hover:border-pink-200 hover:text-pink-400'
+                                        }`}
                                 >
                                     <Icon className="w-3.5 h-3.5" />
                                     {cat.label}
@@ -139,9 +138,9 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                             exit={{ opacity: 0 }}
                             className="text-center py-24 text-gray-400"
                         >
-                            <Baby className="w-12 h-12 mx-auto mb-4 text-pink-200" />
-                            <p className="text-lg font-semibold text-gray-500">No services found</p>
-                            <p className="text-sm mt-1">Try adjusting your search or filter.</p>
+                            <Baby className="w-12 h-12 mx-auto mb-4 text-pink-400" />
+                            <p className="text-lg font-semibold text-gray-500">Không tìm thấy dịch vụ nào</p>
+                            <p className="text-sm mt-1">Hãy thử thay đổi điều kiện tìm kiếm hoặc bộ lọc.</p>
                         </motion.div>
                     ) : (
                         <motion.div
@@ -174,7 +173,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                                             />
                                             {/* Category badge */}
                                             <div className="absolute top-4 left-4">
-                                                <span className="bg-white/80 backdrop-blur-sm text-rose-500 text-[11px] font-bold px-3 py-1 rounded-full border border-pink-100 capitalize">
+                                                <span className="bg-white/80 backdrop-blur-sm text-pink-400 text-[11px] font-bold px-3 py-1 rounded-full border border-pink-100 capitalize">
                                                     {getCategoryForService(service.id)}
                                                 </span>
                                             </div>
@@ -198,14 +197,14 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                                                     </div>
                                                     <div className="flex items-center gap-1 mt-0.5 text-xs text-gray-400">
                                                         <Users className="w-3 h-3" />
-                                                        <span>{nurseCount} nurse{nurseCount !== 1 ? 's' : ''} available</span>
+                                                        <span>{nurseCount} điều dưỡng có sẵn</span>
                                                     </div>
                                                 </div>
                                                 <button
-                                                    className="flex items-center gap-1.5 px-5 py-2.5 bg-pink-100 text-rose-500 text-sm font-bold rounded-full hover:bg-rose-400 hover:text-white active:scale-95 transition-all duration-200 group-hover:shadow-md group-hover:shadow-rose-100"
+                                                    className="flex items-center gap-1.5 px-5 py-2.5 bg-pink-100 text-pink-400 text-sm font-bold rounded-full hover:bg-pink-400 hover:text-white active:scale-95 transition-all duration-200 group-hover:shadow-md group-hover:shadow-pink-100"
                                                     onClick={e => { e.stopPropagation(); onSelectService(service.id); }}
                                                 >
-                                                    View Nurses
+                                                    Xem Điều Dưỡng
                                                     <ArrowRight className="w-3.5 h-3.5" />
                                                 </button>
                                             </div>
@@ -225,15 +224,15 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="max-w-4xl mx-auto px-4 sm:px-8 mt-20"
             >
-                <div className="bg-gradient-to-br from-rose-400 to-pink-400 rounded-3xl p-8 md:p-12 text-white shadow-xl shadow-rose-100 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="bg-gradient-to-br from-pink-300 to-pink-400 rounded-3xl p-8 md:p-12 text-white shadow-xl shadow-pink-100 flex flex-col md:flex-row items-center justify-between gap-6">
                     <div>
-                        <h2 className="text-2xl font-bold mb-2">Not sure which service fits?</h2>
-                        <p className="text-rose-100 max-w-sm text-sm leading-relaxed">
-                            Our care coordinators can assess your needs and recommend the right level of support — completely free.
+                        <h2 className="text-2xl font-bold mb-2">Bạn phân vân không rõ dịch vụ nào phù hợp?</h2>
+                        <p className="text-pink-50 max-w-sm text-sm leading-relaxed">
+                            Chuyên viên của chúng tôi sẽ tư vấn cặn kẽ dựa trên nhu cầu của mẹ và bé - hoàn toàn miễn phí.
                         </p>
                     </div>
-                    <button className="shrink-0 inline-flex items-center gap-2 px-8 py-4 bg-white text-rose-500 rounded-full font-bold hover:bg-rose-50 active:scale-95 transition-all shadow-lg whitespace-nowrap">
-                        Talk to a Coordinator
+                    <button className="shrink-0 inline-flex items-center gap-2 px-8 py-4 bg-white text-pink-400 rounded-full font-bold hover:bg-pink-50 active:scale-95 transition-all shadow-lg whitespace-nowrap">
+                        Trò Chuyện Với Chuyên Viên
                         <ArrowRight className="w-5 h-5" />
                     </button>
                 </div>

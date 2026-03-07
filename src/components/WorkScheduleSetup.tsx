@@ -44,7 +44,7 @@ const ShiftToggle: React.FC<{
             >
                 {type}
             </p>
-            <p className={`text-[8px] font-bold ${active ? 'text-pink-300' : 'text-gray-300'}`}>
+            <p className={`text-[8px] font-bold ${active ? 'text-pink-400' : 'text-gray-300'}`}>
                 {time}
             </p>
         </div>
@@ -78,7 +78,7 @@ const NotificationToggle: React.FC<{
         <span className="text-sm font-bold text-gray-700">{label}</span>
         <CheckCircle2
             size={22}
-            className={`transition-colors ${active ? 'text-pink-300' : 'text-gray-200'}`}
+            className={`transition-colors ${active ? 'text-pink-400' : 'text-gray-200'}`}
         />
     </div>
 );
@@ -86,13 +86,13 @@ const NotificationToggle: React.FC<{
 /* ─── Main Component ─────────────────────── */
 
 const INITIAL_SCHEDULE: DaySchedule[] = [
-    { day: 'MON', date: 21, shifts: { morning: true, afternoon: false, evening: false } },
-    { day: 'TUE', date: 22, shifts: { morning: true, afternoon: true, evening: false } },
-    { day: 'WED', date: 23, shifts: { morning: true, afternoon: true, evening: true } },
-    { day: 'THU', date: 24, shifts: { morning: true, afternoon: false, evening: true } },
-    { day: 'FRI', date: 25, shifts: { morning: true, afternoon: true, evening: true } },
-    { day: 'SAT', date: 26, shifts: { morning: false, afternoon: false, evening: false } },
-    { day: 'SUN', date: 27, shifts: { morning: false, afternoon: false, evening: false } },
+    { day: 'T2', date: 21, shifts: { morning: true, afternoon: false, evening: false } },
+    { day: 'T3', date: 22, shifts: { morning: true, afternoon: true, evening: false } },
+    { day: 'T4', date: 23, shifts: { morning: true, afternoon: true, evening: true } },
+    { day: 'T5', date: 24, shifts: { morning: true, afternoon: false, evening: true } },
+    { day: 'T6', date: 25, shifts: { morning: true, afternoon: true, evening: true } },
+    { day: 'T7', date: 26, shifts: { morning: false, afternoon: false, evening: false } },
+    { day: 'CN', date: 27, shifts: { morning: false, afternoon: false, evening: false } },
 ];
 
 const BLACKOUT_INIT = [
@@ -134,29 +134,29 @@ const WorkScheduleSetup: React.FC = () => {
             {/* Page Title */}
             <div className="flex flex-wrap justify-between items-end gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold mb-2 text-gray-900">Work Schedule Setup</h1>
+                    <h1 className="text-3xl font-bold mb-2 text-gray-900">Cài Đặt Lịch Làm Việc</h1>
                     <p className="text-gray-400 text-sm">
-                        Define your weekly availability for morning, afternoon, and evening shifts.
+                        Xác định thời gian rảnh hàng tuần cho các ca sáng, chiều và tối.
                     </p>
                 </div>
                 <div className="flex bg-white p-1 rounded-2xl shadow-sm border border-gray-100">
                     <button
                         onClick={() => setView('weekly')}
                         className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${view === 'weekly'
-                                ? 'bg-pink-50 text-pink-400'
-                                : 'text-gray-400 hover:text-gray-600'
+                            ? 'bg-pink-50 text-pink-400'
+                            : 'text-gray-400 hover:text-gray-600'
                             }`}
                     >
-                        Weekly
+                        Hàng Tuần
                     </button>
                     <button
                         onClick={() => setView('monthly')}
                         className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${view === 'monthly'
-                                ? 'bg-pink-50 text-pink-400'
-                                : 'text-gray-400 hover:text-gray-600'
+                            ? 'bg-pink-50 text-pink-400'
+                            : 'text-gray-400 hover:text-gray-600'
                             }`}
                     >
-                        Monthly
+                        Hàng Tháng
                     </button>
                 </div>
             </div>
@@ -182,21 +182,21 @@ const WorkScheduleSetup: React.FC = () => {
                             {/* Shift toggles */}
                             <ShiftToggle
                                 active={day.shifts.morning}
-                                type="Morning"
+                                type="Sáng"
                                 time="8AM–1PM"
                                 icon={<Sun size={16} />}
                                 onClick={() => toggleShift(idx, 'morning')}
                             />
                             <ShiftToggle
                                 active={day.shifts.afternoon}
-                                type="Afternoon"
+                                type="Chiều"
                                 time="1PM–6PM"
                                 icon={<CloudSun size={16} />}
                                 onClick={() => toggleShift(idx, 'afternoon')}
                             />
                             <ShiftToggle
                                 active={day.shifts.evening}
-                                type="Evening"
+                                type="Tối"
                                 time="6PM–11PM"
                                 icon={<Moon size={16} />}
                                 onClick={() => toggleShift(idx, 'evening')}
@@ -210,15 +210,15 @@ const WorkScheduleSetup: React.FC = () => {
                     <div className="flex flex-wrap gap-6 text-xs font-bold text-gray-400">
                         <div className="flex items-center gap-2">
                             <span className="w-3 h-3 rounded-full bg-pink-100 border border-pink-200" />
-                            Available
+                            Có Sẵn
                         </div>
                         <div className="flex items-center gap-2">
                             <span className="w-3 h-3 rounded-full border border-gray-200" />
-                            Unavailable
+                            Không Rảnh
                         </div>
                         <div className="border-l border-gray-100 pl-6">
-                            Total weekly hours:{' '}
-                            <span className="text-gray-800">{totalShifts} hrs</span>
+                            Tổng số giờ tuần:{' '}
+                            <span className="text-gray-800">{totalShifts} giờ</span>
                         </div>
                     </div>
                     <div className="flex gap-3">
@@ -226,16 +226,16 @@ const WorkScheduleSetup: React.FC = () => {
                             onClick={handleReset}
                             className="px-7 py-3 bg-gray-50 text-gray-600 font-bold rounded-2xl hover:bg-gray-100 transition-all text-sm"
                         >
-                            Reset
+                            Khôi Phục
                         </button>
                         <button
                             onClick={handleSave}
                             className={`px-7 py-3 font-bold rounded-2xl text-sm transition-all shadow-lg ${saved
-                                    ? 'bg-green-500 text-white shadow-green-100'
-                                    : 'bg-gray-900 text-white hover:bg-black shadow-gray-200'
+                                ? 'bg-green-500 text-white shadow-green-100'
+                                : 'bg-gray-900 text-white hover:bg-black shadow-gray-200'
                                 }`}
                         >
-                            {saved ? '✓ Saved!' : 'Save Schedule'}
+                            {saved ? '✓ Đã Lưu!' : 'Lưu Lịch Làm Việc'}
                         </button>
                     </div>
                 </div>
@@ -249,10 +249,10 @@ const WorkScheduleSetup: React.FC = () => {
                         <div className="w-8 h-8 bg-orange-50 rounded-lg flex items-center justify-center text-orange-400 font-serif font-bold text-lg">
                             !
                         </div>
-                        <h2 className="text-xl font-bold text-gray-900">Blackout Dates</h2>
+                        <h2 className="text-xl font-bold text-gray-900">Ngày Nghỉ Phép</h2>
                     </div>
                     <p className="text-gray-400 text-sm mb-7">
-                        Specific dates where you won't be available regardless of your weekly schedule.
+                        Những ngày đặc biệt bạn sẽ không làm việc bất kể lịch trình hàng tuần ra sao.
                     </p>
                     <div className="flex flex-wrap gap-3">
                         {blackouts.map((b) => (
@@ -262,8 +262,8 @@ const WorkScheduleSetup: React.FC = () => {
                                 onRemove={() => removeBlackout(b.id)}
                             />
                         ))}
-                        <button className="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-gray-100 text-gray-300 font-bold text-xs rounded-xl hover:border-pink-100 hover:text-pink-300 transition-all">
-                            <Plus size={13} /> Add Date
+                        <button className="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-gray-100 text-gray-300 font-bold text-xs rounded-xl hover:border-pink-100 hover:text-pink-400 transition-all">
+                            <Plus size={13} /> Thêm Ngày
                         </button>
                     </div>
                 </div>
@@ -272,21 +272,21 @@ const WorkScheduleSetup: React.FC = () => {
                 <div className="bg-white rounded-[2.5rem] p-9 shadow-sm border border-gray-50">
                     <div className="flex items-center gap-3 mb-3">
                         <div className="w-8 h-8 bg-pink-50 rounded-lg flex items-center justify-center">
-                            <Bell size={16} className="text-pink-300" />
+                            <Bell size={16} className="text-pink-400" />
                         </div>
-                        <h2 className="text-xl font-bold text-gray-900">Notification Preferences</h2>
+                        <h2 className="text-xl font-bold text-gray-900">Tuỳ Chọn Thông Báo</h2>
                     </div>
                     <p className="text-gray-400 text-sm mb-7">
-                        How would you like to be notified about new booking requests?
+                        Bạn muốn nhận thông báo về yêu cầu đặt lịch mới như thế nào?
                     </p>
                     <div className="space-y-3">
                         <NotificationToggle
-                            label="In-app Push Notifications"
+                            label="Thông Báo Đẩy Trên Ứng Dụng"
                             active={notifPush}
                             onToggle={() => setNotifPush((v) => !v)}
                         />
                         <NotificationToggle
-                            label="Email Alerts"
+                            label="Thông Báo Qua Email"
                             active={notifEmail}
                             onToggle={() => setNotifEmail((v) => !v)}
                         />

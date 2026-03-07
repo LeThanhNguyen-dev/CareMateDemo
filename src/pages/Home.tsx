@@ -26,18 +26,18 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <Hero onStart={() => onNavigate('services')} />
 
       {/* Stats Section */}
-      <section className="py-12 bg-rose-500">
+      <section className="py-12 bg-pink-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { label: 'Verified Nurses', value: '500+' },
-              { label: 'Happy Mothers', value: '5,000+' },
-              { label: 'Care Sessions', value: '12,000+' },
-              { label: 'Avg Rating', value: '4.9/5' },
+              { label: 'Điều dưỡng đã xác minh', value: '500+' },
+              { label: 'Mẹ bỉm hạnh phúc', value: '5,000+' },
+              { label: 'Ca chăm sóc', value: '12,000+' },
+              { label: 'Đánh giá trung bình', value: '4.9/5' },
             ].map((stat, i) => (
               <div key={i} className="text-white">
                 <p className="text-3xl font-bold mb-1">{stat.value}</p>
-                <p className="text-rose-100 text-sm font-medium">{stat.label}</p>
+                <p className="text-pink-100 text-sm font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -48,9 +48,9 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Our Specialized Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Dịch Vụ Chuyên Biệt</h2>
             <p className="text-slate-500 max-w-2xl mx-auto">
-              We provide a wide range of nursing care services tailored to the unique needs of mothers and their newborns.
+              Chúng tôi cung cấp đa dạng dịch vụ chăm sóc phù hợp với nhu cầu riêng biệt của mẹ và bé sơ sinh.
             </p>
           </div>
 
@@ -67,9 +67,9 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <div className="mt-12 text-center">
             <button
               onClick={() => onNavigate('services')}
-              className="inline-flex items-center text-rose-600 font-bold hover:text-rose-700 transition-colors"
+              className="inline-flex items-center text-pink-400 font-bold hover:text-pink-400 transition-colors"
             >
-              View All Services
+              Xem Tất Cả Dịch Vụ
               <ArrowRight className="ml-2 w-5 h-5" />
             </button>
           </div>
@@ -81,24 +81,24 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">How CareMom Works</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">CareMom Hoạt Động Như Thế Nào</h2>
               <div className="space-y-8">
                 {[
                   {
-                    title: 'Search & Filter',
-                    desc: 'Find the perfect nurse based on specialization, experience, and availability.',
+                    title: 'Tìm & Bộ Lọc',
+                    desc: 'Tìm kiếm điều dưỡng phù hợp dựa trên chuyên môn, kinh nghiệm và lịch trống.',
                     icon: Users,
                     color: 'bg-blue-100 text-blue-600'
                   },
                   {
-                    title: 'Book a Session',
-                    desc: 'Select a date and time that works for you. All bookings are secure and flexible.',
+                    title: 'Đặt Lịch Hẹn',
+                    desc: 'Chọn ngày giờ thuận tiện với bạn. Mọi đặt lịch luôn linh hoạt và bảo mật.',
                     icon: Clock,
-                    color: 'bg-rose-100 text-rose-600'
+                    color: 'bg-pink-100 text-pink-400'
                   },
                   {
-                    title: 'Receive Expert Care',
-                    desc: 'Your certified nurse arrives at your home to provide professional care and support.',
+                    title: 'Nhận Dịch Vụ Chuyên Gia',
+                    desc: 'Điều dưỡng chứng chỉ sẽ đến tận nhà bạn để cung cấp dịch vụ chăm sóc chuyên nghiệp.',
                     icon: ShieldCheck,
                     color: 'bg-green-100 text-green-600'
                   }
@@ -125,16 +125,16 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 />
               </div>
               <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-3xl shadow-2xl hidden lg:block max-w-xs">
-                <div className="flex items-center space-x-2 text-rose-500 mb-4">
+                <div className="flex items-center space-x-2 text-pink-400 mb-4">
                   <Award className="w-6 h-6" />
-                  <span className="font-bold">Quality Guaranteed</span>
+                  <span className="font-bold">Đảm Bảo Chất Lượng</span>
                 </div>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  "The care I received from Sarah was life-changing. She helped me through those first tough weeks with my newborn."
+                  "Sự chăm sóc mà tôi nhận được từ chị Sarah đã giúp tôi thay đổi rất nhiều. Chị ấy giúp tôi vượt qua những tuần đầu khó khăn nhất."
                 </p>
                 <div className="mt-4 flex items-center space-x-2">
                   <img src="https://i.pravatar.cc/100?img=32" className="w-8 h-8 rounded-full" />
-                  <span className="text-xs font-bold text-slate-900">Jessica M., New Mom</span>
+                  <span className="text-xs font-bold text-slate-900">Jessica M., Mẹ bỉm</span>
                 </div>
               </div>
             </div>
@@ -143,46 +143,46 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </section>
 
       {/* Why CareMom Section */}
-      <section className="py-24 bg-rose-50">
+      <section className="py-24 bg-pink-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">The CareMom Standard</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Tiêu Chuẩn CareMom</h2>
             <p className="text-slate-500 max-w-2xl mx-auto">
-              We understand that the postpartum period is delicate. That's why we bring the highest standard of care directly to your door.
+              Chúng tôi hiểu thời kỳ hậu sản rất nhạy cảm. Vì vậy chúng tôi mang tiêu chuẩn chăm sóc cao nhất tới tận nhà bạn.
             </p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-rose-100 hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Heart className="w-8 h-8 text-rose-500 fill-current" />
+            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Heart className="w-8 h-8 text-pink-400 fill-current" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Compassionate Care</h3>
-              <p className="text-sm text-slate-500">Every nurse is selected for their empathy and dedication to maternal health.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Chăm Sóc Tận Tâm</h3>
+              <p className="text-sm text-slate-500">Moị điều dưỡng đều được chọn lọc bằng sự đồng cảm và vì sức khỏe mẹ bé.</p>
             </div>
 
-            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-rose-100 hover:shadow-md transition-shadow">
+            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
               <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <CheckCircle2 className="w-8 h-8 text-green-500" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Fully Vetted</h3>
-              <p className="text-sm text-slate-500">Rigorous background checks and certification verification.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Được Xác Thực</h3>
+              <p className="text-sm text-slate-500">Kiểm tra lý lịch pháp lý và chứng chỉ chuyên môn khắt khe.</p>
             </div>
 
-            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-rose-100 hover:shadow-md transition-shadow">
+            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
               <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <Star className="w-8 h-8 text-amber-500 fill-current" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Top Rated Network</h3>
-              <p className="text-sm text-slate-500">Consistently achieving 5-star ratings from satisfied families.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Đánh Giá Nổi Bật</h3>
+              <p className="text-sm text-slate-500">Đạt 5 sao tuyệt đối từ những khách hàng khắt khe nhất.</p>
             </div>
 
-            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-rose-100 hover:shadow-md transition-shadow">
+            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
               <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <Zap className="w-8 h-8 text-blue-500" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Fast Response</h3>
-              <p className="text-sm text-slate-500">Quick booking and flexible scheduling for urgent care needs.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Phản Hồi Nhanh</h3>
+              <p className="text-sm text-slate-500">Đặt lịch dễ dàng và linh hoạt cho các trường hợp cấp bách.</p>
             </div>
           </div>
         </div>
@@ -193,14 +193,14 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-end mb-16">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Top Rated Nurses</h2>
-              <p className="text-slate-500">Our most experienced and highly recommended professionals.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Điều Dưỡng Hàng Đầu</h2>
+              <p className="text-slate-500">Những chuyên gia giàu tinh hoa và dày dặn kinh nghiệm nhất.</p>
             </div>
             <button
               onClick={() => onNavigate('nurses')}
-              className="hidden md:flex items-center text-rose-600 font-bold hover:text-rose-700 transition-colors"
+              className="hidden md:flex items-center text-pink-400 font-bold hover:text-pink-400 transition-colors"
             >
-              See All Nurses
+              Xem Tất Cả Điều Dưỡng
               <ArrowRight className="ml-2 w-5 h-5" />
             </button>
           </div>
@@ -218,25 +218,25 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-rose-50">
+      <section className="py-24 bg-pink-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Ready to find your perfect care partner?</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-6">Sẵn sàng trải nghiệm dịch vụ chăm sóc hoàn hảo?</h2>
             <p className="text-lg text-slate-600 mb-10">
-              Join thousands of mothers who trust CareMom for professional, compassionate home nursing care.
+              Hãy gia nhập cùng ngàn mẹ bỉm sữa tin cậy CareMom vì sự chuyên nghiệp và tận tụy.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button
                 onClick={() => onNavigate('services')}
-                className="px-10 py-4 bg-rose-500 text-white rounded-full font-bold hover:bg-rose-600 transition-all shadow-lg shadow-rose-200"
+                className="px-10 py-4 bg-pink-300 text-white rounded-full font-bold hover:bg-pink-300 transition-all shadow-lg shadow-pink-200"
               >
-                Get Started Today
+                Bắt Đầu Ngay
               </button>
               <button
                 onClick={() => onNavigate('register')}
                 className="px-10 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold hover:bg-slate-50 transition-all"
               >
-                Join as a Nurse
+                Đăng Ký Khám
               </button>
             </div>
           </div>

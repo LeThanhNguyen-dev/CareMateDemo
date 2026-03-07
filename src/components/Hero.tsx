@@ -18,8 +18,8 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   return (
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
       {/* Background Accents */}
-      <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-rose-50 rounded-full blur-3xl opacity-50 -z-10" />
-      <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[400px] h-[400px] bg-rose-100/30 rounded-full blur-3xl opacity-50 -z-10" />
+      <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-pink-50 rounded-full blur-3xl opacity-50 -z-10" />
+      <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[400px] h-[400px] bg-pink-100/30 rounded-full blur-3xl opacity-50 -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -28,29 +28,29 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-rose-50 border border-rose-100 text-rose-600 text-sm font-medium mb-6">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-pink-50 border border-pink-100 text-pink-400 text-sm font-medium mb-6">
               <ShieldCheck className="w-4 h-4 mr-2" />
-              Trusted by 5,000+ New Mothers
+              Được tin chọn bởi hơn 5.000 Mẹ Bỉm Sữa
             </div>
             <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 leading-[1.1] mb-6">
-              Expert Care for <span className="text-rose-500">You & Your Baby</span>
+              Chăm sóc Cao Cấp cho <span className="text-pink-400">Tình Mẫu Tử</span>
             </h1>
             <p className="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
-              Connect with certified, experienced nurses for postpartum support, newborn care, and lactation consulting in the comfort of your home.
+              Kết nối với các điều dưỡng giàu kinh nghiệm, có chứng chỉ để hỗ trợ hậu sản, chăm sóc trẻ sơ sinh và tư vấn sữa mẹ ngay tại nhà.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={onStart}
-                className="px-8 py-4 bg-rose-500 text-white rounded-full font-semibold hover:bg-rose-600 transition-all shadow-lg shadow-rose-200 flex items-center justify-center"
+                className="px-8 py-4 bg-pink-300 text-white rounded-full font-semibold hover:bg-pink-300 transition-all shadow-lg shadow-pink-200 flex items-center justify-center"
               >
                 <Search className="mr-2 w-5 h-5" />
-                Find a Nurse Now
+                Tìm Điều Dưỡng Ngay
                 <ArrowRight className="ml-2 w-5 h-5" />
               </button>
               <button className="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-semibold hover:bg-slate-50 transition-all flex items-center justify-center">
                 <Play className="mr-2 w-4 h-4 fill-current" />
-                How it Works
+                Cách Hoạt Động
               </button>
             </div>
 
@@ -71,7 +71,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
                     <Star key={i} className="w-4 h-4 fill-current" />
                   ))}
                 </div>
-                <p className="text-sm text-slate-500 font-medium">4.9/5 from 1,200+ reviews</p>
+                <p className="text-sm text-slate-500 font-medium">4.9/5 từ hơn 1.200 đánh giá</p>
               </div>
             </div>
           </motion.div>
@@ -103,7 +103,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
                   <CheckCircle2 className="text-green-600 w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500 font-medium">Verified Nurse</p>
+                  <p className="text-xs text-slate-500 font-medium">Điều Dưỡng Đã Xác Minh</p>
                   <p className="text-sm font-bold text-slate-900">Sarah Jenkins, RN</p>
                 </div>
               </div>
@@ -115,12 +115,12 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl z-20 hidden sm:block"
             >
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center text-rose-600">
+                <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-pink-400">
                   <Calendar className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500 font-medium">Next Available</p>
-                  <p className="text-sm font-bold text-slate-900">Today, 2:00 PM</p>
+                  <p className="text-xs text-slate-500 font-medium">Lịch Trống Tiếp Theo</p>
+                  <p className="text-sm font-bold text-slate-900">Hôm nay, 2:00 Chiều</p>
                 </div>
               </div>
             </motion.div>

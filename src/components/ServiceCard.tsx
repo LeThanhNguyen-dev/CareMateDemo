@@ -30,10 +30,10 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onClick }) =>
         </p>
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-lg font-bold text-rose-600">${service.price}</span>
+            <span className="text-lg font-bold text-pink-400">${service.price}</span>
             <span className="text-xs text-slate-400">/{service.unit}</span>
           </div>
-          <div className="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition-colors">
+          <div className="w-8 h-8 rounded-full bg-pink-50 flex items-center justify-center text-pink-400 group-hover:bg-pink-300 group-hover:text-white transition-colors">
             <ArrowRight className="w-4 h-4" />
           </div>
         </div>

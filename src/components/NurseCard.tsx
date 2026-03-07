@@ -22,7 +22,7 @@ export const NurseCard: React.FC<NurseCardProps> = ({ nurse, onClick }) => {
         aria-label="Wishlist"
       >
         <Heart
-          className={`w-5 h-5 transition-all ${wishlisted ? 'text-rose-400 fill-rose-400 scale-110' : 'text-gray-200 hover:text-pink-300'}`}
+          className={`w-5 h-5 transition-all ${wishlisted ? 'text-pink-400 fill-pink-400 scale-110' : 'text-gray-200 hover:text-pink-400'}`}
         />
       </button>
 
@@ -38,7 +38,7 @@ export const NurseCard: React.FC<NurseCardProps> = ({ nurse, onClick }) => {
           {nurse.verified && (
             <div className="absolute -top-1 -left-1 bg-white shadow rounded-full px-2 py-0.5 flex items-center gap-1 border border-green-100">
               <ShieldCheck className="w-3 h-3 text-green-500" />
-              <span className="text-[9px] font-bold text-green-600 uppercase tracking-wide">Verified</span>
+              <span className="text-[9px] font-bold text-green-600 uppercase tracking-wide">Đã Trực</span>
             </div>
           )}
         </div>
@@ -57,7 +57,7 @@ export const NurseCard: React.FC<NurseCardProps> = ({ nurse, onClick }) => {
       {/* ── Right: Details ── */}
       <div className="flex-1 min-w-0">
         <h3 className="text-lg font-bold text-gray-800 pr-8 leading-snug">{nurse.name}</h3>
-        <p className="text-sm font-semibold text-pink-300 mb-1">{nurse.title}</p>
+        <p className="text-sm font-semibold text-pink-400 mb-1">{nurse.title}</p>
         <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
           {nurse.bio}
         </p>
@@ -66,7 +66,7 @@ export const NurseCard: React.FC<NurseCardProps> = ({ nurse, onClick }) => {
         <div className="flex flex-wrap gap-2 mb-5">
           <div className="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-xl text-xs font-medium text-gray-500">
             <Clock className="w-3.5 h-3.5 text-gray-400" />
-            {nurse.experience} yrs exp.
+            {nurse.experience} năm KN
           </div>
           {nurse.certifications.slice(0, 2).map(cert => (
             <div key={cert} className="px-3 py-1 bg-gray-50 rounded-xl text-xs font-medium text-gray-500">
@@ -74,8 +74,8 @@ export const NurseCard: React.FC<NurseCardProps> = ({ nurse, onClick }) => {
             </div>
           ))}
           {nurse.certifications.length > 2 && (
-            <div className="px-3 py-1 bg-pink-50 rounded-xl text-xs font-medium text-rose-400">
-              +{nurse.certifications.length - 2} more
+            <div className="px-3 py-1 bg-pink-50 rounded-xl text-xs font-medium text-pink-400">
+              thêm +{nurse.certifications.length - 2}
             </div>
           )}
         </div>
@@ -83,14 +83,14 @@ export const NurseCard: React.FC<NurseCardProps> = ({ nurse, onClick }) => {
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-50">
           <div>
-            <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase">Next Available</span>
+            <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase">Lịch trống tiếp theo</span>
             <p className="text-sm font-semibold text-gray-700 mt-0.5">{nurse.nextAvailable}</p>
           </div>
           <button
-            className="px-7 py-2.5 bg-pink-100 text-rose-500 font-bold rounded-2xl hover:bg-rose-400 hover:text-white transition-all duration-200 shadow-sm active:scale-95 text-sm group-hover:shadow-md group-hover:shadow-rose-100"
+            className="px-7 py-2.5 bg-pink-100 text-pink-400 font-bold rounded-2xl hover:bg-pink-400 hover:text-white transition-all duration-200 shadow-sm active:scale-95 text-sm group-hover:shadow-md group-hover:shadow-pink-100"
             onClick={e => { e.stopPropagation(); onClick(nurse); }}
           >
-            Book Now
+            Đặt Lịch
           </button>
         </div>
       </div>
