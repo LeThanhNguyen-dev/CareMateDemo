@@ -1,0 +1,7 @@
+{
+  "name": "CareMom - Trusted Nursing Care",
+  "description": "A professional platform connecting mothers with experienced, certified nursing care for postpartum, newborn, and lactation support.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
