@@ -119,7 +119,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-pink-100 selection:text-pink-400">
+    <div className="min-h-screen flex flex-col font-sans">
       {!(currentPage === 'dashboard' && userRole === 'nurse') && (
         <Navbar
           currentPage={currentPage}

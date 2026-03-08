@@ -46,6 +46,26 @@ export interface Booking {
   status: 'confirmed' | 'pending' | 'completed' | 'cancelled';
 }
 
+export interface CertificationRequest {
+  id: string;
+  nurseId: string;
+  nurseName: string;
+  nurseEmail: string;
+  nurseImage?: string;
+  documents: {
+    name: string;
+    type: string;
+    uploadedAt: string;
+  }[];
+  certifications: string[];
+  experience: number;
+  specialization: string;
+  status: 'pending' | 'approved' | 'rejected';
+  submittedAt: string;
+  reviewedAt?: string;
+  adminNote?: string;
+}
+
 export const SERVICES: Service[] = [
   // === Postpartum ===
   {

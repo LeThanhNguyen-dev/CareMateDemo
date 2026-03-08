@@ -1,16 +1,9 @@
 import React from 'react';
 import {
-  Home,
-  Heart,
-  User,
   Menu,
   X,
   LogOut,
   LayoutDashboard,
-  ShieldCheck,
-  Calendar,
-  Bell,
-  Settings
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
@@ -24,19 +17,26 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRole, onLogout }) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
-    { id: 'home', label: 'Trang chủ', icon: Home },
-    { id: 'services', label: 'Dịch vụ', icon: Heart },
-    { id: 'about', label: 'Về chúng tôi', icon: User },
+    { id: 'home', label: 'Trang chủ' },
+    { id: 'services', label: 'Dịch vụ' },
+    { id: 'about', label: 'Về chúng tôi' },
   ];
 
   const authItems = userRole ? [
     { id: 'dashboard', label: 'Bảng điều khiển', icon: LayoutDashboard },
     { id: 'logout', label: 'Đăng xuất', icon: LogOut, action: onLogout },
   ] : [
-    { id: 'login', label: 'Đăng nhập', icon: User },
-    { id: 'register', label: 'Đăng ký', icon: ShieldCheck },
+    { id: 'login', label: 'Đăng nhập' },
+    { id: 'register', label: 'Đăng ký' },
   ];
 
   const handleItemClick = (item: any) => {
@@ -49,79 +49,67 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRol
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-pink-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      scrolled
+        ? "bg-white/95 backdrop-blur-sm shadow-[0_1px_3px_rgba(0,0,0,0.05)] border-b border-gray-100"
+        : "bg-transparent"
+    )}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div
-            className="flex items-center cursor-pointer"
+            className="flex items-center cursor-pointer group"
             onClick={() => onNavigate('home')}
           >
-            <div className="w-10 h-10 bg-pink-300 rounded-full flex items-center justify-center mr-2">
-              <Heart className="text-white w-6 h-6" />
-            </div>
-            <span className="text-2xl font-bold text-pink-400 tracking-tight">CareMate</span>
+            <span className="text-2xl text-brand-600 group-hover:text-brand-700 transition-colors" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMom</span>
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-pink-400",
-                  currentPage === item.id ? "text-pink-400" : "text-slate-600"
+                  "px-3 py-2 text-[13px] font-medium rounded-lg transition-colors",
+                  currentPage === item.id
+                    ? "text-brand-700 bg-brand-50"
+                    : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                 )}
               >
                 {item.label}
               </button>
             ))}
-            <div className="h-6 w-px bg-slate-200 mx-2" />
+          </div>
 
-            {userRole && (
-              <div className="flex items-center space-x-4 text-slate-500 mr-2">
-                <button className="hover:text-pink-400 transition-colors">
-                  <Calendar className="w-5 h-5" />
-                </button>
-                <button className="hover:text-pink-400 transition-colors">
-                  <Bell className="w-5 h-5" />
-                </button>
-                <button className="hover:text-pink-400 transition-colors">
-                  <Settings className="w-5 h-5" />
-                </button>
-              </div>
-            )}
-
-            <div className="flex items-center space-x-3 ml-4">
-              {authItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleItemClick(item)}
-                  className={cn(
-                    "text-sm font-semibold px-5 py-2.5 rounded-full transition-all flex items-center gap-2",
-                    item.id === 'register'
-                      ? "bg-pink-400 text-white hover:bg-pink-400 shadow-md shadow-pink-200"
-                      : item.id === 'logout'
-                        ? "text-slate-500 hover:text-pink-400 bg-slate-50 hover:bg-pink-50"
-                        : item.id === 'dashboard'
-                          ? "bg-pink-50 text-pink-400 hover:bg-pink-100"
-                          : "text-slate-600 hover:text-pink-400 hover:bg-slate-50 border border-slate-200"
-                  )}
-                >
-                  <item.icon className="w-4 h-4 hidden lg:block" />
-                  {item.label}
-                </button>
-              ))}
-            </div>
+          <div className="hidden md:flex items-center gap-2">
+            {authItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleItemClick(item)}
+                className={cn(
+                  "text-[13px] font-semibold px-4 py-2 rounded-lg transition-all",
+                  item.id === 'register'
+                    ? "bg-brand-600 text-white hover:bg-brand-700"
+                    : item.id === 'logout'
+                      ? "text-gray-400 hover:text-red-500 hover:bg-red-50"
+                      : item.id === 'dashboard'
+                        ? "text-brand-700 bg-brand-50 hover:bg-brand-100"
+                        : "text-gray-600 hover:text-gray-900 border border-gray-200 hover:border-gray-300"
+                )}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-slate-600 hover:text-pink-400"
+              className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              {isOpen ? <X /> : <Menu />}
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -134,21 +122,20 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRol
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-pink-100 overflow-hidden"
+            className="md:hidden bg-white border-b border-gray-100 overflow-hidden"
           >
-            <div className="px-4 pt-2 pb-6 space-y-1">
+            <div className="px-4 pt-1 pb-4 space-y-1">
               {[...navItems, ...authItems].map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleItemClick(item)}
                   className={cn(
-                    "flex items-center w-full px-3 py-3 text-base font-medium rounded-lg",
+                    "flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
                     currentPage === item.id
-                      ? "bg-pink-50 text-pink-400"
-                      : "text-slate-600 hover:bg-slate-50"
+                      ? "bg-brand-50 text-brand-700"
+                      : "text-gray-600 hover:bg-gray-50"
                   )}
                 >
-                  <item.icon className="w-5 h-5 mr-3" />
                   {item.label}
                 </button>
               ))}

@@ -30,14 +30,12 @@ const MONTH_NAMES = [
 ];
 
 const TIME_SLOTS = {
-    morning: ['07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM'],
-    afternoon: ['12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'],
-    evening: ['05:00 PM', '06:00 PM', '07:00 PM', '08:00 PM', '09:00 PM'],
+    morning: ['07:00', '08:00', '09:00', '10:00', '11:00'],
+    afternoon: ['12:00', '13:00', '14:00', '15:00', '16:00'],
+    evening: ['17:00', '18:00', '19:00', '20:00', '21:00'],
 };
 
-// Simulate a few booked slots
-const UNAVAILABLE = new Set(['09:00 AM', '01:00 PM', '07:00 PM']);
-
+const UNAVAILABLE = new Set(['09:00', '13:00', '19:00']);
 const SERVICE_CHARGE = 15;
 
 export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfirm }) => {
@@ -45,14 +43,11 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
     const [viewYear, setViewYear] = React.useState(today.getFullYear());
     const [viewMonth, setViewMonth] = React.useState(today.getMonth());
     const [selectedDay, setSelectedDay] = React.useState<number | null>(null);
-
     const [timePeriod, setTimePeriod] = React.useState<'morning' | 'afternoon' | 'evening'>('morning');
     const [selectedTime, setSelectedTime] = React.useState<string | null>(null);
-
     const [paymentMethod, setPaymentMethod] = React.useState<'card' | 'wallet'>('card');
     const [confirmed, setConfirmed] = React.useState(false);
 
-    // Calendar computation
     const firstDayOfMonth = new Date(viewYear, viewMonth, 1).getDay();
     const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
 
@@ -66,80 +61,66 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
     };
 
     const isPastDay = (day: number) => {
-        const d = new Date(viewYear, viewMonth, day);
-        d.setHours(0, 0, 0, 0);
+        const d = new Date(viewYear, viewMonth, day); d.setHours(0, 0, 0, 0);
         const t = new Date(); t.setHours(0, 0, 0, 0);
         return d < t;
     };
 
     const selectedDate = selectedDay !== null
-        ? new Date(viewYear, viewMonth, selectedDay).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        ? new Date(viewYear, viewMonth, selectedDay).toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' })
         : null;
 
     const selectedService = SERVICES.find(s => nurse.services.includes(s.id));
     const sessionFee = selectedService?.price ?? nurse.hourlyRate * 4;
     const total = sessionFee + SERVICE_CHARGE;
-
     const canConfirm = selectedDay !== null && selectedTime !== null;
 
     const handleConfirm = () => {
         if (!canConfirm) return;
         onConfirm({
-            nurseId: nurse.id,
-            nurseName: nurse.name,
-            nurseImage: nurse.image,
-            serviceTitle: selectedService?.title ?? 'Nursing Session',
-            date: selectedDate,
-            time: selectedTime,
-            status: 'confirmed',
+            nurseId: nurse.id, nurseName: nurse.name, nurseImage: nurse.image,
+            serviceTitle: selectedService?.title ?? 'Phiên Chăm Sóc',
+            date: selectedDate, time: selectedTime, status: 'confirmed',
         });
         setConfirmed(true);
     };
 
-    // ── Confirmed screen ──────────────────────────────────────────────────────
     if (confirmed) {
         return (
-            <div className="min-h-screen bg-[#FDFCFD] flex items-center justify-center pt-20 pb-24">
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center pt-20 pb-20">
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.92 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, type: 'spring' }}
-                    className="bg-white rounded-[2rem] p-12 shadow-lg max-w-md w-full text-center mx-4"
+                    transition={{ duration: 0.4, type: 'spring' }}
+                    className="bg-white rounded-2xl p-10 shadow-md max-w-md w-full text-center mx-4 border border-gray-100"
                 >
                     <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                        className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
+                        initial={{ scale: 0 }} animate={{ scale: 1 }}
+                        transition={{ delay: 0.15, type: 'spring', stiffness: 200 }}
+                        className="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center mx-auto mb-5"
                     >
-                        <CheckCircle2 className="w-10 h-10 text-green-500" />
+                        <CheckCircle2 className="w-7 h-7 text-green-600" />
                     </motion.div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Đặt Lịch Thành Công!</h2>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-2">
-                        Phiên chăm sóc với <span className="font-semibold text-gray-700">{nurse.name}</span> đã được lên lịch.
+                    <h2 className="text-xl font-bold text-gray-900 mb-2">Đặt Lịch Thành Công!</h2>
+                    <p className="text-gray-400 text-sm mb-1">
+                        Phiên chăm sóc với <span className="font-medium text-gray-700">{nurse.name}</span> đã được lên lịch.
                     </p>
-                    <p className="text-gray-400 text-sm mb-8">
-                        {selectedDate} · {selectedTime}
-                    </p>
-                    <div className="bg-pink-50 rounded-2xl p-4 mb-8 text-left">
-                        <div className="flex justify-between text-sm mb-2">
+                    <p className="text-gray-400 text-sm mb-6">{selectedDate} · {selectedTime}</p>
+                    <div className="bg-gray-50 rounded-xl p-4 mb-6 text-left text-sm">
+                        <div className="flex justify-between mb-1.5">
                             <span className="text-gray-400">Phí Dịch Vụ</span>
-                            <span className="font-bold text-gray-700">${sessionFee.toFixed(2)}</span>
+                            <span className="font-medium text-gray-700">${sessionFee.toFixed(2)}</span>
                         </div>
-                        <div className="flex justify-between text-sm mb-3">
+                        <div className="flex justify-between mb-2">
                             <span className="text-gray-400">Phí Hệ Thống</span>
-                            <span className="font-bold text-gray-700">${SERVICE_CHARGE.toFixed(2)}</span>
+                            <span className="font-medium text-gray-700">${SERVICE_CHARGE.toFixed(2)}</span>
                         </div>
-                        <div className="flex justify-between font-bold">
-                            <span className="text-gray-800">Tổng Thanh Toán</span>
-                            <span className="text-pink-400 text-lg">${total.toFixed(2)}</span>
+                        <div className="flex justify-between font-bold pt-2 border-t border-gray-100">
+                            <span className="text-gray-800">Tổng</span>
+                            <span className="text-brand-600 text-lg">${total.toFixed(2)}</span>
                         </div>
                     </div>
-                    <p className="text-xs text-gray-400 mb-6">Một email xác nhận đã được gửi đến bạn.</p>
-                    <button
-                        onClick={onBack}
-                        className="w-full py-4 bg-pink-400 text-white font-bold rounded-2xl hover:bg-pink-300 active:scale-95 transition-all shadow-md shadow-pink-100"
-                    >
+                    <button onClick={onBack} className="w-full py-2.5 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700 active:scale-[0.97] transition-all text-sm">
                         Quản Lý Lịch Đặt
                     </button>
                 </motion.div>
@@ -147,95 +128,46 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
         );
     }
 
-    // ── Main booking layout ───────────────────────────────────────────────────
     return (
-        <div className="min-h-screen bg-[#FDFCFD] pt-20 pb-24">
-            <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-8">
-
-                {/* ── Back + Title ── */}
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="mb-8"
-                >
-                    <button
-                        onClick={onBack}
-                        className="flex items-center gap-1.5 text-sm font-semibold text-pink-400 hover:text-pink-400 mb-4 transition-colors"
-                    >
-                        <ArrowLeft className="w-4 h-4" /> Về Màn Hình Tìm Kiếm
+        <div className="min-h-screen bg-gray-50 pt-20 pb-20">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+                    <button onClick={onBack} className="flex items-center gap-1 text-sm font-medium text-brand-600 hover:text-brand-700 mb-3 transition-colors">
+                        <ArrowLeft className="w-4 h-4" /> Quay lại
                     </button>
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
-                        Lên Lịch Trình Chăm Sóc
-                    </h1>
-                    <p className="text-gray-400">Chọn ngày và giờ mong muốn, sau đó hoàn tất thanh toán.</p>
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">Đặt Lịch Chăm Sóc</h1>
+                    <p className="text-gray-400 text-sm">Chọn ngày giờ và hoàn tất thanh toán.</p>
                 </motion.div>
 
-                <div className="flex flex-col lg:flex-row gap-8">
-
-                    {/* ═══════════════════════════════════════
-                        LEFT COLUMN — Date & Time Selection
-                    ═══════════════════════════════════════ */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.05 }}
-                        className="flex-1 space-y-6"
-                    >
-                        {/* ── Calendar Card ── */}
-                        <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-50">
-                            <div className="flex items-center justify-between mb-8">
-                                <h2 className="text-xl font-bold text-gray-800">Chọn Ngày</h2>
-                                <div className="flex items-center gap-5">
-                                    <button
-                                        onClick={prevMonth}
-                                        className="text-gray-300 hover:text-pink-400 transition-colors p-1"
-                                    >
-                                        <ChevronLeft className="w-5 h-5" />
-                                    </button>
-                                    <span className="font-bold text-gray-700 min-w-[130px] text-center">
-                                        {MONTH_NAMES[viewMonth]} {viewYear}
-                                    </span>
-                                    <button
-                                        onClick={nextMonth}
-                                        className="text-gray-300 hover:text-pink-400 transition-colors p-1"
-                                    >
-                                        <ChevronRight className="w-5 h-5" />
-                                    </button>
+                <div className="flex flex-col lg:flex-row gap-6">
+                    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="flex-1 space-y-5">
+                        {/* Calendar */}
+                        <div className="bg-white rounded-xl p-6 border border-gray-100">
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-base font-semibold text-gray-800">Chọn Ngày</h2>
+                                <div className="flex items-center gap-3">
+                                    <button onClick={prevMonth} className="text-gray-300 hover:text-brand-600 transition-colors p-1"><ChevronLeft className="w-4 h-4" /></button>
+                                    <span className="font-medium text-gray-700 text-sm min-w-[120px] text-center">{MONTH_NAMES[viewMonth]} {viewYear}</span>
+                                    <button onClick={nextMonth} className="text-gray-300 hover:text-brand-600 transition-colors p-1"><ChevronRight className="w-4 h-4" /></button>
                                 </div>
                             </div>
-
-                            {/* Day-of-week headers */}
                             <div className="grid grid-cols-7 mb-2">
                                 {DAYS_OF_WEEK.map(d => (
-                                    <div key={d} className="text-center text-xs font-bold text-gray-300 py-2">
-                                        {d}
-                                    </div>
+                                    <div key={d} className="text-center text-xs font-medium text-gray-400 py-1.5">{d}</div>
                                 ))}
                             </div>
-
-                            {/* Calendar grid */}
                             <div className="grid grid-cols-7 gap-y-1">
-                                {/* Empty leading cells */}
-                                {Array.from({ length: firstDayOfMonth }).map((_, i) => (
-                                    <div key={`empty-${i}`} />
-                                ))}
-                                {/* Day cells */}
+                                {Array.from({ length: firstDayOfMonth }).map((_, i) => <div key={`e-${i}`} />)}
                                 {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(day => {
                                     const past = isPastDay(day);
                                     const isSelected = selectedDay === day && !past;
                                     return (
                                         <button
-                                            key={day}
-                                            disabled={past}
+                                            key={day} disabled={past}
                                             onClick={() => { setSelectedDay(day); setSelectedTime(null); }}
-                                            className={`
-                                                mx-auto flex items-center justify-center w-10 h-10 rounded-2xl text-sm font-semibold transition-all
+                                            className={`mx-auto flex items-center justify-center w-9 h-9 rounded-lg text-sm font-medium transition-all
                                                 ${past ? 'text-gray-200 cursor-not-allowed' : 'cursor-pointer'}
-                                                ${isSelected
-                                                    ? 'bg-pink-300 text-white shadow-md shadow-pink-100'
-                                                    : !past ? 'text-gray-600 hover:bg-pink-50 hover:text-pink-400' : ''}
-                                            `}
+                                                ${isSelected ? 'bg-brand-600 text-white' : !past ? 'text-gray-600 hover:bg-brand-50 hover:text-brand-700' : ''}`}
                                         >
                                             {day}
                                         </button>
@@ -244,214 +176,132 @@ export const BookingPage: React.FC<BookingPageProps> = ({ nurse, onBack, onConfi
                             </div>
                         </div>
 
-                        {/* ── Time Slot Card ── */}
-                        <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-50">
-                            <h2 className="text-xl font-bold text-gray-800 mb-6">Chọn Giờ</h2>
-
-                            {/* Period tabs */}
-                            <div className="flex gap-3 mb-7">
+                        {/* Time */}
+                        <div className="bg-white rounded-xl p-6 border border-gray-100">
+                            <h2 className="text-base font-semibold text-gray-800 mb-4">Chọn Giờ</h2>
+                            <div className="flex gap-2 mb-5">
                                 {([
                                     { key: 'morning', label: 'Sáng', Icon: Sun },
                                     { key: 'afternoon', label: 'Chiều', Icon: CloudSun },
                                     { key: 'evening', label: 'Tối', Icon: Moon },
                                 ] as const).map(({ key, label, Icon }) => (
-                                    <button
-                                        key={key}
-                                        onClick={() => { setTimePeriod(key); setSelectedTime(null); }}
-                                        className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${timePeriod === key
-                                            ? 'bg-pink-300 text-white shadow-md shadow-pink-100'
-                                            : 'bg-gray-50 text-gray-400 hover:bg-pink-50 hover:text-pink-400'
-                                            }`}
-                                    >
-                                        <Icon className="w-4 h-4" />
-                                        {label}
+                                    <button key={key} onClick={() => { setTimePeriod(key); setSelectedTime(null); }}
+                                        className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${timePeriod === key ? 'bg-brand-600 text-white' : 'bg-gray-50 text-gray-500 hover:bg-brand-50 hover:text-brand-600 border border-gray-200'
+                                            }`}>
+                                        <Icon className="w-3.5 h-3.5" /> {label}
                                     </button>
                                 ))}
                             </div>
-
-                            {/* Time chips */}
                             <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={timePeriod}
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -8 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="grid grid-cols-3 sm:grid-cols-4 gap-3"
-                                >
+                                <motion.div key={timePeriod} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15 }}
+                                    className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                                     {TIME_SLOTS[timePeriod].map(time => {
                                         const unavailable = UNAVAILABLE.has(time);
                                         const isSelected = selectedTime === time;
                                         return (
-                                            <button
-                                                key={time}
-                                                disabled={unavailable}
-                                                onClick={() => setSelectedTime(time)}
-                                                className={`py-3.5 px-3 rounded-2xl border text-sm font-semibold transition-all ${unavailable
-                                                    ? 'border-pink-50 text-pink-400 cursor-not-allowed bg-pink-50/40 line-through'
-                                                    : isSelected
-                                                        ? 'border-pink-300 text-pink-400 bg-pink-50/50 shadow-sm'
-                                                        : 'border-gray-100 text-gray-700 hover:border-pink-200 hover:text-pink-400'
-                                                    }`}
-                                            >
+                                            <button key={time} disabled={unavailable} onClick={() => setSelectedTime(time)}
+                                                className={`py-2.5 px-2 rounded-lg border text-sm font-medium transition-all ${unavailable ? 'border-gray-100 text-gray-300 cursor-not-allowed line-through' :
+                                                        isSelected ? 'border-brand-300 text-brand-700 bg-brand-50' :
+                                                            'border-gray-200 text-gray-700 hover:border-brand-200 hover:text-brand-600'
+                                                    }`}>
                                                 {time}
                                             </button>
                                         );
                                     })}
                                 </motion.div>
                             </AnimatePresence>
-
-                            {!selectedDay && (
-                                <p className="text-xs text-gray-400 mt-4 italic">
-                                    Vui lòng chọn ngày trước khi chọn giờ chăm sóc.
-                                </p>
-                            )}
+                            {!selectedDay && <p className="text-xs text-gray-400 mt-3 italic">Chọn ngày trước khi chọn giờ.</p>}
                         </div>
                     </motion.div>
 
-                    {/* ═══════════════════════════════════════
-                        RIGHT COLUMN — Booking Summary
-                    ═══════════════════════════════════════ */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
-                        className="w-full lg:w-[400px] shrink-0"
-                    >
-                        <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-50 sticky top-28">
-                            <h2 className="text-xl font-bold text-gray-800 mb-7">Tóm Tắt Đặt Lịch</h2>
-
-                            {/* Nurse info */}
-                            <div className="flex items-center gap-4 mb-7">
-                                <img
-                                    src={nurse.image}
-                                    alt={nurse.name}
-                                    referrerPolicy="no-referrer"
-                                    className="w-16 h-16 rounded-full object-cover border-4 border-pink-50"
-                                />
+                    {/* Summary */}
+                    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="w-full lg:w-[360px] shrink-0">
+                        <div className="bg-white rounded-xl p-6 border border-gray-100 sticky top-24">
+                            <h2 className="text-base font-semibold text-gray-800 mb-5">Tóm Tắt</h2>
+                            <div className="flex items-center gap-3 mb-5">
+                                <img src={nurse.image} alt={nurse.name} referrerPolicy="no-referrer" className="w-12 h-12 rounded-xl object-cover border border-gray-100" />
                                 <div>
-                                    <h3 className="font-bold text-gray-800">{nurse.name}</h3>
+                                    <h3 className="font-semibold text-gray-800 text-sm">{nurse.name}</h3>
                                     <p className="text-gray-400 text-xs">{nurse.title}</p>
-                                    <div className="flex items-center gap-1 mt-1">
-                                        <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                                        <span className="text-xs font-bold text-gray-700">{nurse.rating.toFixed(1)}</span>
-                                        <span className="text-xs text-gray-400">({nurse.reviewsCount} đánh giá)</span>
+                                    <div className="flex items-center gap-1 mt-0.5">
+                                        <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                                        <span className="text-xs font-medium text-gray-700">{nurse.rating.toFixed(1)}</span>
+                                        <span className="text-xs text-gray-400">({nurse.reviewsCount})</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Booking details */}
-                            <div className="space-y-5 mb-7">
-                                {/* Date & Time */}
-                                <div className="flex items-start gap-3">
-                                    <div className="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center shrink-0">
-                                        <CalendarDays className="w-4.5 h-4.5 text-blue-400" />
+                            <div className="space-y-4 mb-5">
+                                <div className="flex items-start gap-2.5">
+                                    <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center shrink-0">
+                                        <CalendarDays className="w-4 h-4 text-blue-500" />
                                     </div>
                                     <div className="flex-1">
-                                        <div className="flex justify-between items-center mb-0.5">
-                                            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Ngày & Giờ</span>
-                                            {selectedDate && (
-                                                <button
-                                                    onClick={() => { setSelectedDay(null); setSelectedTime(null); }}
-                                                    className="text-pink-400 text-[10px] font-bold hover:text-pink-400 transition-colors"
-                                                >
-                                                    Thay Đổi
-                                                </button>
-                                            )}
-                                        </div>
-                                        <p className="text-sm font-bold text-gray-700">
-                                            {selectedDate && selectedTime
-                                                ? `${selectedDate} · ${selectedTime}`
-                                                : <span className="text-gray-300 font-normal italic">Chưa xác định</span>}
+                                        <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">Ngày & Giờ</span>
+                                        <p className="text-sm font-medium text-gray-700">
+                                            {selectedDate && selectedTime ? `${selectedDate} · ${selectedTime}` : <span className="text-gray-300 font-normal italic">Chưa chọn</span>}
                                         </p>
                                     </div>
                                 </div>
-
-                                {/* Location */}
-                                <div className="flex items-start gap-3">
-                                    <div className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center shrink-0">
+                                <div className="flex items-start gap-2.5">
+                                    <div className="w-8 h-8 bg-gray-50 rounded-lg flex items-center justify-center shrink-0">
                                         <MapPin className="w-4 h-4 text-gray-400" />
                                     </div>
                                     <div className="flex-1">
-                                        <div className="flex justify-between items-center mb-0.5">
-                                            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Vị Trí</span>
-                                            <button className="text-pink-400 text-[10px] font-bold hover:text-pink-400 transition-colors">Đổi</button>
-                                        </div>
-                                        <p className="text-sm font-bold text-gray-700">Tại nhà</p>
+                                        <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">Vị trí</span>
+                                        <p className="text-sm font-medium text-gray-700">Tại nhà</p>
                                         <p className="text-xs text-gray-400">123 Phố Gia Đình, Căn hộ 4B</p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Payment Method */}
-                            <h4 className="font-bold text-gray-800 mb-3 text-sm">Phương Thức Thanh Toán</h4>
-                            <div className="space-y-3 mb-7">
+                            <h4 className="font-medium text-gray-800 mb-2 text-sm">Thanh Toán</h4>
+                            <div className="space-y-2 mb-5">
                                 {([
                                     { key: 'card', label: 'Thẻ Tín Dụng', Icon: CreditCard },
                                     { key: 'wallet', label: 'Ví Điện Tử', Icon: Wallet },
                                 ] as const).map(({ key, label, Icon }) => (
-                                    <button
-                                        key={key}
-                                        onClick={() => setPaymentMethod(key)}
-                                        className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all ${paymentMethod === key
-                                            ? 'border-pink-200 bg-pink-50/30'
-                                            : 'border-gray-100 hover:border-pink-100'
-                                            }`}
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <Icon className="w-5 h-5 text-gray-400" />
-                                            <span className="text-sm font-bold text-gray-700">{label}</span>
-                                        </div>
-                                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${paymentMethod === key ? 'border-pink-300' : 'border-gray-200'
+                                    <button key={key} onClick={() => setPaymentMethod(key)}
+                                        className={`w-full p-3 rounded-lg border flex items-center justify-between transition-all ${paymentMethod === key ? 'border-brand-200 bg-brand-50/30' : 'border-gray-200 hover:border-brand-100'
                                             }`}>
-                                            {paymentMethod === key && (
-                                                <div className="w-2.5 h-2.5 bg-pink-300 rounded-full" />
-                                            )}
+                                        <div className="flex items-center gap-2.5">
+                                            <Icon className="w-4 h-4 text-gray-400" />
+                                            <span className="text-sm font-medium text-gray-700">{label}</span>
+                                        </div>
+                                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${paymentMethod === key ? 'border-brand-500' : 'border-gray-200'}`}>
+                                            {paymentMethod === key && <div className="w-2 h-2 bg-brand-500 rounded-full" />}
                                         </div>
                                     </button>
                                 ))}
                             </div>
 
-                            {/* Price breakdown */}
-                            <div className="space-y-3 pt-6 border-t border-gray-50 mb-7">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-gray-400">
-                                        Phí Dịch Vụ
-                                        {selectedService && <span className="ml-1 text-xs text-gray-300">({selectedService.unit})</span>}
-                                    </span>
-                                    <span className="font-bold text-gray-800">${sessionFee.toFixed(2)}</span>
+                            <div className="space-y-2 pt-4 border-t border-gray-50 mb-5 text-sm">
+                                <div className="flex justify-between">
+                                    <span className="text-gray-400">Phí Dịch Vụ</span>
+                                    <span className="font-medium text-gray-800">${sessionFee.toFixed(2)}</span>
                                 </div>
-                                <div className="flex justify-between text-sm">
+                                <div className="flex justify-between">
                                     <span className="text-gray-400">Phí Nền Tảng</span>
-                                    <span className="font-bold text-gray-800">${SERVICE_CHARGE.toFixed(2)}</span>
+                                    <span className="font-medium text-gray-800">${SERVICE_CHARGE.toFixed(2)}</span>
                                 </div>
-                                <div className="flex justify-between items-center pt-3">
-                                    <span className="text-lg font-bold text-gray-900">Tổng</span>
-                                    <span className="text-2xl font-bold text-gray-900">${total.toFixed(2)}</span>
+                                <div className="flex justify-between items-center pt-2">
+                                    <span className="font-bold text-gray-900">Tổng</span>
+                                    <span className="text-xl font-bold text-gray-900">${total.toFixed(2)}</span>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-2 bg-green-50 rounded-2xl p-3 mb-6">
-                                <ShieldCheck className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                                <p className="text-xs text-green-600 leading-relaxed">
-                                    Yên tâm cùng Dịch vụ Bảo vệ CareMom. Tiền của bạn sẽ chỉ được thanh toán sau khi phiên hỗ trợ kết thúc.
+                            <div className="flex items-start gap-2 bg-green-50 rounded-lg p-2.5 mb-4">
+                                <ShieldCheck className="w-3.5 h-3.5 text-green-600 shrink-0 mt-0.5" />
+                                <p className="text-[11px] text-green-700 leading-relaxed">
+                                    Bảo vệ thanh toán. Tiền chỉ được chuyển sau khi phiên kết thúc.
                                 </p>
                             </div>
 
-                            <button
-                                disabled={!canConfirm}
-                                onClick={handleConfirm}
-                                className={`w-full py-4 font-bold rounded-2xl transition-all text-sm shadow-md active:scale-95 ${canConfirm
-                                    ? 'bg-pink-300 text-white hover:bg-pink-400 shadow-pink-100'
-                                    : 'bg-gray-100 text-gray-300 cursor-not-allowed shadow-none'
-                                    }`}
-                            >
-                                {canConfirm ? 'Xác Nhận Đặt Lịch' : 'Bạn hãy Chọn Ngày & Giờ Để Tiếp Tục'}
+                            <button disabled={!canConfirm} onClick={handleConfirm}
+                                className={`w-full py-2.5 font-semibold rounded-lg transition-all text-sm active:scale-[0.97] ${canConfirm ? 'bg-brand-600 text-white hover:bg-brand-700' : 'bg-gray-100 text-gray-300 cursor-not-allowed'
+                                    }`}>
+                                {canConfirm ? 'Xác Nhận Đặt Lịch' : 'Chọn Ngày & Giờ'}
                             </button>
-                            <p className="text-[10px] text-gray-400 text-center mt-3">
-                                Khi tiếp tục, bạn hoàn toàn đồng ý{' '}
-                                <a href="#" className="underline hover:text-pink-400 transition-colors">Điều khoản dịch vụ</a> của chúng tôi.
-                            </p>
                         </div>
                     </motion.div>
                 </div>

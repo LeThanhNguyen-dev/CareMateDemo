@@ -26,18 +26,18 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <Hero onStart={() => onNavigate('services')} />
 
       {/* Stats Section */}
-      <section className="py-12 bg-pink-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <section className="py-10 bg-brand-600">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
               { label: 'Điều dưỡng đã xác minh', value: '500+' },
-              { label: 'Mẹ bỉm hạnh phúc', value: '5,000+' },
-              { label: 'Ca chăm sóc', value: '12,000+' },
+              { label: 'Mẹ bỉm hạnh phúc', value: '5.000+' },
+              { label: 'Ca chăm sóc', value: '12.000+' },
               { label: 'Đánh giá trung bình', value: '4.9/5' },
             ].map((stat, i) => (
               <div key={i} className="text-white">
-                <p className="text-3xl font-bold mb-1">{stat.value}</p>
-                <p className="text-pink-100 text-sm font-medium">{stat.label}</p>
+                <p className="text-2xl md:text-3xl font-bold mb-0.5">{stat.value}</p>
+                <p className="text-brand-200 text-xs font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -45,16 +45,16 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Dịch Vụ Chuyên Biệt</h2>
-            <p className="text-slate-500 max-w-2xl mx-auto">
-              Chúng tôi cung cấp đa dạng dịch vụ chăm sóc phù hợp với nhu cầu riêng biệt của mẹ và bé sơ sinh.
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Dịch Vụ Chuyên Biệt</h2>
+            <p className="text-gray-500 max-w-xl mx-auto text-sm">
+              Đa dạng dịch vụ chăm sóc, thiết kế riêng cho nhu cầu của mẹ và bé sơ sinh.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {SERVICES.slice(0, 6).map((service) => (
               <ServiceCard
                 key={service.id}
@@ -64,77 +64,77 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-10 text-center">
             <button
               onClick={() => onNavigate('services')}
-              className="inline-flex items-center text-pink-400 font-bold hover:text-pink-400 transition-colors"
+              className="inline-flex items-center text-brand-600 font-semibold text-sm hover:text-brand-700 transition-colors"
             >
-              Xem Tất Cả Dịch Vụ
-              <ArrowRight className="ml-2 w-5 h-5" />
+              Xem tất cả dịch vụ
+              <ArrowRight className="ml-1.5 w-4 h-4" />
             </button>
           </div>
         </div>
       </section>
 
       {/* How it Works */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">CareMom Hoạt Động Như Thế Nào</h2>
-              <div className="space-y-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">Quy trình đơn giản</h2>
+              <div className="space-y-6">
                 {[
                   {
-                    title: 'Tìm & Bộ Lọc',
+                    step: '01',
+                    title: 'Tìm & Lọc',
                     desc: 'Tìm kiếm điều dưỡng phù hợp dựa trên chuyên môn, kinh nghiệm và lịch trống.',
                     icon: Users,
-                    color: 'bg-blue-100 text-blue-600'
                   },
                   {
-                    title: 'Đặt Lịch Hẹn',
-                    desc: 'Chọn ngày giờ thuận tiện với bạn. Mọi đặt lịch luôn linh hoạt và bảo mật.',
+                    step: '02',
+                    title: 'Đặt lịch hẹn',
+                    desc: 'Chọn ngày giờ thuận tiện. Mọi đặt lịch luôn linh hoạt và bảo mật.',
                     icon: Clock,
-                    color: 'bg-pink-100 text-pink-400'
                   },
                   {
-                    title: 'Nhận Dịch Vụ Chuyên Gia',
-                    desc: 'Điều dưỡng chứng chỉ sẽ đến tận nhà bạn để cung cấp dịch vụ chăm sóc chuyên nghiệp.',
+                    step: '03',
+                    title: 'Nhận dịch vụ',
+                    desc: 'Điều dưỡng có chứng chỉ sẽ đến tận nhà cung cấp dịch vụ chuyên nghiệp.',
                     icon: ShieldCheck,
-                    color: 'bg-green-100 text-green-600'
                   }
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start space-x-4">
-                    <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0", step.color)}>
-                      <step.icon className="w-6 h-6" />
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center shrink-0">
+                      <span className="text-sm font-bold text-brand-600">{item.step}</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-slate-900 mb-1">{step.title}</h3>
-                      <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
+                      <h3 className="text-base font-semibold text-gray-900 mb-1">{item.title}</h3>
+                      <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
             <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl">
+              <div className="rounded-2xl overflow-hidden shadow-lg">
                 <img
                   src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?q=80&w=1200&auto=format&fit=crop"
-                  alt="Nursing Care"
-                  className="w-full h-[500px] object-cover"
+                  alt="Dịch vụ điều dưỡng"
+                  className="w-full h-[420px] object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-3xl shadow-2xl hidden lg:block max-w-xs">
-                <div className="flex items-center space-x-2 text-pink-400 mb-4">
-                  <Award className="w-6 h-6" />
-                  <span className="font-bold">Đảm Bảo Chất Lượng</span>
+              <div className="absolute -bottom-6 -right-6 bg-white p-5 rounded-xl shadow-lg hidden lg:block max-w-[260px] border border-gray-100">
+                <div className="flex items-center gap-2 text-brand-600 mb-2">
+                  <Award className="w-4 h-4" />
+                  <span className="text-sm font-semibold">Đảm bảo chất lượng</span>
                 </div>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  "Sự chăm sóc mà tôi nhận được từ chị Sarah đã giúp tôi thay đổi rất nhiều. Chị ấy giúp tôi vượt qua những tuần đầu khó khăn nhất."
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  "Dịch vụ từ chị Sarah giúp tôi vượt qua những tuần đầu khó khăn nhất."
                 </p>
-                <div className="mt-4 flex items-center space-x-2">
-                  <img src="https://i.pravatar.cc/100?img=32" className="w-8 h-8 rounded-full" />
-                  <span className="text-xs font-bold text-slate-900">Jessica M., Mẹ bỉm</span>
+                <div className="mt-3 flex items-center gap-2">
+                  <img src="https://i.pravatar.cc/80?img=32" className="w-6 h-6 rounded-full" />
+                  <span className="text-[11px] font-medium text-gray-700">Jessica M.</span>
                 </div>
               </div>
             </div>
@@ -143,69 +143,52 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </section>
 
       {/* Why CareMom Section */}
-      <section className="py-24 bg-pink-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Tiêu Chuẩn CareMom</h2>
-            <p className="text-slate-500 max-w-2xl mx-auto">
-              Chúng tôi hiểu thời kỳ hậu sản rất nhạy cảm. Vì vậy chúng tôi mang tiêu chuẩn chăm sóc cao nhất tới tận nhà bạn.
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Tiêu chuẩn CareMom</h2>
+            <p className="text-gray-500 max-w-xl mx-auto text-sm">
+              Tiêu chuẩn chăm sóc cao nhất, mang đến tận nhà bạn.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Heart className="w-8 h-8 text-pink-400 fill-current" />
+          <div className="grid md:grid-cols-4 gap-5">
+            {[
+              { icon: Heart, label: 'Chăm Sóc Tận Tâm', desc: 'Mỗi điều dưỡng được chọn lọc kỹ càng về sự đồng cảm và chuyên môn.', color: 'text-red-500 bg-red-50' },
+              { icon: CheckCircle2, label: 'Được Xác Thực', desc: 'Kiểm tra lý lịch pháp lý và chứng chỉ chuyên môn nghiêm ngặt.', color: 'text-green-600 bg-green-50' },
+              { icon: Star, label: 'Đánh Giá Cao', desc: 'Đạt 5 sao từ những khách hàng khắt khe nhất.', color: 'text-amber-500 bg-amber-50' },
+              { icon: Zap, label: 'Phản Hồi Nhanh', desc: 'Đặt lịch dễ dàng cho các trường hợp cấp bách.', color: 'text-blue-600 bg-blue-50' },
+            ].map((item, i) => (
+              <div key={i} className="p-6 rounded-xl border border-gray-100 hover:shadow-sm transition-shadow">
+                <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center mb-4", item.color)}>
+                  <item.icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-2">{item.label}</h3>
+                <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Chăm Sóc Tận Tâm</h3>
-              <p className="text-sm text-slate-500">Moị điều dưỡng đều được chọn lọc bằng sự đồng cảm và vì sức khỏe mẹ bé.</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <CheckCircle2 className="w-8 h-8 text-green-500" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Được Xác Thực</h3>
-              <p className="text-sm text-slate-500">Kiểm tra lý lịch pháp lý và chứng chỉ chuyên môn khắt khe.</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Star className="w-8 h-8 text-amber-500 fill-current" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Đánh Giá Nổi Bật</h3>
-              <p className="text-sm text-slate-500">Đạt 5 sao tuyệt đối từ những khách hàng khắt khe nhất.</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-[32px] shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Zap className="w-8 h-8 text-blue-500" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Phản Hồi Nhanh</h3>
-              <p className="text-sm text-slate-500">Đặt lịch dễ dàng và linh hoạt cho các trường hợp cấp bách.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Featured Nurses */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-end mb-16">
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-end mb-10">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Điều Dưỡng Hàng Đầu</h2>
-              <p className="text-slate-500">Những chuyên gia giàu tinh hoa và dày dặn kinh nghiệm nhất.</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Điều dưỡng hàng đầu</h2>
+              <p className="text-gray-500 text-sm">Những chuyên gia giàu kinh nghiệm nhất.</p>
             </div>
             <button
               onClick={() => onNavigate('nurses')}
-              className="hidden md:flex items-center text-pink-400 font-bold hover:text-pink-400 transition-colors"
+              className="hidden md:flex items-center text-brand-600 font-semibold text-sm hover:text-brand-700 transition-colors"
             >
-              Xem Tất Cả Điều Dưỡng
-              <ArrowRight className="ml-2 w-5 h-5" />
+              Xem tất cả
+              <ArrowRight className="ml-1.5 w-4 h-4" />
             </button>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-5">
             {NURSES.map((nurse) => (
               <NurseCard
                 key={nurse.id}
@@ -218,25 +201,25 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-pink-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Sẵn sàng trải nghiệm dịch vụ chăm sóc hoàn hảo?</h2>
-            <p className="text-lg text-slate-600 mb-10">
-              Hãy gia nhập cùng ngàn mẹ bỉm sữa tin cậy CareMom vì sự chuyên nghiệp và tận tụy.
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Sẵn sàng trải nghiệm?</h2>
+            <p className="text-gray-500 mb-8 text-sm">
+              Gia nhập cùng hàng ngàn mẹ bỉm tin tưởng CareMom.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
               <button
                 onClick={() => onNavigate('services')}
-                className="px-10 py-4 bg-pink-300 text-white rounded-full font-bold hover:bg-pink-300 transition-all shadow-lg shadow-pink-200"
+                className="px-8 py-3 bg-brand-600 text-white rounded-lg font-semibold text-sm hover:bg-brand-700 transition-colors"
               >
-                Bắt Đầu Ngay
+                Bắt đầu ngay
               </button>
               <button
                 onClick={() => onNavigate('register')}
-                className="px-10 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold hover:bg-slate-50 transition-all"
+                className="px-8 py-3 bg-white text-gray-700 border border-gray-200 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-colors"
               >
-                Đăng Ký Khám
+                Tạo tài khoản
               </button>
             </div>
           </div>
