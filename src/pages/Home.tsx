@@ -189,7 +189,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">
-            {NURSES.map((nurse) => (
+            {NURSES.slice(0, 3).map((nurse) => (
               <NurseCard
                 key={nurse.id}
                 nurse={nurse}

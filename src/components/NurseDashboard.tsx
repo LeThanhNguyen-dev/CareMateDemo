@@ -4,8 +4,8 @@ import WorkScheduleSetup from './WorkScheduleSetup';
 import {
   Search, Calendar, Clock, DollarSign, Plus, Video, MapPin, User,
   ChevronDown, LogOut, LayoutDashboard, Upload, FileText, ShieldCheck,
-  CheckCircle2, AlertCircle, Award, Mail, Phone, Camera, TrendingUp,
-  ArrowUpRight, Download, Eye,
+  CheckCircle2, AlertCircle, Award, Camera,
+  ArrowUpRight, Download,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { CertificationRequest } from '../types';
@@ -103,12 +103,16 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
   }, [activePage]);
 
   const handleSubmitCert = () => {
-    if (!currentUser || certDocs.length === 0) return;
+    if (!currentUser) return;
+
+    // Allow demo submission even with 0 docs for better UX in prototype, 
+    // but warn if they missed something.
     const req: CertificationRequest = {
       id: `cert-${Date.now()}`,
       nurseId: currentUser.id,
       nurseName: currentUser.name,
       nurseEmail: currentUser.email,
+      nurseImage: 'https://i.pravatar.cc/150?u=nurse_sarah',
       documents: certDocs.map(d => ({ name: d, type: 'document', uploadedAt: new Date().toISOString().split('T')[0] })),
       certifications: certCerts,
       experience: certExp,
@@ -116,9 +120,13 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
       status: 'pending',
       submittedAt: new Date().toISOString().split('T')[0],
     };
+
     storage.saveCertRequest(req);
     setCertRequest(req);
     setCertSubmitted(true);
+
+    // Visual feedback
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSaveProfile = () => {
@@ -307,7 +315,10 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
                   </div>
 
                   <div>
-                    <label className="text-xs font-medium text-gray-600 mb-2 block">Tài Liệu</label>
+                    <label className="text-xs font-medium text-gray-600 mb-2 block flex justify-between items-center">
+                      Tài Liệu
+                      <span className="text-[10px] text-brand-600 font-bold bg-brand-50 px-2 py-0.5 rounded-full">Chọn các mục bên dưới để tải lên</span>
+                    </label>
                     <div className="space-y-2">
                       {['Giấy Phép Hành Nghề', 'CMND / CCCD', 'Lý Lịch Tư Pháp'].map((doc) => {
                         const isAdded = certDocs.includes(doc);
@@ -329,11 +340,23 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
                     </div>
                   </div>
 
-                  <button onClick={handleSubmitCert} disabled={certDocs.length === 0}
-                    className={cn("w-full py-3 rounded-lg font-semibold text-sm transition-all",
-                      certDocs.length > 0 ? 'bg-brand-600 text-white hover:bg-brand-700 active:scale-[0.97]' : 'bg-gray-100 text-gray-300 cursor-not-allowed')}>
+                  <button onClick={handleSubmitCert}
+                    className="w-full py-3 bg-brand-600 text-white rounded-lg font-semibold text-sm hover:bg-brand-700 active:scale-[0.97] transition-all shadow-md shadow-brand-100">
                     {certRequest?.status === 'rejected' ? 'Gửi Lại Hồ Sơ' : 'Gửi Hồ Sơ Xác Minh'}
                   </button>
+                </div>
+              )}
+
+              {/* Success message banner */}
+              {certSubmitted && certRequest && certRequest.status === 'pending' && (
+                <div className="bg-green-600 text-white p-4 rounded-xl flex items-center gap-3 mb-6 shadow-lg animate-in fade-in slide-in-from-top duration-500">
+                  <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold">Gửi Hồ Sơ Thành Công!</p>
+                    <p className="text-xs text-white/80">Hồ sơ của bạn đang được Admin xem xét.</p>
+                  </div>
                 </div>
               )}
 
@@ -455,84 +478,99 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
 
         {/* Earnings Page */}
         {activePage === 'earnings' && (
-          <div className="flex-1 p-5 md:p-7">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-xl font-bold text-gray-900 mb-1">Thu Nhập</h1>
-              <p className="text-gray-400 text-sm mb-6">Tổng quan thu nhập và lịch sử thanh toán.</p>
+          isVerified ? (
+            <div className="flex-1 p-5 md:p-7">
+              <div className="max-w-4xl mx-auto">
+                <h1 className="text-xl font-bold text-gray-900 mb-1">Thu Nhập</h1>
+                <p className="text-gray-400 text-sm mb-6">Tổng quan thu nhập và lịch sử thanh toán.</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-white rounded-xl p-5 border border-gray-100">
-                  <p className="text-xs text-gray-400 font-medium mb-2">Thu Nhập Tháng Này</p>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-gray-900">$4,850</span>
-                    <span className="text-[10px] px-2 py-0.5 bg-green-50 text-green-600 rounded-md font-semibold flex items-center gap-0.5"><ArrowUpRight className="w-2.5 h-2.5" /> +12%</span>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-white rounded-xl p-5 border border-gray-100">
+                    <p className="text-xs text-gray-400 font-medium mb-2">Thu Nhập Tháng Này</p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-bold text-gray-900">$4,850</span>
+                      <span className="text-[10px] px-2 py-0.5 bg-green-50 text-green-600 rounded-md font-semibold flex items-center gap-0.5"><ArrowUpRight className="w-2.5 h-2.5" /> +12%</span>
+                    </div>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border border-gray-100">
+                    <p className="text-xs text-gray-400 font-medium mb-2">Tổng Ca Tháng Này</p>
+                    <span className="text-2xl font-bold text-gray-900">61</span>
+                  </div>
+                  <div className="bg-white rounded-xl p-5 border border-gray-100">
+                    <p className="text-xs text-gray-400 font-medium mb-2">Thu Nhập Chờ</p>
+                    <span className="text-2xl font-bold text-amber-600">$80</span>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl p-5 border border-gray-100">
-                  <p className="text-xs text-gray-400 font-medium mb-2">Tổng Ca Tháng Này</p>
-                  <span className="text-2xl font-bold text-gray-900">61</span>
-                </div>
-                <div className="bg-white rounded-xl p-5 border border-gray-100">
-                  <p className="text-xs text-gray-400 font-medium mb-2">Thu Nhập Chờ</p>
-                  <span className="text-2xl font-bold text-amber-600">$80</span>
-                </div>
-              </div>
 
-              {/* Chart */}
-              <div className="bg-white rounded-xl p-6 border border-gray-100 mb-6">
-                <h2 className="text-base font-semibold text-gray-900 mb-5">Thu Nhập 6 Tháng</h2>
-                <div className="h-48 flex items-end gap-3">
-                  {monthlyEarnings.map((m, i) => {
-                    const maxVal = Math.max(...monthlyEarnings.map(e => e.value));
-                    const height = (m.value / maxVal) * 100;
-                    return (
-                      <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                        <span className="text-[10px] font-semibold text-gray-600">${(m.value / 1000).toFixed(1)}k</span>
-                        <div className={cn("w-full rounded-t-lg transition-all", i === monthlyEarnings.length - 1 ? 'bg-brand-500' : 'bg-brand-100')}
-                          style={{ height: `${height}%`, minHeight: '12px' }} />
-                        <span className="text-[10px] text-gray-400 font-medium">{m.month}</span>
-                      </div>
-                    );
-                  })}
+                {/* Chart */}
+                <div className="bg-white rounded-xl p-6 border border-gray-100 mb-6">
+                  <h2 className="text-base font-semibold text-gray-900 mb-5">Thu Nhập 6 Tháng</h2>
+                  <div className="h-48 flex items-end gap-3">
+                    {monthlyEarnings.map((m, i) => {
+                      const maxVal = Math.max(...monthlyEarnings.map(e => e.value));
+                      const height = (m.value / maxVal) * 100;
+                      return (
+                        <div key={i} className="flex-1 flex flex-col items-center gap-2">
+                          <span className="text-[10px] font-semibold text-gray-600">${(m.value / 1000).toFixed(1)}k</span>
+                          <div className={cn("w-full rounded-t-lg transition-all", i === monthlyEarnings.length - 1 ? 'bg-brand-500' : 'bg-brand-100')}
+                            style={{ height: `${height}%`, minHeight: '12px' }} />
+                          <span className="text-[10px] text-gray-400 font-medium">{m.month}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
 
-              {/* Recent Payments */}
-              <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-                <div className="p-5 border-b border-gray-50 flex justify-between items-center">
-                  <h2 className="text-sm font-semibold text-gray-900">Thanh Toán Gần Đây</h2>
-                  <button className="text-xs font-medium text-brand-600 hover:text-brand-700 flex items-center gap-1"><Download className="w-3 h-3" /> Xuất CSV</button>
-                </div>
-                <table className="w-full text-left">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-5 py-3 text-xs font-medium text-gray-500">Ngày</th>
-                      <th className="px-5 py-3 text-xs font-medium text-gray-500">Bệnh Nhân</th>
-                      <th className="px-5 py-3 text-xs font-medium text-gray-500">Dịch Vụ</th>
-                      <th className="px-5 py-3 text-xs font-medium text-gray-500">Số Tiền</th>
-                      <th className="px-5 py-3 text-xs font-medium text-gray-500">Trạng Thái</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {recentPayments.map((p, i) => (
-                      <tr key={i} className="hover:bg-gray-50/50">
-                        <td className="px-5 py-3.5 text-sm text-gray-500">{p.date}</td>
-                        <td className="px-5 py-3.5 text-sm font-medium text-gray-800">{p.patient}</td>
-                        <td className="px-5 py-3.5 text-sm text-gray-500">{p.service}</td>
-                        <td className="px-5 py-3.5 text-sm font-semibold text-gray-900">${p.amount}</td>
-                        <td className="px-5 py-3.5">
-                          <span className={cn("px-2 py-0.5 rounded-md text-[10px] font-semibold",
-                            p.status === 'paid' ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600')}>
-                            {p.status === 'paid' ? 'ĐÃ TT' : 'CHỜ TT'}
-                          </span>
-                        </td>
+                {/* Recent Payments */}
+                <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+                  <div className="p-5 border-b border-gray-50 flex justify-between items-center">
+                    <h2 className="text-sm font-semibold text-gray-900">Thanh Toán Gần Đây</h2>
+                    <button className="text-xs font-medium text-brand-600 hover:text-brand-700 flex items-center gap-1"><Download className="w-3 h-3" /> Xuất CSV</button>
+                  </div>
+                  <table className="w-full text-left">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-5 py-3 text-xs font-medium text-gray-500">Ngày</th>
+                        <th className="px-5 py-3 text-xs font-medium text-gray-500">Bệnh Nhân</th>
+                        <th className="px-5 py-3 text-xs font-medium text-gray-500">Dịch Vụ</th>
+                        <th className="px-5 py-3 text-xs font-medium text-gray-500">Số Tiền</th>
+                        <th className="px-5 py-3 text-xs font-medium text-gray-500">Trạng Thái</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-gray-50">
+                      {recentPayments.map((p, i) => (
+                        <tr key={i} className="hover:bg-gray-50/50">
+                          <td className="px-5 py-3.5 text-sm text-gray-500">{p.date}</td>
+                          <td className="px-5 py-3.5 text-sm font-medium text-gray-800">{p.patient}</td>
+                          <td className="px-5 py-3.5 text-sm text-gray-500">{p.service}</td>
+                          <td className="px-5 py-3.5 text-sm font-semibold text-gray-900">${p.amount}</td>
+                          <td className="px-5 py-3.5">
+                            <span className={cn("px-2 py-0.5 rounded-md text-[10px] font-semibold",
+                              p.status === 'paid' ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600')}>
+                              {p.status === 'paid' ? 'ĐÃ TT' : 'CHỜ TT'}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex-1 flex items-center justify-center p-10">
+              <div className="bg-white rounded-xl p-12 border border-gray-100 text-center max-w-sm w-full">
+                <div className="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <DollarSign className="w-7 h-7 text-amber-500" />
+                </div>
+                <h3 className="text-base font-semibold text-gray-900 mb-2">Thông Tin Bị Khoá</h3>
+                <p className="text-gray-400 text-sm mb-5">Bạn cần được xác minh chứng chỉ để xem thông tin thu nhập và thanh toán.</p>
+                <button onClick={() => setActivePage('certification')} className="px-6 py-2.5 bg-brand-600 text-white rounded-lg font-semibold text-sm hover:bg-brand-700 transition-all">
+                  Kiểm Tra Trạng Thái
+                </button>
+              </div>
+            </div>
+          )
         )}
 
         {/* Dashboard */}
@@ -557,34 +595,43 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <StatCard label="Ca Hôm Nay" value={isVerified ? "4" : "—"} subValue={isVerified ? "+1" : "N/A"} icon={<Calendar className="text-brand-600 w-5 h-5" />} bgColor="bg-brand-50" />
                 <StatCard label="Yêu Cầu Chờ" value={isVerified ? "7" : "—"} subValue={isVerified ? "Cần xem" : "N/A"} icon={<Clock className="text-orange-500 w-5 h-5" />} bgColor="bg-orange-50" alert />
-                <StatCard label="Thu Nhập Tuần" value={isVerified ? "$840" : "—"} subValue={isVerified ? "+12%" : "N/A"} icon={<DollarSign className="text-green-600 w-5 h-5" />} bgColor="bg-green-50" />
+                {isVerified ? (
+                  <StatCard label="Thu Nhập Tuần" value="$840" subValue="+12%" icon={<DollarSign className="text-green-600 w-5 h-5" />} bgColor="bg-green-50" />
+                ) : (
+                  <div className="bg-gray-50 rounded-xl p-6 border border-dashed border-gray-200 flex flex-col items-center justify-center text-center">
+                    <ShieldCheck className="w-5 h-5 text-gray-300 mb-2" />
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Thu Nhập Bị Khoá</p>
+                  </div>
+                )}
               </div>
 
-              {/* Earnings Chart */}
-              <div className="bg-white rounded-xl p-8 md:p-10 border border-gray-100">
-                <div className="flex flex-wrap justify-between items-start gap-4 mb-8">
-                  <div>
-                    <h2 className="text-lg font-bold mb-1 text-gray-900">Thu Nhập</h2>
-                    <p className="text-gray-400 text-xs">Tổng thu tháng</p>
-                    <div className="text-3xl font-bold mt-1 text-gray-900">$4,850</div>
+              {/* Earnings Chart — only for verified nurses */}
+              {isVerified && (
+                <div className="bg-white rounded-xl p-8 md:p-10 border border-gray-100">
+                  <div className="flex flex-wrap justify-between items-start gap-4 mb-8">
+                    <div>
+                      <h2 className="text-lg font-bold mb-1 text-gray-900">Thu Nhập</h2>
+                      <p className="text-gray-400 text-xs">Tổng thu tháng</p>
+                      <div className="text-3xl font-bold mt-1 text-gray-900">$4,850</div>
+                    </div>
+                    <button className="bg-gray-50 px-4 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 hover:bg-gray-100 transition-colors border border-gray-200">
+                      6 Tháng <ChevronDown size={14} />
+                    </button>
                   </div>
-                  <button className="bg-gray-50 px-4 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 hover:bg-gray-100 transition-colors border border-gray-200">
-                    6 Tháng <ChevronDown size={14} />
-                  </button>
-                </div>
-                <div className="h-44 w-full relative">
-                  <svg className="w-full h-full overflow-visible" viewBox="0 0 800 200" preserveAspectRatio="none">
-                    {[50, 100, 150].map((y) => (<line key={y} x1="0" y1={y} x2="800" y2={y} stroke="#f3f4f6" strokeWidth="1" />))}
-                    <defs><linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#14b8a6" stopOpacity="0.15" /><stop offset="100%" stopColor="#14b8a6" stopOpacity="0" /></linearGradient></defs>
-                    <path d="M0,150 C50,100 100,160 150,120 S250,180 300,140 S400,100 450,150 S550,180 600,100 S700,180 800,110 L800,200 L0,200 Z" fill="url(#tealGrad)" />
-                    <path d="M0,150 C50,100 100,160 150,120 S250,180 300,140 S400,100 450,150 S550,180 600,100 S700,180 800,110" fill="none" stroke="#14b8a6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    {[[0, 150], [150, 120], [300, 140], [450, 150], [600, 100], [800, 110]].map(([x, y], i) => (<circle key={i} cx={x} cy={y} r="4" fill="white" stroke="#14b8a6" strokeWidth="2" />))}
-                  </svg>
-                  <div className="flex justify-between mt-3 text-[10px] font-medium text-gray-400 uppercase tracking-wide px-1">
-                    <span>T1</span><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span>
+                  <div className="h-44 w-full relative">
+                    <svg className="w-full h-full overflow-visible" viewBox="0 0 800 200" preserveAspectRatio="none">
+                      {[50, 100, 150].map((y) => (<line key={y} x1="0" y1={y} x2="800" y2={y} stroke="#f3f4f6" strokeWidth="1" />))}
+                      <defs><linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#14b8a6" stopOpacity="0.15" /><stop offset="100%" stopColor="#14b8a6" stopOpacity="0" /></linearGradient></defs>
+                      <path d="M0,150 C50,100 100,160 150,120 S250,180 300,140 S400,100 450,150 S550,180 600,100 S700,180 800,110 L800,200 L0,200 Z" fill="url(#tealGrad)" />
+                      <path d="M0,150 C50,100 100,160 150,120 S250,180 300,140 S400,100 450,150 S550,180 600,100 S700,180 800,110" fill="none" stroke="#14b8a6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      {[[0, 150], [150, 120], [300, 140], [450, 150], [600, 100], [800, 110]].map(([x, y], i) => (<circle key={i} cx={x} cy={y} r="4" fill="white" stroke="#14b8a6" strokeWidth="2" />))}
+                    </svg>
+                    <div className="flex justify-between mt-3 text-[10px] font-medium text-gray-400 uppercase tracking-wide px-1">
+                      <span>T1</span><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Right: Schedule */}
@@ -595,27 +642,37 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
                   <button className="text-brand-600 text-xs font-medium hover:text-brand-700">Xem Tất Cả</button>
                 </div>
                 <div className="space-y-3 flex-1">
-                  {todaySchedule.map((item) => (
-                    <div key={item.id} className={`p-4 rounded-xl border transition-all cursor-pointer hover:shadow-sm ${item.status === 'active' ? 'border-brand-200 bg-brand-50/30' : item.status === 'completed' ? 'border-gray-50 opacity-50' : 'border-gray-100'}`}>
-                      <div className="flex gap-3 items-start">
-                        <div className="flex flex-col items-center min-w-[2rem]">
-                          <span className={`text-sm font-bold leading-tight ${item.status === 'active' ? 'text-brand-600' : 'text-gray-500'}`}>{item.time}</span>
+                  {isVerified ? (
+                    todaySchedule.map((item) => (
+                      <div key={item.id} className={`p-4 rounded-xl border transition-all cursor-pointer hover:shadow-sm ${item.status === 'active' ? 'border-brand-200 bg-brand-50/30' : item.status === 'completed' ? 'border-gray-50 opacity-50' : 'border-gray-100'}`}>
+                        <div className="flex gap-3 items-start">
+                          <div className="flex flex-col items-center min-w-[2rem]">
+                            <span className={`text-sm font-bold leading-tight ${item.status === 'active' ? 'text-brand-600' : 'text-gray-500'}`}>{item.time}</span>
+                          </div>
+                          <div className="w-px bg-gray-100 h-8 self-start" />
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-medium text-gray-800 text-sm mb-1 truncate">{item.type}</h4>
+                            <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-0.5"><User size={10} /><span className="truncate">{item.patient}</span></div>
+                            <div className="flex items-center gap-1.5 text-xs text-gray-400">{item.isOnline ? <Video size={10} /> : <MapPin size={10} />}<span className="truncate">{item.location}</span></div>
+                          </div>
+                          {item.status === 'active' && <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse mt-1 shrink-0" />}
+                          {item.status === 'completed' && <div className="w-2 h-2 bg-green-400 rounded-full mt-1 shrink-0" />}
                         </div>
-                        <div className="w-px bg-gray-100 h-8 self-start" />
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-medium text-gray-800 text-sm mb-1 truncate">{item.type}</h4>
-                          <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-0.5"><User size={10} /><span className="truncate">{item.patient}</span></div>
-                          <div className="flex items-center gap-1.5 text-xs text-gray-400">{item.isOnline ? <Video size={10} /> : <MapPin size={10} />}<span className="truncate">{item.location}</span></div>
-                        </div>
-                        {item.status === 'active' && <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse mt-1 shrink-0" />}
-                        {item.status === 'completed' && <div className="w-2 h-2 bg-green-400 rounded-full mt-1 shrink-0" />}
                       </div>
+                    ))
+                  ) : (
+                    <div className="flex-1 flex flex-col items-center justify-center text-center p-6 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                      <Calendar className="w-8 h-8 text-gray-300 mb-3" />
+                      <p className="text-sm font-semibold text-gray-500 mb-1">Chưa Có Lịch</p>
+                      <p className="text-xs text-gray-400">Xác minh tài khoản để xem và quản lý lịch biểu của bạn.</p>
                     </div>
-                  ))}
+                  )}
                 </div>
-                <button className="mt-5 flex items-center justify-center gap-2 text-gray-400 font-medium text-sm hover:text-brand-600 transition-colors py-3 border border-dashed border-gray-200 rounded-lg">
-                  <Plus size={14} /> Thêm Nghỉ Phép
-                </button>
+                {isVerified && (
+                  <button className="mt-5 flex items-center justify-center gap-2 text-gray-400 font-medium text-sm hover:text-brand-600 transition-colors py-3 border border-dashed border-gray-200 rounded-lg">
+                    <Plus size={14} /> Thêm Nghỉ Phép
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -32,19 +32,19 @@ const ShiftToggle: React.FC<{
         onClick={onClick}
         className={`w-full p-3 rounded-2xl border flex flex-col items-center justify-center gap-1.5 transition-all duration-200
       ${active
-                ? 'bg-pink-50 border-pink-200 ring-2 ring-pink-50 shadow-sm'
-                : 'bg-white border-gray-100 hover:border-pink-100'
+                ? 'bg-brand-50 border-brand-200 ring-2 ring-brand-50 shadow-sm'
+                : 'bg-white border-gray-100 hover:border-brand-100'
             }`}
     >
-        <span className={active ? 'text-pink-400' : 'text-gray-300'}>{icon}</span>
+        <span className={active ? 'text-brand-500' : 'text-gray-300'}>{icon}</span>
         <div className="text-center">
             <p
-                className={`text-[9px] font-black tracking-widest uppercase ${active ? 'text-pink-400' : 'text-gray-400'
+                className={`text-[9px] font-black tracking-widest uppercase ${active ? 'text-brand-500' : 'text-gray-400'
                     }`}
             >
                 {type}
             </p>
-            <p className={`text-[8px] font-bold ${active ? 'text-pink-400' : 'text-gray-300'}`}>
+            <p className={`text-[8px] font-bold ${active ? 'text-brand-500' : 'text-gray-300'}`}>
                 {time}
             </p>
         </div>
@@ -78,7 +78,7 @@ const NotificationToggle: React.FC<{
         <span className="text-sm font-bold text-gray-700">{label}</span>
         <CheckCircle2
             size={22}
-            className={`transition-colors ${active ? 'text-pink-400' : 'text-gray-200'}`}
+            className={`transition-colors ${active ? 'text-brand-500' : 'text-gray-200'}`}
         />
     </div>
 );
@@ -143,7 +143,7 @@ const WorkScheduleSetup: React.FC = () => {
                     <button
                         onClick={() => setView('weekly')}
                         className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${view === 'weekly'
-                            ? 'bg-pink-50 text-pink-400'
+                            ? 'bg-brand-50 text-brand-500'
                             : 'text-gray-400 hover:text-gray-600'
                             }`}
                     >
@@ -152,7 +152,7 @@ const WorkScheduleSetup: React.FC = () => {
                     <button
                         onClick={() => setView('monthly')}
                         className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${view === 'monthly'
-                            ? 'bg-pink-50 text-pink-400'
+                            ? 'bg-brand-50 text-brand-500'
                             : 'text-gray-400 hover:text-gray-600'
                             }`}
                     >
@@ -209,7 +209,7 @@ const WorkScheduleSetup: React.FC = () => {
                 <div className="mt-10 pt-8 border-t border-gray-50 flex flex-wrap items-center justify-between gap-4">
                     <div className="flex flex-wrap gap-6 text-xs font-bold text-gray-400">
                         <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-pink-100 border border-pink-200" />
+                            <span className="w-3 h-3 rounded-full bg-brand-100 border border-brand-200" />
                             Có Sẵn
                         </div>
                         <div className="flex items-center gap-2">
@@ -262,7 +262,7 @@ const WorkScheduleSetup: React.FC = () => {
                                 onRemove={() => removeBlackout(b.id)}
                             />
                         ))}
-                        <button className="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-gray-100 text-gray-300 font-bold text-xs rounded-xl hover:border-pink-100 hover:text-pink-400 transition-all">
+                        <button className="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-gray-100 text-gray-300 font-bold text-xs rounded-xl hover:border-brand-100 hover:text-brand-500 transition-all">
                             <Plus size={13} /> Thêm Ngày
                         </button>
                     </div>
@@ -271,8 +271,8 @@ const WorkScheduleSetup: React.FC = () => {
                 {/* Notification Preferences */}
                 <div className="bg-white rounded-[2.5rem] p-9 shadow-sm border border-gray-50">
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 bg-pink-50 rounded-lg flex items-center justify-center">
-                            <Bell size={16} className="text-pink-400" />
+                        <div className="w-8 h-8 bg-brand-50 rounded-lg flex items-center justify-center">
+                            <Bell size={16} className="text-brand-500" />
                         </div>
                         <h2 className="text-xl font-bold text-gray-900">Tuỳ Chọn Thông Báo</h2>
                     </div>
