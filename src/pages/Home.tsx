@@ -142,11 +142,11 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Why CareMom Section */}
+      {/* Why CareMate Section */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Tiêu chuẩn CareMom</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Tiêu chuẩn CareMate</h2>
             <p className="text-gray-500 max-w-xl mx-auto text-sm">
               Tiêu chuẩn chăm sóc cao nhất, mang đến tận nhà bạn.
             </p>
@@ -206,7 +206,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Sẵn sàng trải nghiệm?</h2>
             <p className="text-gray-500 mb-8 text-sm">
-              Gia nhập cùng hàng ngàn mẹ bỉm tin tưởng CareMom.
+              Gia nhập cùng hàng ngàn mẹ bỉm tin tưởng CareMate.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <button

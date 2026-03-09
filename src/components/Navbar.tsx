@@ -61,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRol
             className="flex items-center cursor-pointer group"
             onClick={() => onNavigate('home')}
           >
-            <span className="text-2xl text-brand-600 group-hover:text-brand-700 transition-colors" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMom</span>
+            <span className="text-2xl text-brand-600 group-hover:text-brand-700 transition-colors" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMate</span>
           </div>
 
           {/* Desktop Nav */}

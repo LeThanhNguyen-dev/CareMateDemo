@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div>
             <div className="flex items-center mb-4">
-              <span className="text-2xl text-brand-400" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMom</span>
+              <span className="text-2xl text-brand-400" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMate</span>
             </div>
             <p className="text-sm leading-relaxed mb-5 text-gray-500">
               Đồng hành cùng các bà mẹ với dịch vụ chăm sóc tận tình. Chuẩn bệnh viện, tại nhà bạn.
@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-brand-500" />
-                hotro@caremom.vn
+                hotro@CareMate.vn
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-brand-500" />
@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-          <p>© 2024 CareMom. Mọi quyền được bảo lưu.</p>
+          <p>© 2024 CareMate. Mọi quyền được bảo lưu.</p>
           <div className="flex gap-6 mt-3 md:mt-0">
             <a href="#" className="hover:text-gray-300 transition-colors">Chính Sách Bảo Mật</a>
             <a href="#" className="hover:text-gray-300 transition-colors">Điều Khoản</a>

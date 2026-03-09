@@ -21,7 +21,7 @@ export const About: React.FC = () => {
             Thắp sáng <span className="text-brand-600">Hành trình Làm mẹ</span>
           </h1>
           <p className="text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            CareMom được thành lập với sứ mệnh đảm bảo mọi bà mẹ đều được tiếp cận dịch vụ điều dưỡng chuyên nghiệp, tận tâm tại nhà.
+            CareMate được thành lập với sứ mệnh đảm bảo mọi bà mẹ đều được tiếp cận dịch vụ điều dưỡng chuyên nghiệp, tận tâm tại nhà.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export const About: React.FC = () => {
         {/* Why Choose Us */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">Tại sao chọn CareMom?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">Tại sao chọn CareMate?</h2>
             <p className="text-gray-500 text-sm">Tiêu chuẩn cao nhất về chăm sóc Mẹ và Bé.</p>
           </div>
 
@@ -102,7 +102,7 @@ export const About: React.FC = () => {
             <Users className="w-3.5 h-3.5 text-brand-600" />
             <span className="text-xs font-medium text-gray-700">Gia nhập cộng đồng</span>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Trải nghiệm sự khác biệt cùng CareMom</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Trải nghiệm sự khác biệt cùng CareMate</h2>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
             <div className="flex items-center text-gray-600 text-sm">
               <CheckCircle2 className="w-4 h-4 text-green-500 mr-1.5" />

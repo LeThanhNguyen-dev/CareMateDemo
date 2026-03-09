@@ -178,7 +178,7 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
       {/* Sidebar */}
       <aside className="hidden lg:flex flex-col w-56 bg-white border-r border-gray-100 sticky top-0 h-screen shrink-0">
         <div className="px-5 py-5 flex items-center gap-2.5 mb-3">
-          <span className="text-xl text-brand-600" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMom</span>
+          <span className="text-xl text-brand-600" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMate</span>
         </div>
 
         <nav className="flex-1 px-3 space-y-0.5">

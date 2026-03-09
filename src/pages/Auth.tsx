@@ -56,7 +56,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
       storage.setCurrentUser(newUser);
       onSuccess(role);
     } else {
-      if (email === 'admin@caremom.com' && password === 'admin123') {
+      if (email === 'admin@CareMate.com' && password === 'admin123') {
         const admin: UserType = { id: 'admin-1', name: 'Admin', email: email, role: 'admin' };
         storage.setCurrentUser(admin);
         onSuccess('admin' as any);
@@ -113,7 +113,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
 
           <div className="mt-8 p-5 bg-white rounded-xl border border-gray-100">
             <p className="text-xs text-gray-500 italic leading-relaxed">
-              "CareMom giúp tôi tìm được điều dưỡng tuyệt vời trong vòng 24h. Dịch vụ chuyên nghiệp từ A đến Z."
+              "CareMate giúp tôi tìm được điều dưỡng tuyệt vời trong vòng 24h. Dịch vụ chuyên nghiệp từ A đến Z."
             </p>
             <div className="mt-3 flex items-center gap-2">
               <img src="https://i.pravatar.cc/80?img=32" className="w-6 h-6 rounded-full" />

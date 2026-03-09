@@ -1,10 +1,10 @@
 import { User, Booking, CertificationRequest } from '../types';
 
 const STORAGE_KEYS = {
-    USERS: 'caremom_users',
-    CURRENT_USER: 'caremom_current_user',
-    BOOKINGS: 'caremom_bookings',
-    CERT_REQUESTS: 'caremom_cert_requests',
+    USERS: 'CareMate_users',
+    CURRENT_USER: 'CareMate_current_user',
+    BOOKINGS: 'CareMate_bookings',
+    CERT_REQUESTS: 'CareMate_cert_requests',
 };
 
 // --- User Management ---
@@ -114,8 +114,8 @@ export const initDemoData = () => {
     if (users.length === 0) {
         const adminUser: User = {
             id: 'admin-1',
-            name: 'CareMom Admin',
-            email: 'admin@caremom.com',
+            name: 'CareMate Admin',
+            email: 'admin@CareMate.com',
             role: 'admin',
         };
         saveUser(adminUser);

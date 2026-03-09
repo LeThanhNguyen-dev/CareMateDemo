@@ -180,7 +180,7 @@ export const MomDashboard: React.FC<MomDashboardProps> = ({ bookings, onNavigate
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-gray-900 rounded-xl p-6 text-white">
-                  <h3 className="text-sm font-semibold mb-1">CareMom Plus</h3>
+                  <h3 className="text-sm font-semibold mb-1">CareMate Plus</h3>
                   <p className="text-gray-400 text-xs mb-4">Ưu tiên phục vụ & Giảm giá 10%.</p>
                   <button className="px-4 py-2 bg-brand-600 text-white rounded-lg text-xs font-semibold hover:bg-brand-700 transition-all">Nâng Cấp</button>
                 </div>
@@ -249,7 +249,7 @@ export const MomDashboard: React.FC<MomDashboardProps> = ({ bookings, onNavigate
 
           {activeTab === 'wallet' && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <h1 className="text-2xl font-bold text-gray-900 mb-8">Ví CareMom</h1>
+              <h1 className="text-2xl font-bold text-gray-900 mb-8">Ví CareMate</h1>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-gradient-to-br from-brand-600 to-brand-700 rounded-xl p-8 text-white">
                   <div className="flex justify-between items-start mb-8">

@@ -202,7 +202,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ nurse, onClose, onCo
                   <div className="flex items-start p-4 bg-blue-50 rounded-2xl">
                     <ShieldCheck className="w-5 h-5 text-blue-600 mr-3 mt-0.5" />
                     <p className="text-xs text-blue-700 leading-relaxed">
-                      Khoản thanh toán của bạn được Dịch vụ Bảo vệ CareMom đảm bảo. Tiền chỉ được chuyển cho điều dưỡng sau khi phiên chăm sóc hoàn tất.
+                      Khoản thanh toán của bạn được Dịch vụ Bảo vệ CareMate đảm bảo. Tiền chỉ được chuyển cho điều dưỡng sau khi phiên chăm sóc hoàn tất.
                     </p>
                   </div>
                 </div>

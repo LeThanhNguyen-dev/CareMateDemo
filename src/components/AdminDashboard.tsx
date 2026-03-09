@@ -7,6 +7,32 @@ import {
 import { cn } from '../lib/utils';
 import * as storage from '../lib/storage';
 import { CertificationRequest } from '../types';
+import {
+  AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  ResponsiveContainer, PieChart, Pie, Cell, Legend
+} from 'recharts';
+
+const REVENUE_DATA = [
+  { month: 'Tháng 10', revenue: 85000, bookings: 420 },
+  { month: 'Tháng 11', revenue: 92000, bookings: 480 },
+  { month: 'Tháng 12', revenue: 105000, bookings: 550 },
+  { month: 'Tháng 1', revenue: 112000, bookings: 590 },
+  { month: 'Tháng 2', revenue: 118000, bookings: 630 },
+  { month: 'Tháng 3', revenue: 124500, bookings: 680 },
+];
+
+const USER_DIST_DATA = [
+  { name: 'Mẹ Bỉm', value: 1240, color: '#ec4899' },
+  { name: 'Điều Dưỡng', value: 482, color: '#10b981' },
+];
+
+const SERVICE_DATA = [
+  { name: 'Hậu Sản', value: 450 },
+  { name: 'Sơ Sinh', value: 380 },
+  { name: 'Tắm Bé', value: 520 },
+  { name: 'NICU', value: 120 },
+  { name: 'Tư Vấn', value: 210 },
+];
 
 interface AdminDashboardProps {
   onLogout: () => void;
@@ -84,7 +110,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       {/* Sidebar */}
       <aside className="hidden lg:flex flex-col w-56 bg-white border-r border-gray-100 fixed h-full pt-6 px-3">
         <div className="px-3 mb-6">
-          <span className="text-xl text-brand-600" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMom</span>
+          <span className="text-xl text-brand-600" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMate</span>
           <p className="text-[10px] text-gray-400 mt-0.5">Quản Trị Viên</p>
         </div>
         <div className="space-y-0.5 flex-1">
@@ -148,7 +174,95 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 ))}
               </div>
 
+              {/* Charts Section */}
+              <div className="grid lg:grid-cols-3 gap-5 mb-8">
+                <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 h-[380px] flex flex-col">
+                  <div className="flex justify-between items-center mb-6">
+                    <div>
+                      <h2 className="text-sm font-semibold text-gray-900">Xu Hướng Doanh Thu & Đặt Lịch</h2>
+                      <p className="text-[10px] text-gray-400">6 tháng gần nhất</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-brand-500" />
+                        <span className="text-[10px] text-gray-500">Doanh thu</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-pink-400" />
+                        <span className="text-[10px] text-gray-500">Đặt lịch</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex-1 min-h-0">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={REVENUE_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#4338ca" stopOpacity={0.1} />
+                            <stop offset="95%" stopColor="#4338ca" stopOpacity={0} />
+                          </linearGradient>
+                          <linearGradient id="colorBook" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#ec4899" stopOpacity={0.1} />
+                            <stop offset="95%" stopColor="#ec4899" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                        <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#9ca3af' }} dy={10} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#9ca3af' }} />
+                        <Tooltip
+                          contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                          itemStyle={{ fontSize: '12px', fontWeight: 'bold' }}
+                        />
+                        <Area type="monotone" dataKey="revenue" stroke="#4338ca" strokeWidth={2} fillOpacity={1} fill="url(#colorRev)" />
+                        <Area type="monotone" dataKey="bookings" stroke="#ec4899" strokeWidth={2} fillOpacity={1} fill="url(#colorBook)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl border border-gray-100 h-[380px] flex flex-col">
+                  <h2 className="text-sm font-semibold text-gray-900 mb-2">Phân Bổ Người Dùng</h2>
+                  <p className="text-[10px] text-gray-400 mb-6">Tổng cộng: 1,722 thành viên</p>
+                  <div className="flex-1 min-h-0">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={USER_DIST_DATA}
+                          innerRadius={60}
+                          outerRadius={80}
+                          paddingAngle={5}
+                          dataKey="value"
+                        >
+                          {USER_DIST_DATA.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend verticalAlign="bottom" align="center" iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+
               <div className="grid lg:grid-cols-3 gap-5">
+                <div className="bg-white p-6 rounded-xl border border-gray-100 h-[350px] flex flex-col">
+                  <h2 className="text-sm font-semibold text-gray-900 mb-6">Dịch Vụ Phổ Biến</h2>
+                  <div className="flex-1 min-h-0">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={SERVICE_DATA} layout="vertical" margin={{ left: -20, right: 20 }}>
+                        <XAxis type="number" hide />
+                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#4b5563', fontWeight: 500 }} />
+                        <Tooltip
+                          cursor={{ fill: '#f9fafb' }}
+                          contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                        />
+                        <Bar dataKey="value" fill="#10b981" radius={[0, 4, 4, 0]} barSize={20} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
                 <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 overflow-hidden">
                   <div className="p-5 border-b border-gray-50 flex justify-between items-center">
                     <h2 className="text-sm font-semibold text-gray-900">Chứng Chỉ Chờ Phê Duyệt</h2>
@@ -409,11 +523,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 <div className="space-y-4">
                   <div>
                     <label className="text-xs font-medium text-gray-500 mb-1.5 block">Tên Nền Tảng</label>
-                    <input type="text" defaultValue="CareMom" className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-300" />
+                    <input type="text" defaultValue="CareMate" className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-300" />
                   </div>
                   <div>
                     <label className="text-xs font-medium text-gray-500 mb-1.5 block">Email Hỗ Trợ</label>
-                    <input type="email" defaultValue="hotro@caremom.vn" className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-300" />
+                    <input type="email" defaultValue="hotro@CareMate.vn" className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-300" />
                   </div>
                   <div>
                     <label className="text-xs font-medium text-gray-500 mb-1.5 block">Phí Nền Tảng (%)</label>
