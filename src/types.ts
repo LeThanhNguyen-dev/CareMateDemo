@@ -362,7 +362,8 @@ export const NURSES: Nurse[] = [
     bio: 'Compassionate registered nurse with extensive experience in postpartum care and lactation consulting.',
     certifications: ['RN', 'IBCLC', 'CPR Certified'],
     nextAvailable: 'Today, 2:00 PM',
-    services: ['postpartum-basic', 'postpartum-premium', 'lactation-consult', 'lactation-home', 'mom-wellness']
+    services: ['postpartum-basic', 'postpartum-premium', 'lactation-consult', 'lactation-home', 'mom-wellness'],
+    location: 'An Giang'
   },
   {
     id: '2',
@@ -378,7 +379,8 @@ export const NURSES: Nurse[] = [
     bio: 'Specialized in cesarean recovery with gentle, evidence-based approaches to healing.',
     certifications: ['RN', 'BSN', 'Wound Care Certified'],
     nextAvailable: 'Today, 4:00 PM',
-    services: ['postpartum-basic', 'postpartum-csection', 'postpartum-premium', 'mom-wellness']
+    services: ['postpartum-basic', 'postpartum-csection', 'postpartum-premium', 'mom-wellness'],
+    location: 'Bà Rịa - Vũng Tàu'
   },
   {
     id: '3',
@@ -394,7 +396,8 @@ export const NURSES: Nurse[] = [
     bio: 'Certified nurse-midwife focused on postpartum mental wellness and emotional recovery.',
     certifications: ['CNM', 'PMH-C', 'CPR Certified'],
     nextAvailable: 'Tomorrow, 9:00 AM',
-    services: ['postpartum-mental', 'postpartum-basic', 'postpartum-confinement', 'mom-wellness']
+    services: ['postpartum-mental', 'postpartum-basic', 'postpartum-confinement', 'mom-wellness'],
+    location: 'Bắc Giang'
   },
   {
     id: '4',
@@ -410,7 +413,8 @@ export const NURSES: Nurse[] = [
     bio: 'Specializing in infant sleep training and establishing healthy routines for newborns.',
     certifications: ['LPN', 'Sleep Specialist', 'First Aid'],
     nextAvailable: 'Tomorrow, 8:00 AM',
-    services: ['newborn-basic', 'newborn-premium', 'sleep-training', 'sleep-consult', 'newborn-bath']
+    services: ['newborn-basic', 'newborn-premium', 'sleep-training', 'sleep-consult', 'newborn-bath'],
+    location: 'Bắc Kạn'
   },
   {
     id: '5',
@@ -426,7 +430,8 @@ export const NURSES: Nurse[] = [
     bio: 'Infant massage therapist with certifications in developmental care and baby wellness.',
     certifications: ['RN', 'CIMI', 'First Aid'],
     nextAvailable: 'Today, 3:00 PM',
-    services: ['newborn-massage', 'newborn-basic', 'newborn-bath', 'newborn-premium']
+    services: ['newborn-massage', 'newborn-basic', 'newborn-bath', 'newborn-premium'],
+    location: 'Bạc Liêu'
   },
   {
     id: '6',
@@ -442,7 +447,8 @@ export const NURSES: Nurse[] = [
     bio: 'Expert in managing twins and multiples care with synchronized feeding and sleep schedules.',
     certifications: ['RN', 'BSN', 'NRP Certified'],
     nextAvailable: 'Nov 15, 10:00 AM',
-    services: ['newborn-twins', 'newborn-basic', 'newborn-premium', 'night-nanny-basic']
+    services: ['newborn-twins', 'newborn-basic', 'newborn-premium', 'night-nanny-basic'],
+    location: 'Bắc Ninh'
   },
   {
     id: '7',
@@ -458,7 +464,8 @@ export const NURSES: Nurse[] = [
     bio: 'Dedicated newborn care provider focused on creating calm, nurturing environments for infants.',
     certifications: ['LPN', 'CPR Certified', 'First Aid'],
     nextAvailable: 'Today, 1:00 PM',
-    services: ['newborn-basic', 'newborn-bath', 'newborn-massage', 'sibling-prep']
+    services: ['newborn-basic', 'newborn-bath', 'newborn-massage', 'sibling-prep'],
+    location: 'Bến Tre'
   },
   {
     id: '8',
@@ -474,7 +481,8 @@ export const NURSES: Nurse[] = [
     bio: 'One of the top-rated lactation consultants with over a decade of helping mothers overcome breastfeeding challenges.',
     certifications: ['IBCLC', 'RN', 'BSN', 'CLC'],
     nextAvailable: 'Tomorrow, 11:00 AM',
-    services: ['lactation-consult', 'lactation-home', 'lactation-pumping', 'lactation-weaning']
+    services: ['lactation-consult', 'lactation-home', 'lactation-pumping', 'lactation-weaning'],
+    location: 'Bình Định'
   },
   {
     id: '9',
@@ -490,7 +498,8 @@ export const NURSES: Nurse[] = [
     bio: 'Certified lactation counselor specializing in weaning transitions and introducing solid foods.',
     certifications: ['CLC', 'CPR Certified', 'Nutrition Cert'],
     nextAvailable: 'Today, 5:00 PM',
-    services: ['lactation-consult', 'lactation-weaning', 'lactation-pumping', 'nutrition-postpartum']
+    services: ['lactation-consult', 'lactation-weaning', 'lactation-pumping', 'nutrition-postpartum'],
+    location: 'Bình Dương'
   },
   {
     id: '10',
@@ -506,7 +515,8 @@ export const NURSES: Nurse[] = [
     bio: 'Experienced overnight care provider who helps families establish peaceful nighttime routines.',
     certifications: ['RN', 'Sleep Specialist', 'NRP'],
     nextAvailable: 'Tonight, 10:00 PM',
-    services: ['night-nanny-basic', 'night-nanny-premium', 'night-nanny-weekend', 'sleep-training']
+    services: ['night-nanny-basic', 'night-nanny-premium', 'night-nanny-weekend', 'sleep-training'],
+    location: 'Bình Phước'
   },
   {
     id: '11',
@@ -522,7 +532,8 @@ export const NURSES: Nurse[] = [
     bio: 'Weekend night specialist giving parents well-deserved breaks with thorough care logs.',
     certifications: ['LPN', 'CPR Certified', 'First Aid'],
     nextAvailable: 'Friday, 9:00 PM',
-    services: ['night-nanny-basic', 'night-nanny-weekend', 'newborn-basic']
+    services: ['night-nanny-basic', 'night-nanny-weekend', 'newborn-basic'],
+    location: 'Bình Thuận'
   },
   {
     id: '12',
@@ -538,7 +549,8 @@ export const NURSES: Nurse[] = [
     bio: 'Certified nurse-midwife and birth doula providing holistic prenatal and birthing support.',
     certifications: ['CNM', 'CD(DONA)', 'CPR Certified'],
     nextAvailable: 'Nov 14, 10:00 AM',
-    services: ['prenatal-basic', 'birth-doula', 'prenatal-yoga', 'prenatal-nutrition']
+    services: ['prenatal-basic', 'birth-doula', 'prenatal-yoga', 'prenatal-nutrition'],
+    location: 'Cà Mau'
   },
   {
     id: '13',
@@ -554,7 +566,8 @@ export const NURSES: Nurse[] = [
     bio: 'Focused on prenatal fitness, nutrition, and preparing mothers for a confident birth experience.',
     certifications: ['RN', 'Prenatal Fitness Cert', 'Nutrition Cert'],
     nextAvailable: 'Tomorrow, 2:00 PM',
-    services: ['prenatal-basic', 'prenatal-yoga', 'prenatal-nutrition', 'cpr-training']
+    services: ['prenatal-basic', 'prenatal-yoga', 'prenatal-nutrition', 'cpr-training'],
+    location: 'Cần Thơ'
   },
   {
     id: '14',
@@ -570,7 +583,8 @@ export const NURSES: Nurse[] = [
     bio: 'Former NICU nurse offering specialized care for premature infants and babies with specific medical needs.',
     certifications: ['RN', 'BSN', 'NICU Certified', 'BLS'],
     nextAvailable: 'Nov 12, 9:00 AM',
-    services: ['nicu-transition', 'preemie-care', 'special-needs', 'newborn-basic']
+    services: ['nicu-transition', 'preemie-care', 'special-needs', 'newborn-basic'],
+    location: 'Cao Bằng'
   },
   {
     id: '15',
@@ -586,7 +600,8 @@ export const NURSES: Nurse[] = [
     bio: 'Board-certified neonatal nurse practitioner with NICU leadership experience.',
     certifications: ['NNP-BC', 'RN', 'MSN', 'NRP'],
     nextAvailable: 'Nov 13, 11:00 AM',
-    services: ['nicu-transition', 'preemie-care', 'special-needs']
+    services: ['nicu-transition', 'preemie-care', 'special-needs'],
+    location: 'Đà Nẵng'
   },
   {
     id: '16',
@@ -602,7 +617,8 @@ export const NURSES: Nurse[] = [
     bio: 'Gentle sleep training expert helping families achieve restful nights with science-backed methods.',
     certifications: ['CSC', 'CPR Certified', 'Child Dev. Cert'],
     nextAvailable: 'Today, 6:00 PM',
-    services: ['sleep-training', 'sleep-consult', 'night-nanny-basic', 'newborn-premium']
+    services: ['sleep-training', 'sleep-consult', 'night-nanny-basic', 'newborn-premium'],
+    location: 'Đắk Lắk'
   },
   {
     id: '17',
@@ -618,7 +634,8 @@ export const NURSES: Nurse[] = [
     bio: 'Registered dietitian specializing in prenatal and postpartum nutrition for optimal recovery.',
     certifications: ['RD', 'CLC', 'Nutrition Cert'],
     nextAvailable: 'Tomorrow, 10:00 AM',
-    services: ['nutrition-postpartum', 'prenatal-nutrition', 'lactation-weaning', 'mom-wellness']
+    services: ['nutrition-postpartum', 'prenatal-nutrition', 'lactation-weaning', 'mom-wellness'],
+    location: 'Đắk Nông'
   },
   {
     id: '18',
@@ -634,7 +651,8 @@ export const NURSES: Nurse[] = [
     bio: 'Certified infant CPR instructor and family safety educator with a warm teaching style.',
     certifications: ['RN', 'AHA Instructor', 'First Aid Instructor'],
     nextAvailable: 'Today, 10:00 AM',
-    services: ['cpr-training', 'mom-wellness', 'sibling-prep', 'newborn-basic']
+    services: ['cpr-training', 'mom-wellness', 'sibling-prep', 'newborn-basic'],
+    location: 'Điện Biên'
   },
   {
     id: '19',
@@ -650,7 +668,8 @@ export const NURSES: Nurse[] = [
     bio: 'Expert in traditional and modern confinement practices with a warm and nurturing approach.',
     certifications: ['RN', 'Confinement Care Cert', 'TCM Basic'],
     nextAvailable: 'Nov 16, 8:00 AM',
-    services: ['postpartum-confinement', 'postpartum-basic', 'nutrition-postpartum', 'postpartum-premium']
+    services: ['postpartum-confinement', 'postpartum-basic', 'nutrition-postpartum', 'postpartum-premium'],
+    location: 'Đồng Nai'
   },
   {
     id: '20',
@@ -666,7 +685,8 @@ export const NURSES: Nurse[] = [
     bio: 'Versatile postpartum nurse covering recovery care, lactation support, and newborn basics.',
     certifications: ['RN', 'CLC', 'CPR Certified'],
     nextAvailable: 'Today, 11:00 AM',
-    services: ['postpartum-basic', 'postpartum-premium', 'lactation-consult', 'newborn-basic', 'mom-wellness']
+    services: ['postpartum-basic', 'postpartum-premium', 'lactation-consult', 'newborn-basic', 'mom-wellness'],
+    location: 'Đồng Tháp'
   },
   {
     id: '21',
@@ -682,7 +702,8 @@ export const NURSES: Nurse[] = [
     bio: 'A gentle and caring nurse focused on newborn hygiene, bathing, and establishing early routines.',
     certifications: ['LPN', 'First Aid', 'CPR Certified'],
     nextAvailable: 'Tomorrow, 9:00 AM',
-    services: ['newborn-basic', 'newborn-bath', 'newborn-massage']
+    services: ['newborn-basic', 'newborn-bath', 'newborn-massage'],
+    location: 'Gia Lai'
   },
   {
     id: '22',
@@ -698,7 +719,8 @@ export const NURSES: Nurse[] = [
     bio: 'Passionate about helping mothers navigate the complex journey of breastfeeding and weaning comfortably.',
     certifications: ['RN', 'CLC', 'Nutrition Cert'],
     nextAvailable: 'Today, 1:00 PM',
-    services: ['lactation-consult', 'lactation-weaning', 'nutrition-postpartum']
+    services: ['lactation-consult', 'lactation-weaning', 'nutrition-postpartum'],
+    location: 'Hà Giang'
   },
   {
     id: '23',
@@ -714,7 +736,8 @@ export const NURSES: Nurse[] = [
     bio: 'Empowering mothers through education, yoga, and continuous support during labor and delivery.',
     certifications: ['CNM', 'CD(DONA)', 'Yoga Instructor'],
     nextAvailable: 'Nov 20, 10:00 AM',
-    services: ['prenatal-basic', 'birth-doula', 'prenatal-yoga']
+    services: ['prenatal-basic', 'birth-doula', 'prenatal-yoga'],
+    location: 'Hà Nam'
   },
   {
     id: '24',
@@ -730,7 +753,8 @@ export const NURSES: Nurse[] = [
     bio: 'Dedicated overnight nurse providing comprehensive care, sleep training, and morning logs for tired parents.',
     certifications: ['RN', 'Sleep Specialist', 'CPR Certified'],
     nextAvailable: 'Tonight, 9:00 PM',
-    services: ['night-nanny-premium', 'night-nanny-weekend', 'sleep-training']
+    services: ['night-nanny-premium', 'night-nanny-weekend', 'sleep-training'],
+    location: 'Hà Nội'
   },
   {
     id: '25',
@@ -746,7 +770,8 @@ export const NURSES: Nurse[] = [
     bio: 'Highly experienced neonatal practitioner specializing in complex medical needs and NICU transitions.',
     certifications: ['NNP-BC', 'RN', 'NRP Instructor'],
     nextAvailable: 'Nov 18, 8:00 AM',
-    services: ['special-needs', 'nicu-transition', 'preemie-care']
+    services: ['special-needs', 'nicu-transition', 'preemie-care'],
+    location: 'Hà Tĩnh'
   },
   {
     id: '26',
@@ -762,7 +787,8 @@ export const NURSES: Nurse[] = [
     bio: 'Specialized focus on post-operative care, mobility assistance, and overall recovery for C-section mothers.',
     certifications: ['LPN', 'Wound Care Basics', 'First Aid'],
     nextAvailable: 'Today, 3:00 PM',
-    services: ['postpartum-csection', 'postpartum-basic', 'mom-wellness']
+    services: ['postpartum-csection', 'postpartum-basic', 'mom-wellness'],
+    location: 'Hải Dương'
   },
   {
     id: '27',
@@ -778,7 +804,8 @@ export const NURSES: Nurse[] = [
     bio: 'Helping mothers nourish their bodies during pregnancy and optimize recovery nutrition postpartum.',
     certifications: ['RD', 'Prenatal Nutrition Cert'],
     nextAvailable: 'Tomorrow, 11:00 AM',
-    services: ['prenatal-nutrition', 'nutrition-postpartum', 'lactation-weaning']
+    services: ['prenatal-nutrition', 'nutrition-postpartum', 'lactation-weaning'],
+    location: 'Hải Phòng'
   },
   {
     id: '28',
@@ -794,7 +821,8 @@ export const NURSES: Nurse[] = [
     bio: 'A lifeline for parents of multiples, expertly syncing sleep schedules and feeding routines.',
     certifications: ['RN', 'Sleep Specialist', 'BSN'],
     nextAvailable: 'Nov 12, 2:00 PM',
-    services: ['newborn-twins', 'sleep-consult', 'sleep-training']
+    services: ['newborn-twins', 'sleep-consult', 'sleep-training'],
+    location: 'Hậu Giang'
   },
   {
     id: '29',
@@ -810,7 +838,8 @@ export const NURSES: Nurse[] = [
     bio: 'Blending modern medical knowledge with traditional 30-day confinement recovery practices for holistic healing.',
     certifications: ['CNM', 'Holistic Health Cert', 'CPR Certified'],
     nextAvailable: 'Dec 01, 9:00 AM',
-    services: ['postpartum-confinement', 'postpartum-premium', 'mom-wellness', 'lactation-consult']
+    services: ['postpartum-confinement', 'postpartum-premium', 'mom-wellness', 'lactation-consult'],
+    location: 'Hòa Bình'
   },
   {
     id: '30',
@@ -826,6 +855,7 @@ export const NURSES: Nurse[] = [
     bio: 'Supporting growing families with CPR training and helping older children adjust to their new sibling.',
     certifications: ['RN', 'AHA Instructor', 'Pediatric Cert'],
     nextAvailable: 'Today, 5:00 PM',
-    services: ['cpr-training', 'sibling-prep', 'mom-wellness']
+    services: ['cpr-training', 'sibling-prep', 'mom-wellness'],
+    location: 'Hưng Yên'
   }
 ];

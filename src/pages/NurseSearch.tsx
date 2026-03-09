@@ -9,9 +9,12 @@ import {
   ChevronDown,
   Baby,
   X,
+  MapPin,
+  Briefcase,
 } from 'lucide-react';
 import { NurseCard } from '../components/NurseCard';
 import { NURSES, SERVICES, Nurse } from '../types';
+import { VIETNAM_PROVINCES } from '../constants/locations';
 
 interface NurseSearchProps {
   onSelectNurse: (nurse: Nurse) => void;
@@ -43,6 +46,9 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
   const [sortOpen, setSortOpen] = React.useState(false);
   const [minRating, setMinRating] = React.useState<number | null>(null);
   const [expFilter, setExpFilter] = React.useState<string | null>(null);
+  const [locationFilter, setLocationFilter] = React.useState<string | null>(null);
+  const [locationSearch, setLocationSearch] = React.useState('');
+  const [serviceFilter, setServiceFilter] = React.useState<string | null>(initialService || null);
   const [maxRate, setMaxRate] = React.useState(100);
 
   const selectedService = initialService ? SERVICES.find(s => s.id === initialService) : null;
@@ -53,15 +59,16 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
         nurse.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         nurse.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         nurse.specialization.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesService = !initialService || nurse.services.includes(initialService);
+      const matchesService = !serviceFilter || nurse.services.includes(serviceFilter);
       const matchesRating = minRating === null || nurse.rating >= minRating;
       const matchesRate = nurse.hourlyRate <= maxRate;
+      const matchesLocation = !locationFilter || nurse.location === locationFilter;
       let matchesExp = true;
       if (expFilter) {
         const opt = EXPERIENCE_OPTIONS.find(o => o.label === expFilter);
         if (opt) matchesExp = nurse.experience >= opt.min && nurse.experience < opt.max;
       }
-      return matchesSearch && matchesService && matchesRating && matchesExp && matchesRate;
+      return matchesSearch && matchesService && matchesRating && matchesExp && matchesRate && matchesLocation;
     });
 
     list = [...list].sort((a, b) => {
@@ -71,10 +78,10 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
       return 0;
     });
     return list;
-  }, [searchQuery, sortBy, minRating, expFilter, maxRate, initialService]);
+  }, [searchQuery, sortBy, minRating, expFilter, maxRate, serviceFilter, locationFilter]);
 
-  const hasActiveFilters = minRating !== null || expFilter !== null || maxRate < 100;
-  const clearFilters = () => { setMinRating(null); setExpFilter(null); setMaxRate(100); };
+  const hasActiveFilters = minRating !== null || expFilter !== null || maxRate < 100 || locationFilter !== null || (serviceFilter !== null && serviceFilter !== initialService);
+  const clearFilters = () => { setMinRating(null); setExpFilter(null); setMaxRate(100); setLocationFilter(null); setServiceFilter(initialService || null); };
   const currentSortLabel = SORT_OPTIONS.find(o => o.value === sortBy)?.label ?? 'Đề xuất';
 
   return (
@@ -114,6 +121,39 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                 </div>
               </div>
 
+              {/* Location */}
+              <div className="mb-6">
+                <h4 className="font-medium text-gray-700 mb-3 text-xs flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-brand-600" /> Địa Điểm
+                </h4>
+                <div className="relative mb-3">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Tìm tỉnh thành..."
+                    value={locationSearch}
+                    onChange={(e) => setLocationSearch(e.target.value)}
+                    className="w-full pl-8 pr-3 py-1.5 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-300 transition-all"
+                  />
+                </div>
+                <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                  <label className="flex items-center gap-2.5 cursor-pointer group" onClick={() => setLocationFilter(null)}>
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${locationFilter === null ? 'border-brand-500' : 'border-gray-200 group-hover:border-brand-200'}`}>
+                      {locationFilter === null && <div className="w-2 h-2 bg-brand-500 rounded-full" />}
+                    </div>
+                    <span className="text-sm text-gray-600 font-medium">Tất cả</span>
+                  </label>
+                  {VIETNAM_PROVINCES.filter(loc => loc.toLowerCase().includes(locationSearch.toLowerCase())).map((loc) => (
+                    <label key={loc} className="flex items-center gap-2.5 cursor-pointer group" onClick={() => setLocationFilter(loc)}>
+                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${locationFilter === loc ? 'border-brand-500' : 'border-gray-200 group-hover:border-brand-200'}`}>
+                        {locationFilter === loc && <div className="w-2 h-2 bg-brand-500 rounded-full" />}
+                      </div>
+                      <span className="text-sm text-gray-600">{loc}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
               {/* Experience */}
               <div className="mb-6">
                 <h4 className="font-medium text-gray-700 mb-3 text-xs">Kinh Nghiệm</h4>
@@ -124,6 +164,23 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                         {expFilter === (opt ?? null) && <div className="w-2 h-2 bg-brand-500 rounded-full" />}
                       </div>
                       <span className="text-sm text-gray-600">{opt === null ? 'Tất cả' : opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Service */}
+              <div className="mb-6">
+                <h4 className="font-medium text-gray-700 mb-3 text-xs flex items-center gap-1.5">
+                  <Briefcase className="w-3.5 h-3.5 text-brand-600" /> Dịch Vụ
+                </h4>
+                <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                  {[null, ...SERVICES.map(s => ({ id: s.id, title: s.title }))].map((svc) => (
+                    <label key={svc === null ? 'all' : svc.id} className="flex items-center gap-2.5 cursor-pointer group" onClick={() => setServiceFilter(svc === null ? null : svc.id)}>
+                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${serviceFilter === (svc === null ? null : svc.id) ? 'border-brand-500' : 'border-gray-200 group-hover:border-brand-200'}`}>
+                        {serviceFilter === (svc === null ? null : svc.id) && <div className="w-2 h-2 bg-brand-500 rounded-full" />}
+                      </div>
+                      <span className="text-sm text-gray-600 line-clamp-1">{svc === null ? 'Tất cả dịch vụ' : svc.title}</span>
                     </label>
                   ))}
                 </div>

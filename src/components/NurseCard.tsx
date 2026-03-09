@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Clock, ShieldCheck, Heart } from 'lucide-react';
+import { Star, Clock, ShieldCheck, Heart, MapPin } from 'lucide-react';
 import { Nurse } from '../types';
 
 interface NurseCardProps {
@@ -64,6 +64,10 @@ export const NurseCard: React.FC<NurseCardProps> = ({ nurse, onClick }) => {
           <div className="flex items-center gap-1 px-2 py-1 bg-gray-50 rounded-md text-xs text-gray-600 border border-gray-100">
             <Clock className="w-3 h-3 text-gray-400" />
             {nurse.experience} năm KN
+          </div>
+          <div className="flex items-center gap-1 px-2 py-1 bg-gray-50 rounded-md text-xs text-gray-600 border border-gray-100">
+            <MapPin className="w-3.5 h-3.5 text-gray-400" />
+            {nurse.location}
           </div>
           {nurse.certifications.slice(0, 2).map(cert => (
             <div key={cert} className="px-2 py-1 bg-gray-50 rounded-md text-xs text-gray-600 border border-gray-100">
