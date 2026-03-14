@@ -621,10 +621,10 @@ export const NurseDashboard: React.FC<NurseDashboardProps> = ({ onLogout }) => {
                   <div className="h-44 w-full relative">
                     <svg className="w-full h-full overflow-visible" viewBox="0 0 800 200" preserveAspectRatio="none">
                       {[50, 100, 150].map((y) => (<line key={y} x1="0" y1={y} x2="800" y2={y} stroke="#f3f4f6" strokeWidth="1" />))}
-                      <defs><linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#14b8a6" stopOpacity="0.15" /><stop offset="100%" stopColor="#14b8a6" stopOpacity="0" /></linearGradient></defs>
-                      <path d="M0,150 C50,100 100,160 150,120 S250,180 300,140 S400,100 450,150 S550,180 600,100 S700,180 800,110 L800,200 L0,200 Z" fill="url(#tealGrad)" />
-                      <path d="M0,150 C50,100 100,160 150,120 S250,180 300,140 S400,100 450,150 S550,180 600,100 S700,180 800,110" fill="none" stroke="#14b8a6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      {[[0, 150], [150, 120], [300, 140], [450, 150], [600, 100], [800, 110]].map(([x, y], i) => (<circle key={i} cx={x} cy={y} r="4" fill="white" stroke="#14b8a6" strokeWidth="2" />))}
+                      <defs><linearGradient id="pinkGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#FF87C3" stopOpacity="0.15" /><stop offset="100%" stopColor="#FF87C3" stopOpacity="0" /></linearGradient></defs>
+                      <path d="M0,150 C50,100 100,160 150,120 S250,180 300,140 S400,100 450,150 S550,180 600,100 S700,180 800,110 L800,200 L0,200 Z" fill="url(#pinkGrad)" />
+                      <path d="M0,150 C50,100 100,160 150,120 S250,180 300,140 S400,100 450,150 S550,180 600,100 S700,180 800,110" fill="none" stroke="#FF87C3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      {[[0, 150], [150, 120], [300, 140], [450, 150], [600, 100], [800, 110]].map(([x, y], i) => (<circle key={i} cx={x} cy={y} r="4" fill="white" stroke="#FF87C3" strokeWidth="2" />))}
                     </svg>
                     <div className="flex justify-between mt-3 text-[10px] font-medium text-gray-400 uppercase tracking-wide px-1">
                       <span>T1</span><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span>

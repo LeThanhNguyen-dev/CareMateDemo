@@ -104,7 +104,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
             ].map((text, i) => (
               <div key={i} className="flex items-center gap-2.5">
                 <div className="w-5 h-5 rounded-md bg-brand-50 flex items-center justify-center">
-                  <Check className="w-3 h-3 text-brand-600" strokeWidth={3} />
+                  <Check className="w-3 h-3 text-brand-500" strokeWidth={3} />
                 </div>
                 <span className="text-gray-600 text-sm">{text}</span>
               </div>
@@ -129,6 +129,9 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
           className="lg:col-span-3"
         >
           <div className="w-full max-w-[440px] mx-auto bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+            <div className="flex justify-center mb-8">
+              <img src="/logo.png" alt="CareMate Logo" className="h-32 w-auto object-contain" />
+            </div>
 
             <div className="mb-7">
               <h2 className="text-xl font-bold text-gray-900 mb-1">
@@ -146,7 +149,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
                   onClick={() => setRole('mom')}
                   className={cn(
                     "flex-1 py-2.5 text-sm font-semibold rounded-md transition-all",
-                    role === 'mom' ? "bg-white text-brand-700 shadow-sm" : "text-gray-500 hover:text-gray-700"
+                    role === 'mom' ? "bg-white text-brand-500 shadow-sm" : "text-gray-500 hover:text-gray-700"
                   )}
                 >
                   Mẹ Bỉm
@@ -156,7 +159,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
                   onClick={() => setRole('nurse')}
                   className={cn(
                     "flex-1 py-2.5 text-sm font-semibold rounded-md transition-all",
-                    role === 'nurse' ? "bg-white text-brand-700 shadow-sm" : "text-gray-500 hover:text-gray-700"
+                    role === 'nurse' ? "bg-white text-brand-500 shadow-sm" : "text-gray-500 hover:text-gray-700"
                   )}
                 >
                   Điều Dưỡng
@@ -179,7 +182,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
                     <input
                       type="text"
                       placeholder="Nhập họ và tên..."
-                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-300 outline-none transition-all"
+                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-500 outline-none transition-all"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     />
@@ -194,7 +197,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
                   <input
                     type="email"
                     placeholder="email@example.com"
-                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-300 outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-500 outline-none transition-all"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -208,7 +211,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
                   <input
                     type="password"
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-300 outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-500 outline-none transition-all"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -223,7 +226,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
                     <input
                       type="password"
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-300 outline-none transition-all"
+                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-500 outline-none transition-all"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
@@ -233,7 +236,7 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-brand-600 text-white rounded-lg font-semibold text-sm hover:bg-brand-700 transition-colors mt-2"
+                className="w-full py-2.5 bg-brand-500 text-white rounded-lg font-semibold text-sm hover:bg-brand-600 transition-colors mt-2 active:scale-[0.98]"
               >
                 {mode === 'login' ? 'Đăng nhập' : 'Tạo tài khoản'}
               </button>
@@ -258,15 +261,24 @@ export const Auth: React.FC<AuthProps> = ({ mode, onSuccess, onSwitch }) => {
               </div>
             </div>
 
-            <p className="mt-6 text-center text-sm text-gray-500">
+            <p className="mt-5 text-center text-sm text-gray-500">
               {mode === 'login' ? 'Chưa có tài khoản?' : 'Đã có tài khoản?'}
               <button
                 onClick={() => onSwitch(mode === 'login' ? 'register' : 'login')}
-                className="ml-1 font-semibold text-brand-600 hover:text-brand-700 transition-colors"
+                className="ml-1 font-semibold text-brand-500 hover:text-brand-600 transition-colors"
               >
                 {mode === 'login' ? 'Đăng ký' : 'Đăng nhập'}
               </button>
             </p>
+
+            <div className="mt-8 pt-6 border-t border-gray-50 text-center">
+              <p className="text-[11px] text-gray-400 leading-relaxed max-w-[280px] mx-auto">
+                Bằng cách đăng nhập, bạn đồng ý với CareMate về{' '}
+                <a href="#" className="text-brand-500 hover:underline">Điều khoản dịch vụ</a>
+                {' '}&{' '}
+                <a href="#" className="text-brand-500 hover:underline">Chính sách bảo mật</a>
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>

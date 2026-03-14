@@ -3,16 +3,16 @@
 
 @theme {
   --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-brand-50: #f0fdfa;
-  --color-brand-100: #ccfbf1;
-  --color-brand-200: #99f6e4;
-  --color-brand-300: #5eead4;
-  --color-brand-400: #2dd4bf;
-  --color-brand-500: #14b8a6;
-  --color-brand-600: #0d9488;
-  --color-brand-700: #0f766e;
-  --color-brand-800: #115e59;
-  --color-brand-900: #134e4a;
+  --color-brand-50: #fff1f7;
+  --color-brand-100: #ffe4ef;
+  --color-brand-200: #ffc9e1;
+  --color-brand-300: #ffa1cc;
+  --color-brand-400: #ffa1cc;
+  --color-brand-500: #ff87c3;
+  --color-brand-600: #f672ae;
+  --color-brand-700: #e55a9a;
+  --color-brand-800: #c64883;
+  --color-brand-900: #a43d6e;
   --color-accent: #f97066;
   --color-accent-light: #fef2f2;
   --color-surface: #f8fafb;
@@ -37,4 +37,37 @@
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Custom Range Slider */
+input[type="range"].dual-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+
+input[type="range"].dual-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #ff87c3;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  cursor: pointer;
+  pointer-events: auto;
+  margin-top: -6px;
+}
+
+input[type="range"].dual-range::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #ff87c3;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  cursor: pointer;
+  pointer-events: auto;
 }

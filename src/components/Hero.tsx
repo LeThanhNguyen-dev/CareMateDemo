@@ -32,7 +32,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <h1 className="text-4xl lg:text-[3.25rem] font-extrabold text-gray-900 leading-[1.15] mb-5 tracking-tight">
               Dịch vụ chăm sóc
               <br />
-              <span className="text-brand-600">Mẹ & Bé</span> tại nhà
+              <span className="text-brand-500">Mẹ & Bé</span> tại nhà
             </h1>
             <p className="text-base text-gray-500 mb-8 max-w-md leading-relaxed">
               Kết nối với điều dưỡng có chứng chỉ cho dịch vụ hậu sản, chăm sóc sơ sinh và tư vấn sữa mẹ — trực tiếp tại nhà bạn.
@@ -41,7 +41,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={onStart}
-                className="inline-flex items-center justify-center px-6 py-3 bg-brand-600 text-white rounded-lg font-semibold text-sm hover:bg-brand-700 transition-colors shadow-sm"
+                className="inline-flex items-center justify-center px-6 py-3 bg-brand-500 text-white rounded-lg font-semibold text-sm hover:bg-brand-600 transition-colors shadow-sm"
               >
                 <Search className="mr-2 w-4 h-4" />
                 Tìm điều dưỡng

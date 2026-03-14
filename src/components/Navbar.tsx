@@ -61,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRol
             className="flex items-center cursor-pointer group"
             onClick={() => onNavigate('home')}
           >
-            <span className="text-2xl text-brand-600 group-hover:text-brand-700 transition-colors" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMate</span>
+            <img src="/logo.png" alt="CareMate Logo" className="h-16 w-auto object-contain" />
           </div>
 
           {/* Desktop Nav */}
@@ -73,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRol
                 className={cn(
                   "px-3 py-2 text-[13px] font-medium rounded-lg transition-colors",
                   currentPage === item.id
-                    ? "text-brand-700 bg-brand-50"
+                    ? "text-brand-600 bg-brand-50"
                     : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                 )}
               >
@@ -90,11 +90,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRol
                 className={cn(
                   "text-[13px] font-semibold px-4 py-2 rounded-lg transition-all",
                   item.id === 'register'
-                    ? "bg-brand-600 text-white hover:bg-brand-700"
+                    ? "bg-brand-500 text-white hover:bg-brand-600"
                     : item.id === 'logout'
                       ? "text-gray-400 hover:text-red-500 hover:bg-red-50"
                       : item.id === 'dashboard'
-                        ? "text-brand-700 bg-brand-50 hover:bg-brand-100"
+                        ? "text-brand-600 bg-brand-50 hover:bg-brand-100"
                         : "text-gray-600 hover:text-gray-900 border border-gray-200 hover:border-gray-300"
                 )}
               >
@@ -132,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRol
                   className={cn(
                     "flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
                     currentPage === item.id
-                      ? "bg-brand-50 text-brand-700"
+                      ? "bg-brand-50 text-brand-600"
                       : "text-gray-600 hover:bg-gray-50"
                   )}
                 >

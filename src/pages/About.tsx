@@ -18,7 +18,7 @@ export const About: React.FC = () => {
         {/* Hero */}
         <div className="text-center mb-16">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Thắp sáng <span className="text-brand-600">Hành trình Làm mẹ</span>
+            Thắp sáng <span className="text-brand-500">Hành trình Làm mẹ</span>
           </h1>
           <p className="text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
             CareMate được thành lập với sứ mệnh đảm bảo mọi bà mẹ đều được tiếp cận dịch vụ điều dưỡng chuyên nghiệp, tận tâm tại nhà.

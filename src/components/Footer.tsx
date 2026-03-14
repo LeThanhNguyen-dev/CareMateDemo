@@ -7,8 +7,8 @@ export const Footer: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div>
-            <div className="flex items-center mb-4">
-              <span className="text-2xl text-brand-400" style={{ fontFamily: "'Patrick Hand', cursive" }}>CareMate</span>
+            <div className="flex items-center mb-5">
+              <img src="/logo.png" alt="CareMate Logo" className="h-20 w-auto brightness-0 invert" />
             </div>
             <p className="text-sm leading-relaxed mb-5 text-gray-500">
               Đồng hành cùng các bà mẹ với dịch vụ chăm sóc tận tình. Chuẩn bệnh viện, tại nhà bạn.

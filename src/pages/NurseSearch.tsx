@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { NurseCard } from '../components/NurseCard';
 import { NURSES, SERVICES, Nurse } from '../types';
-import { VIETNAM_PROVINCES } from '../constants/locations';
+import { VIETNAM_PROVINCES, PROVINCE_TO_WARDS } from '../constants/locations';
 
 interface NurseSearchProps {
   onSelectNurse: (nurse: Nurse) => void;
@@ -48,7 +48,10 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
   const [expFilter, setExpFilter] = React.useState<string | null>(null);
   const [locationFilter, setLocationFilter] = React.useState<string | null>(null);
   const [locationSearch, setLocationSearch] = React.useState('');
+  const [wardFilter, setWardFilter] = React.useState<string | null>(null);
+  const [wardSearch, setWardSearch] = React.useState('');
   const [serviceFilter, setServiceFilter] = React.useState<string | null>(initialService || null);
+  const [minRate, setMinRate] = React.useState(0);
   const [maxRate, setMaxRate] = React.useState(100);
 
   const selectedService = initialService ? SERVICES.find(s => s.id === initialService) : null;
@@ -61,14 +64,15 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
         nurse.specialization.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesService = !serviceFilter || nurse.services.includes(serviceFilter);
       const matchesRating = minRating === null || nurse.rating >= minRating;
-      const matchesRate = nurse.hourlyRate <= maxRate;
+      const matchesRate = nurse.hourlyRate >= minRate && nurse.hourlyRate <= maxRate;
       const matchesLocation = !locationFilter || nurse.location === locationFilter;
+      const matchesWard = !wardFilter || (nurse as any).ward === wardFilter;
       let matchesExp = true;
       if (expFilter) {
         const opt = EXPERIENCE_OPTIONS.find(o => o.label === expFilter);
         if (opt) matchesExp = nurse.experience >= opt.min && nurse.experience < opt.max;
       }
-      return matchesSearch && matchesService && matchesRating && matchesExp && matchesRate && matchesLocation;
+      return matchesSearch && matchesService && matchesRating && matchesExp && matchesRate && matchesLocation && matchesWard;
     });
 
     list = [...list].sort((a, b) => {
@@ -80,8 +84,8 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
     return list;
   }, [searchQuery, sortBy, minRating, expFilter, maxRate, serviceFilter, locationFilter]);
 
-  const hasActiveFilters = minRating !== null || expFilter !== null || maxRate < 100 || locationFilter !== null || (serviceFilter !== null && serviceFilter !== initialService);
-  const clearFilters = () => { setMinRating(null); setExpFilter(null); setMaxRate(100); setLocationFilter(null); setServiceFilter(initialService || null); };
+  const hasActiveFilters = minRating !== null || expFilter !== null || minRate > 0 || maxRate < 100 || locationFilter !== null || wardFilter !== null || (serviceFilter !== null && serviceFilter !== initialService);
+  const clearFilters = () => { setMinRating(null); setExpFilter(null); setMinRate(0); setMaxRate(100); setLocationFilter(null); setWardFilter(null); setServiceFilter(initialService || null); };
   const currentSortLabel = SORT_OPTIONS.find(o => o.value === sortBy)?.label ?? 'Đề xuất';
 
   return (
@@ -94,11 +98,11 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
             <div className="bg-white rounded-xl p-6 border border-gray-100">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2">
-                  <Filter className="w-4 h-4 text-brand-600" />
+                  <Filter className="w-4 h-4 text-brand-500" />
                   <h2 className="text-sm font-semibold text-gray-800">Bộ Lọc</h2>
                 </div>
                 {hasActiveFilters && (
-                  <button onClick={clearFilters} className="text-xs font-medium text-brand-600 hover:text-brand-700 flex items-center gap-0.5">
+                  <button onClick={clearFilters} className="text-xs font-medium text-brand-500 hover:text-brand-600 flex items-center gap-0.5">
                     <X className="w-3 h-3" /> Xóa
                   </button>
                 )}
@@ -154,6 +158,45 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                 </div>
               </div>
 
+              {/* Ward */}
+              <div className="mb-6">
+                <h4 className="font-medium text-gray-700 mb-3 text-xs flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-brand-600" /> Phường/Xã
+                </h4>
+                <div className="relative mb-3">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Tìm phường..."
+                    value={wardSearch}
+                    onChange={(e) => setWardSearch(e.target.value)}
+                    className="w-full pl-8 pr-3 py-1.5 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-300 transition-all"
+                  />
+                </div>
+                <div className="space-y-2 max-h-32 overflow-y-auto pr-2 custom-scrollbar">
+                  <label className="flex items-center gap-2.5 cursor-pointer group" onClick={() => setWardFilter(null)}>
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${wardFilter === null ? 'border-brand-500' : 'border-gray-200 group-hover:border-brand-200'}`}>
+                      {wardFilter === null && <div className="w-2 h-2 bg-brand-500 rounded-full" />}
+                    </div>
+                    <span className="text-sm text-gray-600">Tất cả</span>
+                  </label>
+                  {locationFilter && PROVINCE_TO_WARDS[locationFilter] ? (
+                    PROVINCE_TO_WARDS[locationFilter]
+                      .filter(w => w.toLowerCase().includes(wardSearch.toLowerCase()))
+                      .map((w) => (
+                        <label key={w} className="flex items-center gap-2.5 cursor-pointer group" onClick={() => setWardFilter(w)}>
+                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${wardFilter === w ? 'border-brand-500' : 'border-gray-200 group-hover:border-brand-200'}`}>
+                            {wardFilter === w && <div className="w-2 h-2 bg-brand-500 rounded-full" />}
+                          </div>
+                          <span className="text-sm text-gray-600">{w}</span>
+                        </label>
+                      ))
+                  ) : (
+                    <p className="text-[10px] text-gray-400 italic py-2">Vui lòng chọn Tỉnh/Thành trước</p>
+                  )}
+                </div>
+              </div>
+
               {/* Experience */}
               <div className="mb-6">
                 <h4 className="font-medium text-gray-700 mb-3 text-xs">Kinh Nghiệm</h4>
@@ -188,21 +231,69 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
 
               {/* Rate Range */}
               <div>
-                <h4 className="font-medium text-gray-700 mb-3 text-xs">Giá Tối Đa</h4>
-                <input type="range" min={30} max={100} value={maxRate} onChange={e => setMaxRate(Number(e.target.value))} className="w-full accent-brand-600 h-1 rounded-full cursor-pointer" />
-                <div className="flex justify-between mt-2 text-xs text-gray-400">
-                  <span>$30</span>
-                  <span className="text-brand-600 font-medium">${maxRate}/hr</span>
-                  <span>$100</span>
+                <h4 className="font-medium text-gray-700 mb-3 text-xs">Khoảng Giá</h4>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="flex-1">
+                    <span className="text-[10px] text-gray-400 block mb-1">Từ</span>
+                    <input
+                      type="number"
+                      min={0}
+                      max={maxRate}
+                      value={minRate}
+                      onChange={e => setMinRate(Math.min(maxRate, Number(e.target.value)))}
+                      className="w-full px-2 py-1.5 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:outline-none"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-[10px] text-gray-400 block mb-1">Đến</span>
+                    <input
+                      type="number"
+                      min={minRate}
+                      max={100}
+                      value={maxRate}
+                      onChange={e => setMaxRate(Math.max(minRate, Number(e.target.value)))}
+                      className="w-full px-2 py-1.5 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:outline-none"
+                    />
+                  </div>
+                </div>
+                <div className="relative h-1 bg-gray-100 rounded-full mb-8 mt-2">
+                  <div
+                    className="absolute h-full bg-brand-400 rounded-full"
+                    style={{
+                      left: `${minRate}%`,
+                      right: `${100 - maxRate}%`
+                    }}
+                  />
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={minRate}
+                    onChange={e => setMinRate(Math.min(maxRate, Number(e.target.value)))}
+                    className="absolute w-full -top-1.5 h-1 dual-range cursor-pointer z-30"
+                  />
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={maxRate}
+                    onChange={e => setMaxRate(Math.max(minRate, Number(e.target.value)))}
+                    className="absolute w-full -top-1.5 h-1 dual-range cursor-pointer z-20"
+                  />
+                  <div className="flex justify-between mt-5 text-[10px] text-gray-400">
+                    <span>$0</span>
+                    <span className="text-brand-500 font-bold bg-brand-50 px-2 py-0.5 rounded-md border border-brand-100">${minRate} - ${maxRate}</span>
+                    <span>$100</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Help */}
-            <div className="bg-brand-600 rounded-xl p-5 text-white">
+            <div className="bg-brand-500 rounded-xl p-5 text-white shadow-sm shadow-brand-200">
               <h4 className="font-semibold text-sm mb-1">Cần hỗ trợ?</h4>
-              <p className="text-brand-200 text-xs leading-relaxed mb-3">Chuyên viên sẽ giúp bạn chọn điều dưỡng phù hợp — miễn phí.</p>
-              <button className="w-full py-2 bg-white text-brand-700 rounded-lg text-sm font-semibold hover:bg-brand-50 transition-colors active:scale-[0.97]">Liên Hệ</button>
+              <p className="text-brand-50 text-xs leading-relaxed mb-3 opacity-90">Chuyên viên sẽ giúp bạn chọn điều dưỡng phù hợp — miễn phí.</p>
+              <button className="w-full py-2 bg-white text-brand-500 rounded-lg text-sm font-semibold hover:bg-brand-50 transition-colors active:scale-[0.97]">Liên Hệ</button>
             </div>
           </div>
         </aside>
@@ -211,7 +302,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
         <main className="flex-1 min-w-0">
           <div className="mb-6">
             {selectedService && onBackToServices && (
-              <button onClick={onBackToServices} className="flex items-center text-sm font-medium text-brand-600 hover:text-brand-700 mb-2 transition-colors">
+              <button onClick={onBackToServices} className="flex items-center text-sm font-medium text-brand-500 hover:text-brand-600 mb-2 transition-colors">
                 <ArrowLeft className="w-4 h-4 mr-1" /> Về Dịch Vụ
               </button>
             )}
@@ -231,11 +322,11 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">
-                  {selectedService ? <>Điều Dưỡng <span className="text-brand-600">{selectedService.title}</span></> : 'Điều Dưỡng Chuyên Gia'}
+                  {selectedService ? <>Điều Dưỡng <span className="text-brand-500">{selectedService.title}</span></> : 'Điều Dưỡng Chuyên Gia'}
                 </h1>
                 <p className="text-gray-400 text-sm">
                   <span className="font-medium text-gray-600">{filteredNurses.length}</span> chuyên gia sẵn sàng
-                  {selectedService && <> · Từ <span className="text-brand-600 font-medium">${selectedService.price}</span>/{selectedService.unit}</>}
+                  {selectedService && <> · Từ <span className="text-brand-500 font-medium">${selectedService.price}</span>/{selectedService.unit}</>}
                 </p>
               </div>
 
@@ -252,7 +343,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                       className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-100 overflow-hidden z-20 min-w-[180px]">
                       {SORT_OPTIONS.map(opt => (
                         <button key={opt.value} onClick={() => { setSortBy(opt.value); setSortOpen(false); }}
-                          className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${sortBy === opt.value ? 'bg-brand-50 text-brand-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
+                          className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${sortBy === opt.value ? 'bg-brand-50 text-brand-500 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
                           {opt.label}
                         </button>
                       ))}
@@ -287,7 +378,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
                 <h3 className="text-base font-semibold text-gray-700 mb-1">Không tìm thấy</h3>
                 <p className="text-gray-400 text-sm mb-5">Thử thay đổi bộ lọc hoặc từ khóa.</p>
                 <button onClick={() => { setSearchQuery(''); clearFilters(); }}
-                  className="px-5 py-2 bg-brand-50 text-brand-600 rounded-lg text-sm font-medium hover:bg-brand-100 transition-colors">
+                  className="px-5 py-2 bg-brand-50 text-brand-500 rounded-lg text-sm font-medium hover:bg-brand-100 transition-colors">
                   Xóa bộ lọc
                 </button>
               </motion.div>
@@ -298,7 +389,7 @@ export const NurseSearch: React.FC<NurseSearchProps> = ({
           {filteredNurses.length > 0 && (
             <div className="flex justify-center mt-10 gap-1.5">
               <button className="w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-gray-200 text-gray-400 hover:border-brand-200 transition-colors text-sm">‹</button>
-              <button className="w-9 h-9 flex items-center justify-center rounded-lg bg-brand-50 text-brand-700 font-medium border border-brand-100 text-sm">1</button>
+              <button className="w-9 h-9 flex items-center justify-center rounded-lg bg-brand-50 text-brand-500 font-medium border border-brand-100 text-sm">1</button>
               <button className="w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-colors text-sm">2</button>
               <button className="w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-gray-200 text-gray-400 hover:border-brand-200 transition-colors text-sm">›</button>
             </div>

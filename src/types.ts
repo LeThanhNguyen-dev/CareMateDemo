@@ -33,6 +33,8 @@ export interface Nurse {
   certifications: string[];
   nextAvailable: string;
   services: string[];
+  location?: string;
+  ward?: string;
 }
 
 export interface Booking {
@@ -363,7 +365,8 @@ export const NURSES: Nurse[] = [
     certifications: ['RN', 'IBCLC', 'CPR Certified'],
     nextAvailable: 'Today, 2:00 PM',
     services: ['postpartum-basic', 'postpartum-premium', 'lactation-consult', 'lactation-home', 'mom-wellness'],
-    location: 'An Giang'
+    location: 'TP. Hồ Chí Minh',
+    ward: 'Bến Nghé (Quận 1)'
   },
   {
     id: '2',
@@ -380,7 +383,8 @@ export const NURSES: Nurse[] = [
     certifications: ['RN', 'BSN', 'Wound Care Certified'],
     nextAvailable: 'Today, 4:00 PM',
     services: ['postpartum-basic', 'postpartum-csection', 'postpartum-premium', 'mom-wellness'],
-    location: 'Bà Rịa - Vũng Tàu'
+    location: 'TP. Hồ Chí Minh',
+    ward: 'Võ Thị Sáu (Quận 3)'
   },
   {
     id: '3',
@@ -397,7 +401,8 @@ export const NURSES: Nurse[] = [
     certifications: ['CNM', 'PMH-C', 'CPR Certified'],
     nextAvailable: 'Tomorrow, 9:00 AM',
     services: ['postpartum-mental', 'postpartum-basic', 'postpartum-confinement', 'mom-wellness'],
-    location: 'Bắc Giang'
+    location: 'Hà Nội',
+    ward: 'Tràng Tiền (Quận Hoàn Kiếm)'
   },
   {
     id: '4',
@@ -414,7 +419,8 @@ export const NURSES: Nurse[] = [
     certifications: ['LPN', 'Sleep Specialist', 'First Aid'],
     nextAvailable: 'Tomorrow, 8:00 AM',
     services: ['newborn-basic', 'newborn-premium', 'sleep-training', 'sleep-consult', 'newborn-bath'],
-    location: 'Bắc Kạn'
+    location: 'Hà Nội',
+    ward: 'Mỹ Đình 1 (Quận Nam Từ Liêm)'
   },
   {
     id: '5',
@@ -431,7 +437,8 @@ export const NURSES: Nurse[] = [
     certifications: ['RN', 'CIMI', 'First Aid'],
     nextAvailable: 'Today, 3:00 PM',
     services: ['newborn-massage', 'newborn-basic', 'newborn-bath', 'newborn-premium'],
-    location: 'Bạc Liêu'
+    location: 'Đà Nẵng',
+    ward: 'Hải Châu I (Quận Hải Châu)'
   },
   {
     id: '6',
