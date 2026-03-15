@@ -28,6 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, userRol
   const navItems = [
     { id: 'home', label: 'Trang chủ' },
     { id: 'services', label: 'Dịch vụ' },
+    { id: 'community', label: 'Cộng đồng' },
     { id: 'about', label: 'Về chúng tôi' },
   ];
 

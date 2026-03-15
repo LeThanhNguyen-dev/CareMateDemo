@@ -11,6 +11,7 @@ import { NurseSearch } from './pages/NurseSearch';
 import { Auth } from './pages/Auth';
 import { Onboarding } from './pages/Onboarding';
 import { About } from './pages/About';
+import { Community } from './pages/Community';
 import { Services } from './pages/Services';
 import { BookingPage } from './pages/BookingPage';
 import { MomDashboard } from './components/MomDashboard';
@@ -102,6 +103,8 @@ export default function App() {
         );
       case 'about':
         return <About />;
+      case 'community':
+        return <Community />;
       case 'login':
         return <Auth mode="login" onSuccess={handleAuthSuccess} onSwitch={(mode) => setCurrentPage(mode)} />;
       case 'register':
