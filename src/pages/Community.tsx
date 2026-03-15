@@ -124,10 +124,10 @@ export const Community = () => {
   );
 
   return (
-    <div className="pt-24 pb-20 min-h-screen bg-[#F8FAFC]">
+    <div className="pt-20 pb-12 min-h-screen bg-[#F8FAFC]">
       {/* Header Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:pl-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -166,8 +166,8 @@ export const Community = () => {
       </div>
 
       {/* Categories Nav - Modern Filter Pills */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sticky top-20 z-30 py-4 backdrop-blur-md bg-[#F8FAFC]/80">
-        <div className="flex overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 hide-scrollbar gap-3 lg:gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sticky top-20 z-30 py-2">
+        <div className="flex overflow-x-auto py-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 hide-scrollbar gap-2 lg:gap-3 items-center md:justify-center">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const isActive = activeCategory === cat.id;
@@ -176,9 +176,9 @@ export const Community = () => {
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id as Category)}
                 className={cn(
-                  "flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-bold transition-all duration-300 whitespace-nowrap",
+                  "flex items-center gap-2 px-4 py-2.5 rounded-2xl font-bold transition-all duration-300 whitespace-nowrap",
                   isActive
-                    ? "bg-slate-900 text-white shadow-xl scale-105"
+                    ? "bg-slate-900 text-white scale-105"
                     : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200/80 hover:scale-105 hover:shadow-md"
                 )}
               >
@@ -192,7 +192,7 @@ export const Community = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 auto-rows-[minmax(180px,auto)]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 auto-rows-[minmax(180px,auto)]">
           <AnimatePresence mode="popLayout">
             {filteredArticles.map((article, index) => {
               // Create a bento grid pattern
@@ -338,7 +338,7 @@ export const Community = () => {
       </div>
 
       {/* Modern Newsletter Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
         <motion.div 
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 40 }}
