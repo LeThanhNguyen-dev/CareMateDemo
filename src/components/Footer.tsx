@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-          <p>© 2024 CareMate. Mọi quyền được bảo lưu.</p>
+          <p>© 2026 CareMate. Mọi quyền được bảo lưu.</p>
           <div className="flex gap-6 mt-3 md:mt-0">
             <a href="#" className="hover:text-gray-300 transition-colors">Chính Sách Bảo Mật</a>
             <a href="#" className="hover:text-gray-300 transition-colors">Điều Khoản</a>
