@@ -56,7 +56,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-brand-500" />
-                12 Nguyễn Huệ, Q.1, TP.HCM
+                Da Nang, Viet Nam
               </li>
             </ul>
           </div>

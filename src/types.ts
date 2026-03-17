@@ -86,7 +86,7 @@ export const SERVICES: Service[] = [
     icon: 'favorite',
     price: 220,
     unit: 'buổi',
-    image: 'https://images.unsplash.com/photo-1584515733428-230a442d38b6?q=80&w=800&auto=format&fit=crop'
+    image: 'https://www.huggies.com.vn/-/media/feature/huggies/apac/vn/images/articles/sinh-con/cham-soc-sau-sinh/lap-ke-hoach-cham-soc-san-phu-sau-sinh-thuong-2.jpg?rev=23452eeeae944b9f9bd9ddfc5c7fe13c&hash=1E257AE3325B05EA192B1CBD6FBC5D19'
   },
   {
     id: 'postpartum-confinement',
@@ -123,7 +123,7 @@ export const SERVICES: Service[] = [
     icon: 'child_care',
     price: 80,
     unit: 'buổi',
-    image: 'https://images.unsplash.com/photo-1523294587484-5b7421c9707b?q=80&w=800&auto=format&fit=crop'
+    image: 'https://www.prudential.com.vn/export/sites/prudential-vn/vi/.thu-vien/hinh-anh/pulse-nhip-song-khoe/song-khoe/2022/cach-cham-soc-tre-so-sinh-danh-cho-nguoi-lan-dau-lam-cha-me-1200x800-2.jpg'
   },
   {
     id: 'newborn-premium',
@@ -359,7 +359,7 @@ export const NURSES: Nurse[] = [
     rating: 4.9,
     reviewsCount: 124,
     hourlyRate: 45,
-    image: 'https://images.unsplash.com/photo-1559839734-2b71f1536783?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.ctfassets.net/btf5tt6k5y9e/5JMsZF5buE3eR59IvpjOo/bdbd9d286288a912ab17175bf208091d/should-you-become-nurse.jpg',
     verified: true,
     bio: 'Compassionate registered nurse with extensive experience in postpartum care and lactation consulting.',
     certifications: ['RN', 'IBCLC', 'CPR Certified'],
@@ -789,7 +789,7 @@ export const NURSES: Nurse[] = [
     rating: 4.7,
     reviewsCount: 78,
     hourlyRate: 40,
-    image: 'https://images.unsplash.com/photo-1559839734-2b71f1536783?q=80&w=400&auto=format&fit=crop',
+    image: 'https://backend.xpresshealth.co.uk/uploads/2025/04/513-min.jpg',
     verified: true,
     bio: 'Specialized focus on post-operative care, mobility assistance, and overall recovery for C-section mothers.',
     certifications: ['LPN', 'Wound Care Basics', 'First Aid'],
